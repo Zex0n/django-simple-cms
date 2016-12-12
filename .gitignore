@@ -1,3 +1,23 @@
+/.idea
+# Django Recommended
+*.egg-info
+*.pot
+*.py[co]
+__pycache__
+MANIFEST
+dist/
+docs/_build/
+docs/locale/
+node_modules/
+tests/coverage_html/
+tests/.coverage
+build/
+tests/report/
+
+# Sensitive Data
+credentials.py
+credentials.pyc
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -7,6 +27,7 @@ __pycache__/
 *.so
 
 # Distribution / packaging
+django-env/
 .Python
 env/
 build/
@@ -23,6 +44,7 @@ var/
 *.egg-info/
 .installed.cfg
 *.egg
+assets/ # The directory set as STATIC_ROOT where Apache creates new static files on live web servers.
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
@@ -49,16 +71,8 @@ coverage.xml
 *.mo
 *.pot
 
-# Django stuff:
+# Django
 *.log
-local_settings.py
-
-# Flask stuff:
-instance/
-.webassets-cache
-
-# Scrapy stuff:
-.scrapy
 
 # Sphinx documentation
 docs/_build/
@@ -66,24 +80,5 @@ docs/_build/
 # PyBuilder
 target/
 
-# IPython Notebook
+#Ipython Notebook
 .ipynb_checkpoints
-
-# pyenv
-.python-version
-
-# celery beat schedule file
-celerybeat-schedule
-
-# dotenv
-.env
-
-# virtualenv
-venv/
-ENV/
-
-# Spyder project settings
-.spyderproject
-
-# Rope project settings
-.ropeproject
