@@ -1,15 +1,18 @@
 from django import forms
 from .models import Menu
 from django.contrib import admin
+from django.conf import settings
+
 
 
 class MenuAdminForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(MenuAdminForm, self).__init__(*args, **kwargs)
-        self.fields['template'].choices = get_menu_templates()
+        self.fields['template'].choices = self.fields['template'].choices + get_menu_templates()
 
 def get_menu_templates():
-    pass
+    templates = list(getattr(settings, 'MENU_TEMPLATES', []))
+    return templates
 
 # def get_templates():
 #     from cms.utils.django_load import load_from_file

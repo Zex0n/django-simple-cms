@@ -25,6 +25,13 @@ class Page(BasePage):
     A page in the page tree. This is the base class that custom content types
     need to subclass.
     """
+
+    PAGE_TYPE_CHOICES = (
+        (0, _("Страница")),
+        (1, _("Ссылка")),
+        (2, _("Приложение")),
+    )
+
     parent = TreeForeignKey('self', null=True, blank=True, related_name='children', db_index=True,
                             verbose_name=u"Родительский элемент")
 
@@ -37,6 +44,9 @@ class Page(BasePage):
     login_required = models.BooleanField(_("Требуется логин"), default=False,
         help_text=_("Если выбрано, то только залогиненный пользователь может просматривать страницу"))
     content = models.TextField("Текст", blank=True)
+    page_type = models.IntegerField(_("Тип страницы"), choices=PAGE_TYPE_CHOICES, default=0)
+    redirect_url = models.CharField(_("URL для редиректа"), max_length=1000, default='')
+    application = models.CharField(_("Приложение"), max_length=255, default='')
 
     class Meta:
         verbose_name = _("Страница")
