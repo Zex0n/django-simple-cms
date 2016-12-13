@@ -31,6 +31,9 @@ class Page(BasePage):
         (1, _("Ссылка")),
         (2, _("Приложение")),
     )
+    APPLICATION_CHOICES = (
+        (0, _("Нет")),
+    )
 
     parent = TreeForeignKey('self', null=True, blank=True, related_name='children', db_index=True,
                             verbose_name=u"Родительский элемент")
@@ -46,7 +49,7 @@ class Page(BasePage):
     content = models.TextField("Текст", blank=True)
     page_type = models.IntegerField(_("Тип страницы"), choices=PAGE_TYPE_CHOICES, default=0)
     redirect_url = models.CharField(_("URL для редиректа"), max_length=1000, default='')
-    application = models.CharField(_("Приложение"), max_length=255, default='')
+    application = models.CharField(_("Приложение"), max_length=255, choices=APPLICATION_CHOICES, default='')
 
     class Meta:
         verbose_name = _("Страница")
