@@ -48,8 +48,8 @@ class Page(BasePage):
         help_text=_("Если выбрано, то только залогиненный пользователь может просматривать страницу"))
     content = models.TextField("Текст", blank=True)
     page_type = models.IntegerField(_("Тип страницы"), choices=PAGE_TYPE_CHOICES, default=0)
-    redirect_url = models.CharField(_("URL для редиректа"), max_length=1000, default='')
-    application = models.CharField(_("Приложение"), max_length=255, choices=APPLICATION_CHOICES, default='')
+    redirect_url = models.CharField(_("URL для редиректа"), max_length=1000, default='', blank=True)
+    application = models.CharField(_("Приложение"), max_length=255, choices=APPLICATION_CHOICES, default='', blank=True)
 
     class Meta:
         verbose_name = _("Страница")
