@@ -142,3 +142,9 @@ MENU_TEMPLATES = (
     (1, 'vertical_menu.html'),
     (2, 'horizontal_menu.html')
 )
+
+APPLICATION_LIST = (
+    # Applications for list in the page editor
+    ('news', 'Приложение новости'),
+)
+

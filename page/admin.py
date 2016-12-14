@@ -4,7 +4,7 @@ from grappelli.forms import GrappelliSortableHiddenMixin
 from django_mptt_admin.admin import DjangoMpttAdmin
 from mptt.admin import DraggableMPTTAdmin
 from django import forms
-from .forms import MenuAdminForm
+from .forms import MenuAdminForm, PageAdminForm
 from django.utils.translation import ugettext_lazy as _
 
 
@@ -22,6 +22,7 @@ admin.site.register(Menu, MenuAdmin)
 
 class PageAdmin(DraggableMPTTAdmin):
     prepopulated_fields = {"slug": ("title",)}
+    form = PageAdminForm
 
     class Media:
         js = [
