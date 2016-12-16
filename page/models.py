@@ -123,7 +123,7 @@ class Menu (models.Model):
 
     title = models.CharField(_("Название меню"), max_length=255, default='')
     template = models.IntegerField(choices=MENU_TEMPLATES_CHOICES, default=0)
-    placeholder = models.CharField(_("Место для установки в шаблоне"), max_length=255, blank=True, choices=PLACEHOLDERS_CHOICES, help_text=_("Используйте в шаблоне тег {% placeholder horizontal_menu %}"))
+    placeholder = MultiSelectField(_("Место для установки в шаблоне"), max_length=255, blank=True, choices=PLACEHOLDERS_CHOICES, help_text=_("Используйте в шаблоне тег {% placeholder horizontal_menu %}"))
 
     class Meta:
         verbose_name = _("Меню")
@@ -131,6 +131,10 @@ class Menu (models.Model):
 
     def __str__(self):
         return self.title
+
+    def __init__(self, *args, **kwargs):
+        super(Menu, self).__init__(*args, **kwargs)
+        self._meta.get_field('placeholder').choices = get_all_placeholders()
 
 
 
