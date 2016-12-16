@@ -4,6 +4,9 @@ from mptt.models import MPTTModel, TreeForeignKey
 from taggit.managers import TaggableManager
 from urllib.parse import urljoin
 from django.core.urlresolvers import resolve, reverse
+from multiselectfield import MultiSelectField
+from django.utils.functional import lazy
+from smallcms.templatetags.cms_tags import get_all_placeholders
 
 
 class BasePage(MPTTModel):
@@ -115,8 +118,12 @@ class Menu (models.Model):
     MENU_TEMPLATES_CHOICES = (
         (0, 'menu.html'),
     )
+    PLACEHOLDERS_CHOICES = (
+    )
+
     title = models.CharField(_("Название меню"), max_length=255, default='')
     template = models.IntegerField(choices=MENU_TEMPLATES_CHOICES, default=0)
+    placeholder = models.CharField(_("Место для установки в шаблоне"), max_length=255, blank=True, choices=PLACEHOLDERS_CHOICES, help_text=_("Используйте в шаблоне тег {% placeholder horizontal_menu %}"))
 
     class Meta:
         verbose_name = _("Меню")
@@ -124,6 +131,7 @@ class Menu (models.Model):
 
     def __str__(self):
         return self.title
+
 
 
 class MenuSection (MPTTModel):

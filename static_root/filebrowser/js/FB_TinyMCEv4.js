@@ -1,8 +1,3 @@
-/**
- * Created by Sune Kjærgård on 04/02/2016.
- * Originaly authored by Alan Hicks
- * http://p-o.co.uk/tech-articles/howto-use-tinymce-with-django-filebrowser-media-manager/
- */
 var FileBrowserDialogue = {
     fileSubmit : function (FileURL) {
         parentWin = (!window.frameElement && window.dialogArguments) || opener || parent || top;

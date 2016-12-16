@@ -1,25 +1,3 @@
-function CustomFileBrowser(field_name, url, type, win) {
-
-    var cmsURL = '/admin/filebrowser/browse/?pop=2';
-    cmsURL = cmsURL + '&type=' + type;
-
-    tinyMCE.activeEditor.windowManager.open({
-        file: cmsURL,
-        width: 980,  // Your dimensions may differ - toy around with them!
-        height: 500,
-        resizable: 'yes',
-        scrollbars: 'yes',
-        inline: 'no',  // This parameter only has an effect if you use the inlinepopups plugin!
-        close_previous: 'no'
-    }, {
-        window: win,
-        input: field_name,
-        editor_id: tinyMCE.selectedInstance.editorId
-    });
-    return false;
-}
-
-
 tinymce.init({
     selector: 'textarea',
     height: 500,
@@ -42,7 +20,7 @@ tinymce.init({
     content_css: [
         '//fonts.googleapis.com/css?family=Lato:300,300i,400,400i'
     ],
-
+/*
     file_browser_callback: function(input_id, input_value, type, win){
         var cmsURL = '/admin/filebrowser/browse/?pop=4';
         cmsURL = cmsURL + '&type=' + type;
@@ -60,5 +38,5 @@ tinymce.init({
             input: input_id
         });
         return false;
-    }
+    }*/
 });

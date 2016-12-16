@@ -47,10 +47,13 @@ def get_template_placeholder_list(string=None):
 
     variables = []
     for node in nodes:
-        if SimpleNode is not None and isinstance(node, SimpleNode):
+
+        if SimpleNode is not None and isinstance(node, Placeholder):
             tag_name, placeholder_name = node.token.split_contents()
             if tag_name == 'placeholder':
-                variables.append(placeholder_name)
+                pl_arr = [placeholder_name, placeholder_name]
+                variables.append(pl_arr)
+                print(node)
 
     return variables
 
