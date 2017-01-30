@@ -44,7 +44,8 @@ INSTALLED_APPS = [
     'taggit',
     'mptt',
     'django_mptt_admin',
-    'page'
+    'page',
+    'news'
 ]
 
 MIDDLEWARE = [
@@ -71,9 +72,10 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'page.context_processors.context',
             ],
             'libraries': {  # Adding this section should work around the issue.
-                'cms_tags': 'smallcms.templatetags.cms_tags',  # to add new tags module,
+                #'cms_tags': 'smallcms.templatetags.cms_tags',  # to add new tags module,
             },
         },
     },
@@ -140,6 +142,10 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "static"),
 )
 
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+
 MENU_TEMPLATES = (
     # Customize this
     (1, 'vertical_menu.html'),
@@ -151,3 +157,5 @@ APPLICATION_LIST = (
     ('news', 'Приложение новости'),
 )
 
+MYMENU_CACHE_TIMEOUT = 86400 * 360 # one year
+MYMENU_CACHE_KEY = 'menus'

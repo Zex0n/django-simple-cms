@@ -7,7 +7,7 @@ from .models import Page
 
 
 class IndexView(generic.ListView):
-    template_name = 'page/page.html'
+    template_name = 'page/mainpage.html'
     context_object_name = 'latest_question_list'
 
     def get_queryset(self):
@@ -17,7 +17,7 @@ class IndexView(generic.ListView):
 
 class DetailView(generic.DetailView):
     model = Page
-    template_name = 'page/detail.html'
+    template_name = 'page/page.html'
 
 
 class ResultsView(generic.DetailView):

@@ -9,13 +9,25 @@ from django.utils.translation import ugettext_lazy as _
 
 
 class MenuSectionInline(GrappelliSortableHiddenMixin, admin.TabularInline):
+# class MenuSectionInline(admin.TabularInline):
     model = MenuSection
     extra = 1
     sortable_field_name = "my_order"
+    # ordering = ("my_order",)
 
 class MenuAdmin(admin.ModelAdmin):
     inlines = [MenuSectionInline,]
     form = MenuAdminForm
+
+    fieldsets = (
+        (None, {
+            'fields': ('title',)
+        }),
+        (_('Расширенные настройки (не меняйте если не знаете для чего это нужно)'), {
+            'classes': ('collapse grp-collapse grp-closed',),
+            'fields': ('template', 'slug',),
+        }),
+    )
 
 admin.site.register(Menu, MenuAdmin)
 
@@ -28,6 +40,7 @@ class PageAdmin(DraggableMPTTAdmin):
         js = [
             '//cdn.tinymce.com/4/tinymce.min.js',
             '/static/grappelli/tinymce_setup/tinymce4_setup.js',
+            '/static/admin/js/pageadmin.js',
         ]
 
     fieldsets = (

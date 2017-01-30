@@ -1,30 +1,13 @@
+{% load mptt_tags %}
 <ul class="nav navbar-nav">
-    <li class="active"><a href="#">Home</a></li>
-    <li><a href="#about">About</a></li>
-    <li><a href="#contact">Contact</a></li>
-    <li class="dropdown">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-           aria-expanded="false">Dropdown <span class="caret"></span></a>
-        <ul class="dropdown-menu">
-            <li><a href="#">Action</a></li>
-            <li><a href="#">Another action</a></li>
-            <li><a href="#">Something else here</a></li>
-            <li role="separator" class="divider"></li>
-            <li class="dropdown-header">Nav header</li>
-            <li><a href="#">Separated link</a></li>
-            <li><a href="#">One more separated link</a></li>
-        </ul>
-    </li>
+    {% recursetree menu.mainmenu.items %}
+        <li class="{% if not node.is_leaf_node %}dropdown{% endif %}">
+            <a href="{{ node.page.get_absolute_url }}" {% if not node.is_leaf_node %}class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"{% endif %}>{{ node }} {% if not node.is_leaf_node %}<span class="caret"></span>{% endif %}</a>
+            {% if not node.is_leaf_node %}
+                <ul class="dropdown-menu">
+                    {{ children }}
+                </ul>
+            {% endif %}
+        </li>
+    {% endrecursetree %}
 </ul>
-
-
-<li class="{% if sub_level %}cms-toolbar-item-navigation-children {% endif %}{% if active %}cms-toolbar-item-navigation-active {% endif %}{% if disabled %}cms-toolbar-item-navigation-disabled {% endif %}">
-    <a{% if disabled %} tabindex="-1"{% endif %} href="{{ url }}">
-        <span>{{ title }}<span class="cms-icon cms-icon-arrow"></span></span>
-    </a>
-    {% if items %}
-        <ul>
-            {% for item in items %}{{ item.render }}{% endfor %}
-        </ul>
-    {% endif %}
-</li>

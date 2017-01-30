@@ -82,3 +82,4 @@ target/
 
 #Ipython Notebook
 .ipynb_checkpoints
+/media/news

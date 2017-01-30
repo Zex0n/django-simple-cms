@@ -4,9 +4,11 @@ from mptt.models import MPTTModel, TreeForeignKey
 from taggit.managers import TaggableManager
 from urllib.parse import urljoin
 from django.core.urlresolvers import resolve, reverse
+from django.conf import settings
+from django.core.cache import cache
 from multiselectfield import MultiSelectField
 from django.utils.functional import lazy
-from smallcms.templatetags.cms_tags import get_all_placeholders
+# from smallcms.templatetags.cms_tags import get_all_placeholders
 
 
 class BasePage(MPTTModel):
@@ -41,12 +43,12 @@ class Page(BasePage):
     parent = TreeForeignKey('self', null=True, blank=True, related_name='children', db_index=True,
                             verbose_name=u"Родительский элемент")
 
-    in_menus = models.BooleanField(_("Показывать в меню"), blank=True, default=True)
+    in_menus = models.BooleanField(_("Опубликовать"), blank=True, default=True)
     title = models.CharField(_("Заголовок"), max_length=1000, default='')
     meta_description = models.CharField(_("Description"), max_length=1000, blank=True)
     meta_keywords = models.CharField(_("Keywords"), max_length=1000, blank=True)
     menu_title = models.CharField(_("Название в меню"), max_length=255, null=True, blank=True, help_text=_("Оставьте пустым для использования названия страницы"))
-    slug = models.SlugField(_("Имя для url"), unique=True, blank=True, help_text=_("Только английские буквы, цифры и знаки минус и подчеркивание."))
+    slug = models.SlugField(_("Имя для url"), unique=True, blank=True, help_text=_("Только английские буквы, цифры и знаки минус и подчеркивание. <br><a id='set_main_page'>Главная страница</a>"))
     login_required = models.BooleanField(_("Требуется логин"), default=False,
         help_text=_("Если выбрано, то только залогиненный пользователь может просматривать страницу"))
     content = models.TextField("Текст", blank=True)
@@ -76,14 +78,12 @@ class Page(BasePage):
         the special case of the homepage being a page object.
         """
         slug = self.slug
-        if self.content_model == "link":
-            # Ensure the URL is absolute.
-            slug = urljoin('/', slug)
-            return slug
-        if slug == "/":
-            return reverse("home")
+        if self.page_type == 1:
+            return self.redirect_url
+        elif slug == "main":
+            return reverse("index")
         else:
-            return reverse("page", kwargs={"slug": slug})
+            return reverse("pagedetail", kwargs={"slug": slug})
 
     # def save(self, *args, **kwargs):
     #     """
@@ -123,7 +123,8 @@ class Menu (models.Model):
 
     title = models.CharField(_("Название меню"), max_length=255, default='')
     template = models.IntegerField(choices=MENU_TEMPLATES_CHOICES, default=0)
-    placeholder = MultiSelectField(_("Место для установки в шаблоне"), max_length=255, blank=True, choices=PLACEHOLDERS_CHOICES, help_text=_("Используйте в шаблоне тег {% placeholder horizontal_menu %}"))
+    # placeholder = MultiSelectField(_("Место для установки в шаблоне"), max_length=255, blank=True, choices=PLACEHOLDERS_CHOICES, help_text=_("Используйте в шаблоне тег {% placeholder horizontal_menu %}"))
+    slug = models.SlugField(_("Имя для использования в шаблоне"), unique=True, help_text=_("Только английские буквы, цифры и знаки минус и подчеркивание."))
 
     class Meta:
         verbose_name = _("Меню")
@@ -132,10 +133,21 @@ class Menu (models.Model):
     def __str__(self):
         return self.title
 
-    def __init__(self, *args, **kwargs):
-        super(Menu, self).__init__(*args, **kwargs)
-        self._meta.get_field('placeholder').choices = get_all_placeholders()
+    def get_template(self):
+        return self.get_template_display()
 
+    def items(self):
+        return self.menusection_set.all()
+
+    def save(self, *args, **kwargs):
+        cached_menus = cache.get(settings.MYMENU_CACHE_KEY)
+        if cached_menus is not None:
+            cache.delete(settings.MYMENU_CACHE_KEY)
+        super(Menu, self).save(*args, **kwargs)
+
+    # def __init__(self, *args, **kwargs):
+    #     super(Menu, self).__init__(*args, **kwargs)
+    #     self._meta.get_field('placeholder').choices = lazy(get_all_placeholders, list)()
 
 
 class MenuSection (MPTTModel):
@@ -154,8 +166,22 @@ class MenuSection (MPTTModel):
     class MPTTMeta:
         order_insertion_by = ['my_order']
 
+    def save(self, *args, **kwargs):
+        # MenuSection.objects.rebuild()
+        cached_menus = cache.get(settings.MYMENU_CACHE_KEY)
+        if cached_menus is not None:
+            cache.delete(settings.MYMENU_CACHE_KEY)
+        super(MenuSection, self).save(*args, **kwargs)
+
     def __str__(self):
         if self.title:
             return self.title
         else:
             return self.page.__str__()
+
+
+class Placeholder (models.Model):
+    title = models.CharField(_("Название плейсхолдера"), max_length=255, db_index=True)
+
+    def __str__(self):
+        return self.title

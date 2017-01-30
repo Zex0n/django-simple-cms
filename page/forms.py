@@ -1,5 +1,5 @@
 from django import forms
-from .models import Menu
+from .models import Menu, MenuSection
 from django.contrib import admin
 from django.conf import settings
 # from smallcms.templatetags.cms_tags import get_all_placeholders
@@ -13,6 +13,10 @@ class MenuAdminForm(forms.ModelForm):
         # self.fields['placeholder'] = MultiSelectFormField(
         #     choices=get_all_placeholders()
         # )
+        # TODO сделать переиндексирование в базу плейсхолдеров при входе в админку а в модели выборку плейсхолдеров только из базы
+    def save(self, *args, **kwargs):
+        MenuSection.objects.rebuild()
+        return super(MenuAdminForm, self).save(*args, **kwargs)
 
 
 def get_menu_templates():
