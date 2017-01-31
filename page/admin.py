@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Page, Menu, MenuSection
+from .models import Page, Menu, MenuSection, Carousel, CarouselSlide
 from grappelli.forms import GrappelliSortableHiddenMixin
 from django_mptt_admin.admin import DjangoMpttAdmin
 from mptt.admin import DraggableMPTTAdmin
@@ -49,8 +49,19 @@ class PageAdmin(DraggableMPTTAdmin):
         }),
         (_('Расширенные настройки'), {
             'classes': ('collapse grp-collapse grp-closed',),
-            'fields': ('page_type', 'redirect_url', 'application'),
+            'fields': ('page_type', 'redirect_url', 'carousel', 'application'),
         }),
     )
 
 admin.site.register(Page, PageAdmin)
+
+
+class CarouselSlideInline(admin.TabularInline):
+    model = CarouselSlide
+    extra = 3
+
+
+class CarouselAdmin(admin.ModelAdmin):
+    inlines = [CarouselSlideInline, ]
+
+admin.site.register(Carousel, CarouselAdmin)

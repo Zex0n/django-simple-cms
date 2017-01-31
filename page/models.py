@@ -25,6 +25,29 @@ class BasePage(MPTTModel):
         abstract = True
 
 
+class Carousel (models.Model):
+    title = models.CharField(_("Название"), max_length=255)
+
+    class Meta:
+        verbose_name = 'Карусель'
+        verbose_name_plural = 'Карусели'
+
+    def __str__(self):
+        return self.title
+
+
+class CarouselSlide(models.Model):
+    carousel = models.ForeignKey(Carousel, on_delete=models.CASCADE, blank=True)
+    text = models.TextField(verbose_name=u'Текст')
+    file = models.ImageField(upload_to='carousel', verbose_name=u'Изображение', null=True, blank=True)
+    num = models.IntegerField(default=0, verbose_name=u'Порядковый номер', blank=True, db_index=True)
+
+    class Meta:
+        verbose_name = 'Слайд'
+        verbose_name_plural = 'Слайды'
+        ordering = ['num']
+
+
 class Page(BasePage):
     """
     A page in the page tree. This is the base class that custom content types
@@ -55,6 +78,7 @@ class Page(BasePage):
     page_type = models.IntegerField(_("Тип страницы"), choices=PAGE_TYPE_CHOICES, default=0)
     redirect_url = models.CharField(_("URL для редиректа"), max_length=1000, default='', blank=True)
     application = models.CharField(_("Приложение"), max_length=255, choices=APPLICATION_CHOICES, default='', blank=True)
+    carousel = models.ForeignKey(Carousel, verbose_name=u'Карусель для страницы', on_delete=models.SET_NULL, null=True, blank=True)
 
     class Meta:
         verbose_name = _("Страница")
