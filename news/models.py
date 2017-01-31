@@ -19,5 +19,5 @@ class News(models.Model):
     def __str__(self):
         return self.title
 
-    def get_last_news(cols=3):
-        return News.objects.order_by('-published_date')[:cols]
+    def get_news_block(cols=3):
+        return News.objects.filter(main_page=True).order_by('-published_date')[:cols]

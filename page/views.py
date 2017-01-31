@@ -4,16 +4,17 @@ from django.core.urlresolvers import reverse
 from django.views import generic
 
 from .models import Page
+from news.models import News
 
 
 class IndexView(generic.ListView):
+    model = Page
     template_name = 'page/mainpage.html'
-    context_object_name = 'latest_question_list'
 
-    def get_queryset(self):
-        """Return the last five published questions."""
-        return Page.objects.all()
-
+    def get_context_data(self, **kwargs):
+        context = super(IndexView, self).get_context_data(**kwargs)
+        context['news_block'] = News.get_news_block
+        return context
 
 class DetailView(generic.DetailView):
     model = Page
@@ -23,5 +24,3 @@ class DetailView(generic.DetailView):
 class ResultsView(generic.DetailView):
     model = Page
     template_name = 'page/results.html'
-
-

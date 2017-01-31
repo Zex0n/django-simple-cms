@@ -1,0 +1,26 @@
+<div class="row">
+    <div class="col-lg-12">
+        <h3>Новости</h3>
+    </div>
+</div>
+
+<div class="row">
+{% for news_obj in news_block %}
+    <!-- News block -->
+        <div class="col-lg-4">
+            <a href="{% url 'news:detail' news_obj.id %}">
+                {% if news_obj.file %}
+                    <img class="img-circle" src="/media/{{ news_obj.file }}" alt="Generic placeholder image" width="140" height="140">
+                {% else %}
+                    <img class="img-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" width="140" height="140">
+                {% endif %}
+            </a>
+            <h4>{{ news_obj.title }}</h4>
+            <div>{{ news_obj.published_date|date:"d.m.Y" }}</div>
+            <p>{{ news_obj.text | truncatewords_html:20 | striptags }}</p>
+            <p><a class="btn btn-default" href="{% url 'news:detail' news_obj.id %}" role="button">Подробнее &raquo;</a></p>
+        </div>
+{% endfor %}
+</div>
+
+<p><a href="{% url 'news:list_all' %}"> Все новости </a></p>

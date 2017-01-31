@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block breadcrumb %}
+    <li><a href="/">Главная</a></li>
+    <li><a href="{% url 'news:list_all' %}"> Новости </a></li>
+{% endblock %}
+
+{% block title %}Новости{% endblock title %}
+{% block content %}
+    <center><b>Новости </b></center>
+
+    {% for news_obj in object_list %}
+        <b>{{ news_obj.published_date |date:"d.m.Y" }}</b> -  <b>{{ news_obj.title }}</b><br>
+        <p>{{ news_obj.text | truncatewords_html:20 | striptags }} <a href="{% url 'news:detail' news_obj.id %}">Подробнее >> </a></p>
+        <hr>
+    {% endfor %}
+
+    <div class="pagination">
+            <span class="page-links">
+                {% if page_obj.has_previous %}
+                    <a href="?page={{ page_obj.previous_page_number }}"><<</a>
+                {% endif %}
+                <span class="page-current">
+                    Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}
+                </span>
+                {% if page_obj.has_next %}
+                    <a  href="?page={{ page_obj.next_page_number }}">  >>   </a>
+                {% endif %}
+            </span>
+    </div>
+
+{% endblock content %}
