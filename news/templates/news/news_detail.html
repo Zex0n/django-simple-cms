@@ -11,6 +11,7 @@
 
 {% block content %}
     <center><b>{{ news.title}}</b></center>
+    <div>{{ news.published_date|date:"d.m.Y" }}</div>
     <img src="/media/{{ news.file }}">
     {{ news.text|safe }}
 {% endblock content %}
