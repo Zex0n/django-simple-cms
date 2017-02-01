@@ -2,7 +2,7 @@
 
 {% block breadcrumb %}
     <li><a href="/">Главная</a></li>
-   <li> <a href="{% url 'news:list_all'  %}"> Новости </a></li>
+    <li> <a href="{% url 'news:list_all'  %}"> Новости </a></li>
     <li> {{ news.title }} </li>
 {% endblock %}
 
@@ -11,5 +11,6 @@
 
 {% block content %}
     <center><b>{{ news.title}}</b></center>
+    <img src="/media/{{ news.file }}">
     {{ news.text|safe }}
 {% endblock content %}

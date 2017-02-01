@@ -17,7 +17,7 @@
             </a>
             <h4>{{ news_obj.title }}</h4>
             <div>{{ news_obj.published_date|date:"d.m.Y" }}</div>
-            <p>{{ news_obj.text | truncatewords_html:20 | striptags }}</p>
+            <p>{{ news_obj.text | truncatewords_html:255 | striptags }}</p>
             <p><a class="btn btn-default" href="{% url 'news:detail' news_obj.id %}" role="button">Подробнее &raquo;</a></p>
         </div>
 {% endfor %}

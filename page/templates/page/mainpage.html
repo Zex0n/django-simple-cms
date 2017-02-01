@@ -1,22 +1,25 @@
 {% extends 'base.html' %}
 
+{% block title %}{{ object.title }}{% endblock title %}
+{% block keywords %}{{ object.meta_keywords }}{% endblock keywords %}
+{% block description %}{{ object.meta_description }}{% endblock description %}
+
 {% block content %}
     {% include "news/block_list.html" %}
 
+    <div class="row featurette">
+        <div class="col-md-12">
+            {{ object.content|safe }}
+        </div>
+    </div>
+
         <!-- START THE FEATURETTES -->
-
-
         <hr class="featurette-divider">
 
         <div class="row featurette">
             <div class="col-md-12">
-                <h2 class="featurette-heading">First featurette heading. <span
-                        class="text-muted">It'll blow your mind.</span></h2>
-                <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis
-                    euismod
-                    semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac
-                    cursus
-                    commodo.</p>
+                <h2 class="featurette-heading">First featurette heading. <span class="text-muted">It'll blow your mind.</span></h2>
+                <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
             </div>
         </div>
 

@@ -5,5 +5,19 @@
 {% block description %}{{ object.meta_description }}{% endblock description %}
 
 {% block content %}
-    {{ object.content|safe }}
+    {% if slug == 'main' %}
+        {% include "news/block_list.html" %}
+    {% endif %}
+
+    <div class="row">
+        <div class="col-md-12">
+            {{ object.content|safe }}
+        </div>
+    </div>
 {% endblock content %}
+
+{% block carousel %}
+    {% if object.carousel %}
+        {% include "page/carousel.html" %}
+    {% endif %}
+{% endblock carousel %}

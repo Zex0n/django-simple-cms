@@ -15,8 +15,10 @@
 </head>
 <body>
 
+{% comment %}
 <div class="navbar-wrapper">
     <div class="container">
+{% endcomment %}
 
         <nav class="navbar navbar-inverse navbar-static-top">
             <div class="container">
@@ -36,10 +38,12 @@
             </div>
         </nav>
 
+{% comment %}
     </div>
 </div>
+{% endcomment %}
 
-{% include "carousel.html" %}
+{% block carousel %}{% endblock carousel %}
 
 {#{% placeholder menu %}#}
 {#{% placeholder vertical_menu %}#}

@@ -7,20 +7,17 @@ from .models import Page
 from news.models import News
 
 
-class IndexView(generic.ListView):
-    model = Page
-    template_name = 'page/mainpage.html'
-
-    def get_context_data(self, **kwargs):
-        context = super(IndexView, self).get_context_data(**kwargs)
-        context['news_block'] = News.get_news_block
-        return context
-
 class DetailView(generic.DetailView):
     model = Page
     template_name = 'page/page.html'
 
+    def get_context_data(self, **kwargs):
+        context = super(DetailView, self).get_context_data(**kwargs)
 
-class ResultsView(generic.DetailView):
-    model = Page
-    template_name = 'page/results.html'
+        context['slug'] = self.kwargs['slug']
+        if context['slug'] == 'main':
+            context['news_block'] = News.get_news_block
+        if self.object.carousel:
+            context['carousel_block'] = self.object.carousel.carouselslide_set.all()
+
+        return context
