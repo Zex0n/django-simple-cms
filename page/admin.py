@@ -4,7 +4,7 @@ from grappelli.forms import GrappelliSortableHiddenMixin
 from django_mptt_admin.admin import DjangoMpttAdmin
 from mptt.admin import DraggableMPTTAdmin
 from django import forms
-from .forms import MenuAdminForm, PageAdminForm
+from .forms import MenuAdminForm, PageAdminForm, CarouselAdminForm
 from django.utils.translation import ugettext_lazy as _
 
 
@@ -38,8 +38,8 @@ class PageAdmin(DraggableMPTTAdmin):
 
     class Media:
         js = [
-            '//cdn.tinymce.com/4/tinymce.min.js',
-            '/static/grappelli/tinymce_setup/tinymce4_setup.js',
+            # '//cdn.tinymce.com/4/tinymce.min.js',
+            # '/static/grappelli/tinymce_setup/tinymce4_setup.js',
             '/static/admin/js/pageadmin.js',
         ]
 
@@ -63,5 +63,6 @@ class CarouselSlideInline(admin.TabularInline):
 
 class CarouselAdmin(admin.ModelAdmin):
     inlines = [CarouselSlideInline, ]
+    # form = CarouselAdminForm
 
 admin.site.register(Carousel, CarouselAdmin)

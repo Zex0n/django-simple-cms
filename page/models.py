@@ -8,7 +8,7 @@ from django.conf import settings
 from django.core.cache import cache
 from multiselectfield import MultiSelectField
 from django.utils.functional import lazy
-# from smallcms.templatetags.cms_tags import get_all_placeholders
+from ckeditor_uploader.fields import RichTextUploadingField
 
 
 class BasePage(MPTTModel):
@@ -26,7 +26,13 @@ class BasePage(MPTTModel):
 
 
 class Carousel (models.Model):
+    CAROUSEL_TEMPLATES_CHOICES = (
+        (0, 'carousel.html'),
+    )
+
     title = models.CharField(_("Название"), max_length=255)
+    template = models.IntegerField(choices=CAROUSEL_TEMPLATES_CHOICES, default=0)
+    slug = models.SlugField(_("Имя для использования в шаблоне"), unique=True, help_text=_("Только английские буквы, цифры и знаки минус и подчеркивание."))
 
     class Meta:
         verbose_name = 'Карусель'
@@ -35,10 +41,22 @@ class Carousel (models.Model):
     def __str__(self):
         return self.title
 
+    def get_template(self):
+        return self.get_template_display()
+
+    def items(self):
+        return self.carouselslide_set.all()
+
+    def save(self, *args, **kwargs):
+        cached_carousel = cache.get(settings.CAROUSEL_CACHE_KEY)
+        if cached_carousel is not None:
+            cache.delete(settings.CAROUSEL_CACHE_KEY)
+        super(Carousel, self).save(*args, **kwargs)
+
 
 class CarouselSlide(models.Model):
     carousel = models.ForeignKey(Carousel, on_delete=models.CASCADE, blank=True)
-    text = models.TextField(verbose_name=u'Текст')
+    text = RichTextUploadingField(verbose_name=u'Текст')
     file = models.ImageField(upload_to='carousel', verbose_name=u'Изображение', null=True, blank=True)
     num = models.IntegerField(default=0, verbose_name=u'Порядковый номер', blank=True, db_index=True)
 
@@ -46,6 +64,12 @@ class CarouselSlide(models.Model):
         verbose_name = 'Слайд'
         verbose_name_plural = 'Слайды'
         ordering = ['num']
+
+    def save(self, *args, **kwargs):
+        cached_carousel = cache.get(settings.CAROUSEL_CACHE_KEY)
+        if cached_carousel is not None:
+            cache.delete(settings.CAROUSEL_CACHE_KEY)
+        super(CarouselSlide, self).save(*args, **kwargs)
 
 
 class Page(BasePage):
@@ -74,7 +98,7 @@ class Page(BasePage):
     slug = models.SlugField(_("Имя для url"), unique=True, blank=True, help_text=_("Только английские буквы, цифры и знаки минус и подчеркивание. <br><a id='set_main_page'>Главная страница</a>"))
     login_required = models.BooleanField(_("Требуется логин"), default=False,
         help_text=_("Если выбрано, то только залогиненный пользователь может просматривать страницу"))
-    content = models.TextField("Текст", blank=True)
+    content = RichTextUploadingField("Текст", blank=True)
     page_type = models.IntegerField(_("Тип страницы"), choices=PAGE_TYPE_CHOICES, default=0)
     redirect_url = models.CharField(_("URL для редиректа"), max_length=1000, default='', blank=True)
     application = models.CharField(_("Приложение"), max_length=255, choices=APPLICATION_CHOICES, default='', blank=True)

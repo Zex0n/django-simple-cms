@@ -1,10 +1,11 @@
 from django.db import models
 from django.utils import timezone
+from ckeditor_uploader.fields import RichTextUploadingField
 
 
 class News(models.Model):
     title = models.CharField(max_length=200, verbose_name=u'Заголовок новости')
-    text = models.TextField(verbose_name=u'Текст новости')
+    text = RichTextUploadingField(verbose_name=u'Текст новости')
     created_date = models.DateTimeField(verbose_name=u'Дата создания', editable=False, auto_now_add=True)
     published_date = models.DateTimeField(default=timezone.now, blank=False, null=False, verbose_name=u'Дата для вывода')
     start_date = models.DateTimeField(default=timezone.now, blank=False, null=False, verbose_name=u'Дата начала показа')

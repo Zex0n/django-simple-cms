@@ -15,6 +15,7 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+GRAPPELLI_ADMIN_TITLE = "Система управления"
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
@@ -34,18 +35,23 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     # 'grappelli.dashboard',
     'grappelli',
-    'filebrowser',
+    # 'filebrowser',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'ckeditor',
+    'ckeditor_uploader',
     'adminsortable2',
     'taggit',
     'mptt',
     'django_mptt_admin',
+    'geoposition',
     'page',
-    'news'
+    'news',
+    'promotions',
+    'partners'
 ]
 
 MIDDLEWARE = [
@@ -145,11 +151,42 @@ STATICFILES_DIRS = (
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
+CKEDITOR_UPLOAD_PATH = "uploads/"
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'full',
+        'height': '500',
+        'width': '100%',
+        'extraPlugins': 'youtube'
+    },
+}
+
+# GEO MARKERS
+GEOPOSITION_GOOGLE_MAPS_API_KEY = 'AIzaSyCe3oNO59ag4XLM3Yog7X8L77-PotI3DCA'
+GEOPOSITION_MAP_OPTIONS = {
+    'zoom': 6,
+    'center': {'lat': 55.01886864032478, 'lng': 50.76003453124997},
+    # 'mapMaker': True,
+    'cursor': 'move',
+}
+GEOPOSITION_MARKER_OPTIONS = {
+    # 'draggable': True,
+    # 'clickable': True,
+    'cursor': 'move',
+    'position': {'lat': 55.01886864032478, 'lng': 50.76003453124997},
+}
 
 MENU_TEMPLATES = (
     # Customize this
-    (1, 'vertical_menu.html'),
-    (2, 'horizontal_menu.html')
+    # (1, 'vertical_menu.html'),
+    # (2, 'horizontal_menu.html')
+)
+
+CAROUSEL_TEMPLATES = (
+    # Customize this
+    (1, 'c.html'),
+    # (1, 'goods_carousel.html'),
+    # (2, 'best_items_carousel.html')
 )
 
 APPLICATION_LIST = (
@@ -157,7 +194,8 @@ APPLICATION_LIST = (
     ('news', 'Приложение новости'),
 )
 
-MYMENU_CACHE_TIMEOUT = 86400 * 360 # one year
+CACHE_TIMEOUT = 86400 * 360 # one year
 MYMENU_CACHE_KEY = 'menus'
+CAROUSEL_CACHE_KEY = 'carousel'
 
 NEWS_PAGINATE_BY = 10

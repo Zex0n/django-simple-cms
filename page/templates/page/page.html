@@ -14,10 +14,14 @@
             {{ object.content|safe }}
         </div>
     </div>
+
+
+
+
 {% endblock content %}
 
 {% block carousel %}
     {% if object.carousel %}
-        {% include "page/carousel.html" %}
+        {% include "carousel.html" %}
     {% endif %}
 {% endblock carousel %}
