@@ -37,7 +37,7 @@ class Dealers (models.Model):
     address = models.TextField(_("Адрес"), blank=True)
     url = models.URLField(_("Сайт"), blank=True)
     email = models.EmailField(_("E-mail"), blank=True)
-    text = RichTextUploadingField(verbose_name=_('Описание'))
+    text = RichTextUploadingField(verbose_name=_('Описание'), blank=True)
     show = models.BooleanField(verbose_name=_('Показывать'), default=True)
     file = models.ImageField(upload_to='partners', verbose_name=_('Логотип'),null=True, blank=True)
     region = models.ForeignKey(Regions, on_delete=models.SET_NULL, verbose_name=u'Регион', null=True, blank=True)

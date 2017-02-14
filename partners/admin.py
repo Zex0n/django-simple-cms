@@ -9,10 +9,9 @@ class DealersAdmin(admin.ModelAdmin):
     search_fields = ['title', 'text', 'address']
 
     class Media:
-        js = [
-            # '//cdn.tinymce.com/4/tinymce.min.js',
-            # '/static/grappelli/tinymce_setup/tinymce4_setup.js',
-        ]
+        css = {
+            'all': ('/static/admin/css/cmsadmin.css',)
+        }
 
 admin.site.register(Dealers, DealersAdmin)
 admin.site.register(Regions)
