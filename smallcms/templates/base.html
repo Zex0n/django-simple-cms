@@ -1,74 +1,474 @@
 {% load staticfiles %}
-{#{% load cms_tags %}#}
-<!doctype html>
+
+<!DOCTYPE html>
 <html>
-<head>
-    <meta charset="utf-8">
-    <title>{% block title %}This is my new project home page{% endblock title %}</title>
-    <meta name="description" content="{% block description %}{% endblock description %}" />
-    <meta name="keywords" content="{% block keywords %}{% endblock keywords %}" />
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.4/css/bootstrap.min.css">
-    <!-- Custom styles for this template -->
-    <link href="/static/css/carousel.css" rel="stylesheet">
-    {% block mycss %}{% endblock mycss %}
-</head>
-<body>
+	<head>
+		<meta charset="utf-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1"/>
+		<title>{% block title %}This is my new project home page{% endblock title %}</title>
+        <meta name="description" content="{% block description %}{% endblock description %}" />
+        <meta name="keywords" content="{% block keywords %}{% endblock keywords %}" />
+        <meta name="viewport" content="width=device-width,initial-scale=1">
 
-{% comment %}
-<div class="navbar-wrapper">
-    <div class="container">
-{% endcomment %}
+		<link rel="icon" type="image/x-icon" href="/static/images/favicon.png" />
 
-        <nav class="navbar navbar-inverse navbar-static-top">
-            <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
-                            aria-expanded="false" aria-controls="navbar">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="/">Project name</a>
-                </div>
-                <div id="navbar" class="navbar-collapse collapse">
-                    {% include menu.mainmenu.get_template %}
-                </div>
-            </div>
-        </nav>
-
-{% comment %}
-    </div>
-</div>
-{% endcomment %}
-
-{% block carousel %}{% endblock carousel %}
-
-{#{% placeholder menu %}#}
-{#{% placeholder vertical_menu %}#}
-
-<div class="container">
-
-    {% block content %}{% endblock content %}
-
-    <!-- FOOTER -->
-    <footer>
-        <p class="pull-right"><a href="#">Back to top</a></p>
-        <p>&copy; 2017 Company, Inc. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
-    </footer>
-
-</div><!-- /.container -->
+		<link href="/static/css/master.css" rel="stylesheet">
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 
-{% block myjs %}{% endblock myjs %}
+		<link rel="alternate stylesheet" type="text/css" href="/static/assets/switcher/css/color3.css" title="color3" media="all"  data-default-color="true"/>
+
+		
+		<!--[if lt IE 9]>
+		<script src="/oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+		<script src="/oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+		<![endif]-->
+		<style>
+
+			.top-nav{background-color: #000000 }
+			.top-nav__main{background-color: #000000 }
+			.my_menu_white {color:#FFF !important;}
+			body {font-family: 'Arsenal',sans-serif; }
+		</style>
+
+	</head>
+	<body>
+		<!-- Loader -->
+		<div id="page-preloader"><span class="spinner"></span></div>
+		<!-- Loader end -->
 
 
-</body>
+
+		<header id="header-top" class="top-header">
+			<div class="container">
+				<div class="top-header__main wow slideInDown" data-wow-delay="0.7s" data-wow-duration="1.5s">
+					<div class="row">
+						<div class="col-xs-4">
+							<div class="social social--top clearfix">
+								<a href="#" class="social__one square">
+									<span class="fa fa-vk"></span>
+								</a>
+								<a href="#" class="social__one square">
+									<span class="fa fa-facebook"></span>
+								</a>
+
+								</a>
+							</div>
+						</div>
+						<div class="col-xs-8">
+							<div class="header-contacts clearfix">
+								<div class="header-contacts__one">
+									<a href="contacts.html" class="header-contacts__phone square">
+										<span class="fa fa-phone"></span>
+									</a>
+									<a href="contacts.html" class="header-contacts__link">8 (473) 226 05 05</a>
+								</div>
+								<div class="header-contacts__one">
+									<a href="contacts.html" class="header-contacts__email square">
+										<span class="fa fa-envelope"></span>
+									</a>
+									<a href="mailto:info@caimanfishing.com" class="header-contacts__link">info@caimanfishing.com</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</header><!--top-header-->
+
+		<nav class="top-nav">
+			<div class="container">
+				<div class="top-nav__main">
+					<div class="row">
+						<div class="col-md-3 col-xs-12 text-center">
+							<a href="home-main.html" >
+								<span>
+									<img src="/static/images/logocaiman2.jpg" alt="logo">
+								</span>
+
+							</a>
+						</div>
+						<div class="col-md-9 col-xs-12">
+							<div class="main-nav navbar-main-slide">
+								<a href="#" class="btn_header_search main-nav__search no-decoration">
+									<span class="fa fa-search"></span>
+								</a>
+								<div class="navbar-header">
+									<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#nav">
+										<span class="sr-only"></span>
+										<span class="icon-bar"></span>
+										<span class="icon-bar"></span>
+										<span class="icon-bar"></span>
+									</button>
+								</div>
+
+
+                                {% include menu.mainmenu.get_template %}
+
+								<div class="search-form-modal transition">
+									<form class="navbar-form header_search_form">
+										<i class="fa fa-times search-form_close"></i>
+										<div class="form-group">
+											<input type="text" class="form-control" placeholder="Search">
+										</div>
+										<button type="submit" class="btn btn_search customBgColor">Search</button>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</nav><!--top-nav-->
+
+
+
+        {% block carousel %}{% endblock carousel %}
+
+
+
+
+
+
+        <!--sliders-->
+
+		<section class="anons">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-4 col-xs-12 wow zoomInLeft" data-wow-delay="0.7s" data-wow-duration="1.5s">
+						<div class="anons__block triangle triangle--block line-down">
+							<div class="anons__img">
+								<i class="fa fa-wrench  fa-4x" aria-hidden="true" ></i>
+							</div>
+							<h2><a href="shop.html" class="title no-decoration"><span class="title__bold">Технологии</span></a></h2>
+							<p class="text">Технологии для Вашего Улова</p>
+						</div>
+					</div>
+					<div class="col-md-4 col-xs-12 wow zoomInUp" data-wow-delay="0.7s" data-wow-duration="1.5s">
+						<div class="anons__block anons__block--center triangle triangle--block-center">
+							<div class="anons__photo"><img class="img-responsive" src="/static/images/product_img.jpg" alt="news"/></div>
+							<div class="anons__color-block">
+								<h2><a href="blog.html" class="title no-decoration"><span class="title__bold">Продукция</span></a></h2>
+								<p class="text">Более 300 наименований доступны для заказа</p>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-4 col-xs-12 wow zoomInRight" data-wow-delay="0.7s" data-wow-duration="1.5s">
+						<div class="anons__block triangle triangle--block line-down">
+							<div class="anons__img anons__img--bike">
+
+								<i class="fa fa-sitemap  fa-4x" aria-hidden="true" ></i>
+
+
+							</div>
+							<h2><a href="#" class="title no-decoration"><span class="title__bold">Где купить ?</a></h2>
+							<p class="text">70 Магазинов в России</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section><!--anons-->
+
+		<section class="we-are ">
+			<div class="container">
+				<h2 class="title title--main wow fadeInUp" data-wow-delay="0.7s" data-wow-duration="1.5s">ТЕХНОЛОГИИ CAIMAN<span class="line line--title"><span class="line__first"></span><span class="line__second"></span></span></h2>
+				<p class="text text--anons wow fadeInUp" data-wow-delay="0.7s" data-wow-duration="1.5s">Мы используем самое современное оборудование и технологии, что позволяет получить продукцию высочайшего качества по приемлемым ценам.</p>
+				<div class="row">
+					<div class="col-sm-6 col-xs-12">
+						<div class="we-are__img wow fadeInLeft" data-wow-delay="0.7s" data-wow-duration="1.5s"><img class="img-responsive"  src="/static/images/factory1.jpg" alt="moto"/></div>
+						<div class="we-are__block triangle triangle--big wow fadeInLeft" data-wow-delay="0.7s" data-wow-duration="2.5s">
+							<h3 class="title title--block">Современное оборудование</h3>
+							<p class="text">В производстве участвует только самое современное оборудование лучших мировых производителей </p>
+							<a href="article.html" class="btn button button--red button--main">Подробнее</a>
+						</div>
+					</div>
+					<div class="col-sm-6 col-xs-12">
+						<div class="we-are__block triangle triangle--big wow fadeInRight" data-wow-delay="0.7s" data-wow-duration="1.5s">
+							<h3 class="title title--block">Полуавтоматизирование линии</h3>
+							<p class="text">Наши производтсвенные линии позволяют выпускать боллее 300 наименований продукции</p>
+							<a href="article.html" class="btn button button--red button--main">Подробнее</a>
+						</div>
+						<div class="we-are__img wow fadeInRight" data-wow-delay="0.7s" data-wow-duration="2.5s"><img class="img-responsive"  src="/static/images/factory2.jpg" alt="moto"/></div>
+					</div>
+				</div>
+			</div>
+		</section><!--we-are-->
+
+		<div class="numbers">
+			<div class="container">
+				<div class="clearfix percent-blocks" data-waypoint-scroll="true">
+					<div class="numbers__one">
+						<header class="numbers__head">
+							<span class="fa fa-building"></span>
+							<div class="line line--slim line--title"><div class="line__first"></div><div class="line__second"></div></div>
+						</header>
+						<div class="numbers__body chart" data-percent="5">
+							<div class="numbers__num percent">5</div>
+							<div class="number__desc">Городов</div>
+						</div>
+					</div>
+					<div class="numbers__one">
+						<header class="numbers__head">
+							<span class="fa fa-shopping-cart"></span>
+							<div class="line line--slim line--title"><div class="line__first"></div><div class="line__second"></div></div>
+						</header>
+						<div class="numbers__body chart" data-percent="40">
+							<div class="numbers__num percent">40</div>
+							<div class="number__desc">Магазинов</div>
+						</div>
+					</div>
+					<div class="numbers__one">
+						<header class="numbers__head">
+							<span class="fa fa-check-square-o"></span>
+							<div class="line line--slim line--title"><div class="line__first"></div><div class="line__second"></div></div>
+						</header>
+						<div class="numbers__body chart" data-percent="1258">
+							<div class="numbers__num percent">1258</div>
+							<div class="number__desc">Заказов в год</div>
+						</div>
+					</div>
+					<div class="numbers__one">
+						<header class="numbers__head">
+							<span class="fa fa-user"></span>
+							<div class="line line--slim line--title"><div class="line__first"></div><div class="line__second"></div></div>
+						</header>
+						<div class="numbers__body chart" data-percent="60">
+							<div class="numbers__num percent">60</div>
+							<div class="number__desc">Партнеров</div>
+						</div>
+					</div>
+					<div class="numbers__one">
+						<header class="numbers__head">
+							<span class="fa fa-users"></span>
+							<div class="line line--slim line--title"><div class="line__first"></div><div class="line__second"></div></div>
+						</header>
+						<div class="numbers__body chart" data-percent="10000">
+							<div class="numbers__num percent">10000</div>
+							<div class="number__desc">Покупателей</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div><!--numbers-->
+
+		<section class="offers dark-bg">
+			<div class="container">
+				<h2 class="title title--main"><span class="title__bold">Спецпредложения <span></span></span>CAIMAN<span class="line line--small"><span class="line__first"></span><span class="line__second"></span></span></h2>
+				<div id="carousel-small" class="owl-carousel enable-owl-carousel" data-auto-play="5000" data-stop-on-hover="true" data-items="2" data-pagination="true" data-navigation="false" data-items-desktop="2" data-items-desktop-small="2" data-items-tablet="1" data-items-tablet-small="1" >
+					<div class="item wow slideInDown" data-wow-delay="0.7s" data-wow-duration="1.5s">
+						<div class="offer">
+							<div class="row row--no-padding">
+								<div class="col-xs-6">
+									<div class="offer__img">
+										<img class="img-responsive" src="/static/images/spec1.jpg" alt="bike"/>
+									</div>
+								</div>
+								<div class="col-xs-6">
+									<div class="offer__info">
+										<h4 class="title"><span class="title__bold"><span>Спининг</span></span> CAIMAN</h4>
+										<div class="offer__price">Оптовая цена <span> 998.00 р. </span></div>
+										<ul class="list">
+											<li><span class="list__circle"><span class="fa fa-check"></span></span>Высокопрочный карбон</li>
+											<li><span class="list__circle"><span class="fa fa-check"></span></span>Универсальное крепление </li>
+										</ul>
+										<a href="item.html" class="btn button button--main button--red pull-right">СМОТРЕТЬ</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="item wow slideInDown" data-wow-delay="0.7s" data-wow-duration="1.5s">
+						<div class="offer">
+							<div class="row row--no-padding">
+								<div class="col-xs-6">
+									<div class="offer__img">
+										<img class="img-responsive" src="/static/images/spec2.jpg" alt="bike"/>
+									</div>
+								</div>
+								<div class="col-xs-6">
+									<div class="offer__info">
+										<h4 class="title"><span class="title__bold"><span>CAIMAN</span></span> CHASER</h4>
+										<div class="offer__price">Оптовая цена <span> 155.00 р. </span></div>
+										<ul class="list">
+											<li><span class="list__circle"><span class="fa fa-check"></span></span>Ультрапрочный</li>
+											<li><span class="list__circle"><span class="fa fa-check"></span></span>Толщина от 0.2 до 0.9</li>
+										</ul>
+										<a href="item.html" class="btn button button--main button--red pull-right">СМОТРЕТЬ</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="item wow slideInDown" data-wow-delay="0.7s" data-wow-duration="1.5s">
+						<div class="offer">
+							<div class="row row--no-padding">
+								<div class="col-xs-6">
+									<div class="offer__img">
+										<img class="img-responsive" src="/static/images/spec3.jpg" alt="bike"/>
+									</div>
+								</div>
+								<div class="col-xs-6">
+									<div class="offer__info">
+										<h4 class="title"><span class="title__bold"><span>Поплавки</span></span> CAIMAN</h4>
+										<div class="offer__price">от <span>50.00 р.</span></div>
+										<ul class="list">
+											<li><span class="list__circle"><span class="fa fa-check"></span></span>Огромный ассортимент</li>
+											<li><span class="list__circle"><span class="fa fa-check"></span></span>Различная нагрузка </li>
+										</ul>
+										<a href="item.html" class="btn button button--main button--red pull-right">СМОТРЕТЬ</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="item wow slideInDown" data-wow-delay="0.7s" data-wow-duration="1.5s">
+						<div class="offer">
+							<div class="row row--no-padding">
+								<div class="col-xs-6">
+									<div class="offer__img">
+										<img class="img-responsive" src="/static/images/spec4.jpg" alt="bike"/>
+									</div>
+								</div>
+								<div class="col-xs-6">
+									<div class="offer__info">
+										<h4 class="title"><span class="title__bold"><span>CAYMAN</span></span> CALIPSO </h4>
+										<div class="offer__price">Оптоовая цена <span>1330.50 р.</span></div>
+										<ul class="list">
+											<li><span class="list__circle"><span class="fa fa-check"></span></span>Все опции карповой катушки</li>
+											<li><span class="list__circle"><span class="fa fa-check"></span></span>Регулируемый редуктор</li>
+										</ul>
+										<a href="item.html" class="btn button button--main button--red pull-right">СМОТРЕТЬ</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section><!--offers-->
+
+
+
+		<section class="link">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-10 col-md-offset-1 col-xs-12">
+						<div class="row">
+							<div class="col-xs-4 wow zoomInLeft" data-wow-delay="0.7s" data-wow-duration="1.5s">
+								<div class="link__phone">
+									<div class="link__square triangle triangle--12">
+										<span class="fa fa-mobile"></span>
+									</div>
+									<h3>ТЕЛЕФОН</h3>
+									<p>8 (473) 226 05 05 <br />8 (473) 226 05 05</p>
+								</div>
+							</div>
+							<div class="col-xs-4 wow zoomInUp" data-wow-delay="0.7s" data-wow-duration="1.5s">
+								<div class="link__phone">
+									<div class="link__square triangle triangle--12">
+										<span class="fa fa-map-marker"></span>
+									</div>
+									<h3>АДРЕС</h3>
+									<p>394044 г. Воронеж<br/>ул. Планетная, 26</p>
+								</div>
+							</div>
+							<div class="col-xs-4 wow zoomInRight" data-wow-delay="0.7s" data-wow-duration="1.5s">
+								<div class="link__phone">
+									<div class="link__square triangle triangle--12">
+										<span class="fa fa-envelope-o"></span>
+									</div>
+									<h3>EMAIL</h3>
+									<p>caimanfishing@yandex.ru <br/>info@caimanfishing.ru</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section><!--link-->
+
+		<footer class='map-footer'>
+			<div class="footer-contacts">
+				<div class="container">
+					<div class="row">
+						<div class="col-xs-7 wow fadeInLeft" data-wow-delay="0.7s" data-wow-duration="1.5s">
+							<div class="map">
+								<script type="text/javascript" charset="utf-8" async src="https://api-maps.yandex.ru/services/constructor/1.0/js/?sid=or9aglLO5hlJr-tx4xQH6qo4YT8Y4OxG&amp;width=500&amp;height=380&amp;lang=ru_RU&amp;sourceType=constructor&amp;scroll=true"></script>
+							</div>
+						</div>
+						<div class="col-xs-5 wow fadeInRight" data-wow-delay="0.7s" data-wow-duration="1.5s">
+							<form action="/" method="post" class="quick-form">
+								<h2 class="title"><span class="title__bold">Обратная</span>Связь</h2>
+								<div class="quick-input">
+									<input type="text" name="text" placeholder="Имя" />
+									<div class="triangle-quick-input"></div>
+								</div>
+								<div class="quick-input">
+									<input type="text" name="phone" placeholder="Телефон" />
+									<div class="triangle-quick-input"></div>
+								</div>
+								<div class="quick-input">
+									<textarea placeholder="Сообщение" name="mess"></textarea>
+									<div class="triangle-quick-input"></div>
+								</div>
+								<button type="submit" class="btn button button--red button--main">Отправить</button>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="footer-bottom">
+				<div class="container">
+					<div class="row">
+						<div class="col-xs-7">
+							<div class="copyright wow fadeInLeft" data-wow-delay="0.7s" data-wow-duration="1.5s">
+								<p>&copy; Copyrights 2017 by <span></span> | <span>ООО "КАЙМАН" </span> Все права защищены.</p>
+							</div>
+						</div>
+						<div class="col-xs-5">
+							<div class="social social--footer pull-right clearfix wow fadeInRight" data-wow-delay="0.7s" data-wow-duration="1.5s">
+								<a href="#" class="social__one square">
+									<span class="fa fa-vk"></span>
+								</a>
+								<a href="#" class="social__one square">
+									<span class="fa fa-facebook"></span>
+								</a>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<a id="to-top" href="#header-top"><i class="fa fa-chevron-up"></i></a>
+		</footer><!--map-footer-->
+		<!--Main-->   
+		<script src="/static/js/jquery-1.11.3.min.js"></script>
+		<script src="/static/js/bootstrap.min.js"></script>
+		<script src="/static/js/modernizr.custom.js"></script>
+		<!--Counter-->
+		<script src="/static/assets/rendro-easy-pie-chart/dist/jquery.easypiechart.min.js"></script>
+		<script src="/static/js/waypoints.min.js"></script>
+		<script src="/static/js/jquery.easypiechart.min.js"></script>
+		<script src="/static/js/classie.js"></script>
+		<!--Switcher-->
+		<script src="/static/assets/switcher/js/switcher.js"></script>
+		<!--Owl Carousel-->
+		<script src="/static/assets/owl-carousel/owl.carousel.min.js"></script>
+		<!--bxSlider-->
+		<script src="/static/assets/bxslider/jquery.bxslider.min.js"></script>
+		<!-- jQuery UI Slider -->
+		<script src="/static/assets/slider/jquery.ui-slider.js"></script>
+		<!--Isotope-->
+		<script src="/static/assets/isotope/isotope.js"></script>
+		<!--Slider-->
+		<script src="/static/assets/slider/jquery.ui-slider.js"></script>
+		<!--Fancybox-->
+		<script src="/static/assets/fancybox/jquery.fancybox.pack.js"></script>
+		<!--Theme-->
+		<script src="/static/js/jquery.smooth-scroll.js"></script>
+		<script src="/static/js/wow.min.js"></script>
+		<script src="/static/js/jquery.placeholder.min.js"></script>
+		<script src="/static/js/theme.js"></script>
+	</body>
 </html>

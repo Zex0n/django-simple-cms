@@ -1,13 +1,38 @@
 {% load mptt_tags %}
-<ul class="nav navbar-nav">
+
+
+<ul class="collapse navbar-collapse navbar-nav-menu" id="nav">
     {% recursetree menu.mainmenu.items %}
         <li class="{% if not node.is_leaf_node %}dropdown{% endif %}">
-            <a href="{{ node.page.get_absolute_url }}" {% if not node.is_leaf_node %}class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"{% endif %}>{{ node }} {% if not node.is_leaf_node %}<span class="caret"></span>{% endif %}</a>
+            <a href="{{ node.page.get_absolute_url }}"  {% if node.level == 0 %}class="no-decoration dropdown-toggle my_menu_white" {% endif %}    {% if not node.is_leaf_node %}   data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"{% endif %}>{{ node }} {% if not node.is_leaf_node %}<span class="caret"></span>{% endif %}</a>
+
+            {% if node.level == 0 %}<span class="main-nav__separator"><span></span><span></span><span></span></span>{% endif %}
+
             {% if not node.is_leaf_node %}
                 <ul class="dropdown-menu">
                     {{ children }}
+
+
                 </ul>
             {% endif %}
         </li>
     {% endrecursetree %}
 </ul>
+
+
+{% comment %}
+<ul class="collapse navbar-collapse navbar-nav-menu" id="nav">
+									<li class="dropdown"> <a class="no-decoration dropdown-toggle my_menu_white" data-toggle="dropdown" href="home-main.html">Главная <i class="fa fa-angle-down"></i></a>
+										<span class="main-nav__separator"><span></span><span></span><span></span></span>
+										<ul class="dropdown-menu">
+											<li><a href="home-main.html">О компании</a></li>
+											<li><a href="home.html">Акции</a></li>
+											<li><a href="home2.html">Новости</a></li>
+										</ul>
+									</li>
+									<li><a class="no-decoration my_menu_white" href="about.html">Технологии</a><span class="main-nav__separator"><span></span><span></span><span></span></span></li>
+									<li><a class="no-decoration my_menu_white" href="article.html">Прайс листы</a><span class="main-nav__separator"><span></span><span></span><span></span></span></li>
+									<li><a class="no-decoration my_menu_white" href="blog.html">Где купить</a><span class="main-nav__separator"><span></span><span></span><span></span></span></li>
+									<li><a class="no-decoration my_menu_white" href="contacts.html">Галерея</a><span class="main-nav__separator"><span></span><span></span><span></span></span></li>
+									<li><a class="no-decoration my_menu_white" href="shop.html">Контакты</a></li>
+</ul>{% endcomment %}

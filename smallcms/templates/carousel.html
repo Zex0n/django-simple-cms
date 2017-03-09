@@ -1,35 +1,23 @@
-<!-- Carousel ================================================== -->
-<div id="myCarousel" class="carousel slide" data-ride="carousel">
-    <!-- Indicators -->
-    <ol class="carousel-indicators">
-        {% for carousel_obj in carousel_block %}
-            <li data-target="#myCarousel" data-slide-to="{{ forloop.counter0 }}" class="{% if forloop.first %}active{% endif %}"></li>
-        {% endfor %}
-    </ol>
 
-    <div class="carousel-inner" role="listbox">
 
-    {% for carousel_obj in carousel_block %}
-        <div class="item {% if forloop.first %}active{% endif %}">
-            {% if carousel_obj.file %}
-                <img src="/media/{{ carousel_obj.file }}">
-            {% else %}
-                <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==">
-            {% endif %}
-            <div class="container">
-                <div class="carousel-caption">
-                    <p>{{ carousel_obj.text|safe }}</p>
-                </div>
-            </div>
-        </div>
-    {% endfor %}
-    </div>
-    <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
-        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-        <span class="sr-only">&leftarrow;</span>
-    </a>
-    <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
-        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-        <span class="sr-only">&rightarrow;</span>
-    </a>
-</div><!-- /.carousel -->
+
+
+<section class="sliders">
+			<ul class="sliders__main js-slider-main slider enable-bx-slider" data-auto="true" data-auto-hover="true" data-mode="fade" data-pager="false" data-pager-custom="null" data-prev-selector="null" data-next-selector="null" >
+
+{% for carousel_obj in carousel_block %}
+
+     <li>
+					<img src="/media/{{ carousel_obj.file }}" class="thbshpxktysplmywflo" alt="bxSlider" />
+					<div class="sliders__text">
+                        {{ carousel_obj.text|safe }}
+					</div>
+				</li>
+
+{% endfor %}
+
+
+
+			</ul>
+		</section>
+
