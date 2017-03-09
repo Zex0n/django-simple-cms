@@ -64,5 +64,9 @@ class CarouselSlideInline(admin.TabularInline):
 class CarouselAdmin(admin.ModelAdmin):
     inlines = [CarouselSlideInline, ]
     # form = CarouselAdminForm
+    class Media:
+        css = {
+            'all': ('/static/admin/css/carouseladmin.css',)
+        }
 
 admin.site.register(Carousel, CarouselAdmin)
