@@ -34,6 +34,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'django.contrib.contenttypes',
     # 'grappelli.dashboard',
+    'nested_admin',
     'grappelli',
     # 'filebrowser',
     'django.contrib.admin',
@@ -51,7 +52,8 @@ INSTALLED_APPS = [
     'page',
     'news',
     'promotions',
-    'partners'
+    'partners',
+    'shop'
 ]
 
 MIDDLEWARE = [
