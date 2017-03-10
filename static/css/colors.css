@@ -110,8 +110,6 @@ a.square.square--toggle,
 .partners--home2 .title,
 .partners--home2 .text--small,
 .signup--home2 .title,
-.breadcumb__page,.breadcumb__page:hover,.breadcumb__page:active,.breadcumb__page:focus,.breadcumb__page:visited,
-.breadcumb__del,
 .title.title--page,
 .social-blocks__logo span.fa,
 .social-blocks__action,.social-blocks__action:hover,.social-blocks__action:focus,.social-blocks__action:active,.social-blocks__action:visited,
@@ -130,6 +128,18 @@ a.add-to-cart,
 {
     color:#fff;
     fill:#fff;
+}
+
+.breadcumb__page,.breadcumb__page:active,.breadcumb__page:focus,.breadcumb__page:visited,
+.breadcumb__del
+{
+    color:#333;
+    fill:#333;
+}
+
+.breadcumb__page:hover {
+
+    text-decoration:underline;
 }
 
 .button--transparent,
