@@ -12,11 +12,6 @@ from ckeditor_uploader.fields import RichTextUploadingField
 
 
 class BasePage(MPTTModel):
-    """
-    Exists solely to store ``PageManager`` as the main manager.
-    If it's defined on ``Page``, a concrete model, then each
-    ``Page`` subclass loses the custom manager.
-    """
     created_date = models.DateTimeField(auto_now_add=True, verbose_name=u'Дата создания', editable=False)
     edited_date = models.DateTimeField(auto_now=True, verbose_name=u'Дата редактирования', editable=False, null=True)
     tags = TaggableManager(blank=True)

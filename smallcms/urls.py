@@ -31,6 +31,7 @@ urlpatterns = [
     url(r'^grappelli/', include('grappelli.urls')),  # grappelli URLS
     url(r'^ckeditor/', include('ckeditor_uploader.urls')),
     url(r'^parnters/', include('partners.urls')),
+    url(r'^_nested_admin/', include('nested_admin.urls')),
     url(r'^admin/', admin.site.urls),
     url(r'', include('page.urls')),
     url(r'', include('news.urls', namespace='news')),
