@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block breadcrumb %}
+    <li><a href="/">Главная</a></li>
+    <li> <a href="{% url 'news:list_all'  %}"> Новости </a></li>
+    <li> {{ news.title }} </li>
+{% endblock %}
+
+
+{% block title %}Новости{% endblock title %}
+
+{% block content %}
+    <center><b>{{ news.title}}</b></center>
+    <div>{{ news.published_date|date:"d.m.Y" }}</div>
+    <img src="/media/{{ news.file }}">
+    {{ news.text|safe }}
+{% endblock content %}

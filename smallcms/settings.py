@@ -49,11 +49,13 @@ INSTALLED_APPS = [
     'mptt',
     'django_mptt_admin',
     'geoposition',
+    'embed_video',
     'page',
     'news',
     'promotions',
     'partners',
-    'shop'
+    'shop',
+    'gallery',
 ]
 
 MIDDLEWARE = [

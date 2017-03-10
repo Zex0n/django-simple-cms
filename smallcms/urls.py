@@ -34,6 +34,7 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'', include('page.urls')),
     url(r'', include('news.urls', namespace='news')),
+    url(r'', include('gallery.urls', namespace='gallery')),
 ]
 
 if settings.DEBUG:
