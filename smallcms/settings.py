@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'django_mptt_admin',
     'geoposition',
     'embed_video',
+    'sorl.thumbnail',
     'page',
     'news',
     'promotions',
@@ -203,3 +204,6 @@ MYMENU_CACHE_KEY = 'menus'
 CAROUSEL_CACHE_KEY = 'carousel'
 
 NEWS_PAGINATE_BY = 10
+
+THUMBNAIL_DEBUG = True
+THUMBNAIL_FORCE_OVERWRITE = True

@@ -7,10 +7,9 @@
 
 {% block title %}Галлерея{% endblock title %}
 {% block content %}
-    <center><b>Галлерея </b></center>
+    <h1>Галлерея</h1>
 
     {% for category_obj in object_list %}
-        <b>{{ category_obj.title }}</b><br>
-        <hr>
+        <a href="{% url 'gallery:detail' category_obj.slug %}">{{ category_obj.title }}</a><br>
     {% endfor %}
 {% endblock content %}
