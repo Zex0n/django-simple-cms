@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+
+
+
+
+{% block title %}{{ dealers.title }}{% endblock title %}
+
+
+
+{% block content %}
+
+<section class="about-us">
+			<div class="container">
+				<div class="row">
+				<div class="breadcumb">
+					<a href="/" class="breadcumb__page no-decoration">Главная</a>
+					<span class="breadcumb__del no-decoration">»</span>
+					<a href="{% url 'partners:list_partners' %}" class="breadcumb__page no-decoration">Где купить</a>
+
+					<span class="breadcumb__del no-decoration">»</span>
+					<a  class="breadcumb__page no-decoration">{{ dealers.title }}</a>
+
+
+				</div>
+
+
+
+
+
+					<div class="col-sm-10 col-sm-offset-1 col-xs-12">
+
+                        {% if dealers.file %}
+                        <div align="center"> <img src="/media/{{ dealers.file }}" width="150"> </div>
+                        {% endif %}
+
+					 <h2>{{ dealers.title }} </h2>
+                     <h4>{{ dealers.region }}</h4>
+
+                        <p><b>Адрес:</b> {{ dealers.address }}</p>
+                        <p><b>Телефон:</b> {{ dealers.phone_number }}</p>
+                        <p><b>E-mail:</b> <a href="mailto:{{ dealers.email }}" target="_blank">{{ dealers.email }}</a></p>
+                        <p><b>Сайт: </b><a href="{{ dealers.url }}" target="_blank">{{ dealers.url }}</a> </p><br>
+                        <p><b>Краткая информация: <br>{{ dealers.text | safe }}</b></p><br>
+                        <p><b>Показать на карте:</b></p>
+
+
+<script src="http://api-maps.yandex.ru/2.0-stable/?load=package.standard&lang=ru-RU" type="text/javascript"></script>
+
+<script>
+
+
+var myMap;                     //карта
+
+// Дождёмся загрузки API и готовности DO
+ymaps.ready(init);
+
+var ar;
+
+function init () {
+
+
+
+    var longi='51.62254479317378';
+    var lati='39.3846380936333';
+
+
+
+
+     myMap = new ymaps.Map ("map", {
+                center: [{{ dealers.position  }}],
+                zoom: 15,
+                controls:[]
+
+            });
+      myMap.controls.add('zoomControl');
+      myMap.behaviors.enable('scrollZoom');
+
+
+    var placemark = new ymaps.Placemark([{{ dealers.position  }}], {
+
+    iconContent: "{{ dealers.title }}"
+}, {
+    preset: "twirl#blueStretchyIcon",
+    // Отключаем кнопку закрытия балуна.
+    balloonCloseButton: false,
+    // Балун будем открывать и закрывать кликом по иконке метки.
+    hideIconOnBalloonOpen: false
+});
+myMap.geoObjects.add(placemark);
+
+
+
+
+}
+
+
+</script>
+
+
+<div id="map" align="center" style="width: 800px;height: 400px;">
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+					</div>
+				</div>
+			</div>
+		</section>
+
+		{% endblock content %}

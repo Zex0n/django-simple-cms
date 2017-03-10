@@ -29,6 +29,8 @@
 
 
 					<div class="col-sm-10 col-sm-offset-1 col-xs-12">
+
+
 					 <h2> Где купить </h2>
 
 
@@ -36,6 +38,11 @@
                      <h3>{{ obj.title }}</h3><br>
 
 
+                          {% for dealer in dealers %}
+                                 {% if dealer.region.id == obj.id %}
+                               <p> <a href="{% url 'partners:detail_partners' dealer.id %}">{{ dealer.title }}</a> <b>Адрес:</b> {{ dealer.address }}, <b>Тел.:</b> {{ dealer.phone_number }}</p>
+                                 {% endif %}
+                          {% endfor %}
 
 
 

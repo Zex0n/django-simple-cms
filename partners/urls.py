@@ -5,6 +5,8 @@ urlpatterns = [
 
     url(r'^list/$', views.ListViewPartners.as_view(), name='list_partners'),
 
+    url(r'^(?P<pk>[0-9]+)$', views.DetailView.as_view(), name='detail_partners')
+
 
     #url(r'^/map/$', views.ListViewMap.as_view(), name='list_partnesr_map'),
 
