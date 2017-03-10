@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% load thumbnail %}
+{% load embed_video_tags %}
+
+{% block breadcrumb %}
+    <li><a href="/">Главная</a></li>
+    <li> <a href="{% url 'gallery:list_all'  %}"> Галлерея </a></li>
+    <li> {{ category.title }} </li>
+{% endblock %}
+
+
+{% block title %}Галлерея{% endblock title %}
+
+{% block content %}
+    <h1>{{ category.title}}</h1>
+    {{ category.content|safe }}
+
+    {% for item_obj in category.item_set.all %}
+        {% if item_obj.youtube_url %}
+            {% video item_obj.youtube_url as my_video %}
+                {# Documentation is here: http://django-embed-video.rtfd.org/#}
+                {# Thumbnail: {{ my_video.thumbnail }}#}
+                <div align="center">
+                    {% video my_video "250x250" %}<br>
+                    <b>{{ item_obj.title }}</b>
+                </div>
+            {% endvideo %}
+
+
+        {% else %}
+            {% thumbnail item_obj.file "250x250" crop="center" as im %}
+                <div align="center">
+                    <a href="/media/{{ item_obj.file }}">
+                        <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}"><br>
+                    </a>
+                    <b>{{ item_obj.title }}</b>
+                </div>
+            {% endthumbnail %}
+        {% endif %}
+        <br>
+        <hr>
+    {% endfor %}
+
+{% endblock content %}

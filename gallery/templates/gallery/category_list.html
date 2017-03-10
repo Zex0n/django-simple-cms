@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block breadcrumb %}
+    <li><a href="/">Главная</a></li>
+    <li><a href="{% url 'gallery:list_all' %}"> Галлерея </a></li>
+{% endblock %}
+
+{% block title %}Галлерея{% endblock title %}
+{% block content %}
+    <h1>Галлерея</h1>
+
+    {% for category_obj in object_list %}
+        <a href="{% url 'gallery:detail' category_obj.slug %}">{{ category_obj.title }}</a><br>
+    {% endfor %}
+{% endblock content %}
