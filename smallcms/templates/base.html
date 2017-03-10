@@ -81,7 +81,7 @@
 				<div class="top-nav__main">
 					<div class="row">
 						<div class="col-md-3 col-xs-12 text-center">
-							<a href="home-main.html" >
+							<a href="/" >
 								<span>
 									<img src="/static/images/logocaiman2.jpg" alt="logo">
 								</span>
@@ -130,130 +130,35 @@
 
 
 
+
+{% if slug == 'main' %}
+
+  {% block mainpage_content %}{% endblock mainpage_content %}
+
+  {% else %}
+
+  {% block content %}
+
+{% endblock content %}
+
+
+
+{% endif %}
+
+
+
+
+
+
         <!--sliders-->
 
-		<section class="anons">
-			<div class="container">
-				<div class="row">
-					<div class="col-md-4 col-xs-12 wow zoomInLeft" data-wow-delay="0.7s" data-wow-duration="1.5s">
-						<div class="anons__block triangle triangle--block line-down">
-							<div class="anons__img">
-								<i class="fa fa-wrench  fa-4x" aria-hidden="true" ></i>
-							</div>
-							<h2><a href="shop.html" class="title no-decoration"><span class="title__bold">Технологии</span></a></h2>
-							<p class="text">Технологии для Вашего Улова</p>
-						</div>
-					</div>
-					<div class="col-md-4 col-xs-12 wow zoomInUp" data-wow-delay="0.7s" data-wow-duration="1.5s">
-						<div class="anons__block anons__block--center triangle triangle--block-center">
-							<div class="anons__photo"><img class="img-responsive" src="/static/images/product_img.jpg" alt="news"/></div>
-							<div class="anons__color-block">
-								<h2><a href="blog.html" class="title no-decoration"><span class="title__bold">Продукция</span></a></h2>
-								<p class="text">Более 300 наименований доступны для заказа</p>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-4 col-xs-12 wow zoomInRight" data-wow-delay="0.7s" data-wow-duration="1.5s">
-						<div class="anons__block triangle triangle--block line-down">
-							<div class="anons__img anons__img--bike">
-
-								<i class="fa fa-sitemap  fa-4x" aria-hidden="true" ></i>
 
 
-							</div>
-							<h2><a href="#" class="title no-decoration"><span class="title__bold">Где купить ?</a></h2>
-							<p class="text">70 Магазинов в России</p>
-						</div>
-					</div>
-				</div>
-			</div>
-		</section><!--anons-->
 
-		<section class="we-are ">
-			<div class="container">
-				<h2 class="title title--main wow fadeInUp" data-wow-delay="0.7s" data-wow-duration="1.5s">ТЕХНОЛОГИИ CAIMAN<span class="line line--title"><span class="line__first"></span><span class="line__second"></span></span></h2>
-				<p class="text text--anons wow fadeInUp" data-wow-delay="0.7s" data-wow-duration="1.5s">Мы используем самое современное оборудование и технологии, что позволяет получить продукцию высочайшего качества по приемлемым ценам.</p>
-				<div class="row">
-					<div class="col-sm-6 col-xs-12">
-						<div class="we-are__img wow fadeInLeft" data-wow-delay="0.7s" data-wow-duration="1.5s"><img class="img-responsive"  src="/static/images/factory1.jpg" alt="moto"/></div>
-						<div class="we-are__block triangle triangle--big wow fadeInLeft" data-wow-delay="0.7s" data-wow-duration="2.5s">
-							<h3 class="title title--block">Современное оборудование</h3>
-							<p class="text">В производстве участвует только самое современное оборудование лучших мировых производителей </p>
-							<a href="article.html" class="btn button button--red button--main">Подробнее</a>
-						</div>
-					</div>
-					<div class="col-sm-6 col-xs-12">
-						<div class="we-are__block triangle triangle--big wow fadeInRight" data-wow-delay="0.7s" data-wow-duration="1.5s">
-							<h3 class="title title--block">Полуавтоматизирование линии</h3>
-							<p class="text">Наши производтсвенные линии позволяют выпускать боллее 300 наименований продукции</p>
-							<a href="article.html" class="btn button button--red button--main">Подробнее</a>
-						</div>
-						<div class="we-are__img wow fadeInRight" data-wow-delay="0.7s" data-wow-duration="2.5s"><img class="img-responsive"  src="/static/images/factory2.jpg" alt="moto"/></div>
-					</div>
-				</div>
-			</div>
-		</section><!--we-are-->
-
-		<div class="numbers">
-			<div class="container">
-				<div class="clearfix percent-blocks" data-waypoint-scroll="true">
-					<div class="numbers__one">
-						<header class="numbers__head">
-							<span class="fa fa-building"></span>
-							<div class="line line--slim line--title"><div class="line__first"></div><div class="line__second"></div></div>
-						</header>
-						<div class="numbers__body chart" data-percent="5">
-							<div class="numbers__num percent">5</div>
-							<div class="number__desc">Городов</div>
-						</div>
-					</div>
-					<div class="numbers__one">
-						<header class="numbers__head">
-							<span class="fa fa-shopping-cart"></span>
-							<div class="line line--slim line--title"><div class="line__first"></div><div class="line__second"></div></div>
-						</header>
-						<div class="numbers__body chart" data-percent="40">
-							<div class="numbers__num percent">40</div>
-							<div class="number__desc">Магазинов</div>
-						</div>
-					</div>
-					<div class="numbers__one">
-						<header class="numbers__head">
-							<span class="fa fa-check-square-o"></span>
-							<div class="line line--slim line--title"><div class="line__first"></div><div class="line__second"></div></div>
-						</header>
-						<div class="numbers__body chart" data-percent="1258">
-							<div class="numbers__num percent">1258</div>
-							<div class="number__desc">Заказов в год</div>
-						</div>
-					</div>
-					<div class="numbers__one">
-						<header class="numbers__head">
-							<span class="fa fa-user"></span>
-							<div class="line line--slim line--title"><div class="line__first"></div><div class="line__second"></div></div>
-						</header>
-						<div class="numbers__body chart" data-percent="60">
-							<div class="numbers__num percent">60</div>
-							<div class="number__desc">Партнеров</div>
-						</div>
-					</div>
-					<div class="numbers__one">
-						<header class="numbers__head">
-							<span class="fa fa-users"></span>
-							<div class="line line--slim line--title"><div class="line__first"></div><div class="line__second"></div></div>
-						</header>
-						<div class="numbers__body chart" data-percent="10000">
-							<div class="numbers__num percent">10000</div>
-							<div class="number__desc">Покупателей</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div><!--numbers-->
 
 		<section class="offers dark-bg">
 			<div class="container">
-				<h2 class="title title--main"><span class="title__bold">Спецпредложения <span></span></span>CAIMAN<span class="line line--small"><span class="line__first"></span><span class="line__second"></span></span></h2>
+				<h2 class="title title--main"><span class="title__bold">Спецпредложения  <span></span></span>CAIMAN<span class="line line--small"><span class="line__first"></span><span class="line__second"></span></span></h2>
 				<div id="carousel-small" class="owl-carousel enable-owl-carousel" data-auto-play="5000" data-stop-on-hover="true" data-items="2" data-pagination="true" data-navigation="false" data-items-desktop="2" data-items-desktop-small="2" data-items-tablet="1" data-items-tablet-small="1" >
 					<div class="item wow slideInDown" data-wow-delay="0.7s" data-wow-duration="1.5s">
 						<div class="offer">

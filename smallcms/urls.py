@@ -30,6 +30,7 @@ urlpatterns = [
     # url(r'^admin/filebrowser/', include(site.urls)),
     url(r'^grappelli/', include('grappelli.urls')),  # grappelli URLS
     url(r'^ckeditor/', include('ckeditor_uploader.urls')),
+    url(r'^parnters/', include('partners.urls')),
     url(r'^admin/', admin.site.urls),
     url(r'', include('page.urls')),
     url(r'', include('news.urls', namespace='news')),

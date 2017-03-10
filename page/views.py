@@ -17,6 +17,7 @@ class DetailView(generic.DetailView):
         context['slug'] = self.kwargs['slug']
         if context['slug'] == 'main':
             context['news_block'] = News.get_news_block
+
         if self.object.carousel:
             context['carousel_block'] = self.object.carousel.carouselslide_set.all()
 

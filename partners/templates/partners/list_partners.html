@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+
+
+
+{% block title %}Где купить {% endblock title %}
+
+
+
+{% block content %}
+
+<section class="about-us">
+			<div class="container">
+				<div class="row">
+				<div class="breadcumb">
+					<a href="/" class="breadcumb__page no-decoration">Главная</a>
+					<span class="breadcumb__del no-decoration">»</span>
+					<a href="#" class="breadcumb__page no-decoration">Где купить</a>
+
+					<!--
+					<span class="breadcumb__del no-decoration">»</span>
+					<a href="article.html" class="breadcumb__page no-decoration">POST DETAILS</a>
+					-->
+
+				</div>
+
+
+
+
+
+					<div class="col-sm-10 col-sm-offset-1 col-xs-12">
+					 <h2> Где купить </h2>
+
+
+					 {% for obj in object_list %}
+                     <h3>{{ obj.title }}</h3><br>
+
+
+
+
+
+					 {% endfor %}
+
+
+
+
+
+					</div>
+				</div>
+			</div>
+		</section>
+
+		{% endblock content %}
