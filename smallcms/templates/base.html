@@ -14,6 +14,8 @@
 
 		<link href="/static/css/master.css" rel="stylesheet">
 
+        <link href="/static/css/ekko-lightbox.min.css" rel="stylesheet">
+
 
 
 		<link rel="alternate stylesheet" type="text/css" href="/static/assets/switcher/css/color3.css" title="color3" media="all"  data-default-color="true"/>
@@ -135,9 +137,34 @@
 
   {% block mainpage_content %}{% endblock mainpage_content %}
 
-  {% else %}
+ {% else %}
+
+
+ <section style="padding: 40px 40px 40px 40px;">
+    <div class="container">
+				<div class="row">
+				<div class="breadcumb">
+
+
+                    {% block breadcrumb %}
+                    {% endblock breadcrumb %}
+
+
+
+					<!--
+					<span class="breadcumb__del no-decoration">»</span>
+					<a href="article.html" class="breadcumb__page no-decoration">POST DETAILS</a>
+					-->
+
+				</div>
+    </div>
+    </div>
+    </section>
+
 
   {% block content %}
+
+
 
 {% endblock content %}
 
@@ -375,5 +402,16 @@
 		<script src="/static/js/wow.min.js"></script>
 		<script src="/static/js/jquery.placeholder.min.js"></script>
 		<script src="/static/js/theme.js"></script>
+        <script src="/static/js/ekko-lightbox.min.js"></script>
+
+    <script>
+        $(document).on('click', '[data-toggle="lightbox"]', function(event) {
+    event.preventDefault();
+    $(this).ekkoLightbox();
+});
+    </script>
+
+
+
 	</body>
 </html>

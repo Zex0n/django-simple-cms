@@ -4,8 +4,19 @@
 {% block keywords %}{{ object.meta_keywords }}{% endblock keywords %}
 {% block description %}{{ object.meta_description }}{% endblock description %}
 
-{% block content %}
 
+
+
+{% block breadcrumb %}
+
+    <a href="/" class="breadcumb__page no-decoration">Главная</a>
+					<span class="breadcumb__del no-decoration">»</span>
+					<a href="blog.html" class="breadcumb__page no-decoration">{{ object.title}}</a>
+
+{% endblock breadcrumb %}
+
+
+{% block content %}
 
 
 
@@ -15,22 +26,6 @@
     <section class="about-us">
 			<div class="container">
 				<div class="row">
-				<div class="breadcumb">
-					<a href="/" class="breadcumb__page no-decoration">Главная</a>
-					<span class="breadcumb__del no-decoration">»</span>
-					<a href="blog.html" class="breadcumb__page no-decoration">{{ object.title}}</a>
-
-					<!--
-					<span class="breadcumb__del no-decoration">»</span>
-					<a href="article.html" class="breadcumb__page no-decoration">POST DETAILS</a>
-					-->
-
-				</div>
-
-
-
-
-
 					<div class="col-sm-10 col-sm-offset-1 col-xs-12">
 						{{ object.content|safe }}
 					</div>

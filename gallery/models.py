@@ -13,6 +13,7 @@ class Category(models.Model):
     meta_description = models.CharField(_("Description"), max_length=1000, blank=True)
     meta_keywords = models.CharField(_("Keywords"), max_length=1000, blank=True)
     slug = models.SlugField(_("Имя для url"), unique=True, blank=True, help_text=_("Только английские буквы, цифры и знаки минус и подчеркивание."))
+    file = ImageField(_("Обложка для галереи 250X250"), upload_to='gallery', blank=True)
     content = RichTextField("Описание", blank=True)
 
     def __str__(self):
