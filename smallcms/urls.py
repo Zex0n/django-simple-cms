@@ -36,6 +36,7 @@ urlpatterns = [
     url(r'', include('page.urls')),
     url(r'', include('news.urls', namespace='news')),
     url(r'', include('gallery.urls', namespace='gallery')),
+    url(r'', include('shop.urls', namespace='shop')),
 ]
 
 if settings.DEBUG:

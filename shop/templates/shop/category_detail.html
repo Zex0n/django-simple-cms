@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load thumbnail %}
+
+{% block breadcrumb %}
+    <li><a href="/">Главная</a></li>
+    <li> <a href="{% url 'shop:list_all'  %}"> Магазин </a></li>
+    <li> {{ category.title }} </li>
+{% endblock %}
+
+
+{% block title %}Магазин{% endblock title %}
+
+{% block content %}
+    <h1>{{ category.title}}</h1>
+
+    {{ category.content|safe }}
+
+    {% for category_obj in object_list %}
+        <a href="{% url 'shop:detail' category_obj.slug %}">{{ category_obj.title }}</a><br>
+    {% endfor %}
+
+    {% for item_obj in item_list %}
+        <a href="{% url 'shop:product' category.slug item_obj.slug %}">{{ item_obj.title }}</a><br>
+    {% endfor %}
+
+
+{% endblock content %}
