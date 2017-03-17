@@ -3,42 +3,113 @@
 {% load embed_video_tags %}
 
 {% block breadcrumb %}
-    <li><a href="/">Главная</a></li>
-    <li> <a href="{% url 'gallery:list_all'  %}"> Галлерея </a></li>
-    <li> {{ category.title }} </li>
+    <a href="/" class="breadcumb__page no-decoration">Главная</a>
+					<span class="breadcumb__del no-decoration">»</span>
+                    <a href="{% url 'gallery:list_all'  %}"> ГАЛЕРЕЯ </a>
+                    <span class="breadcumb__del no-decoration">»</span>
+					<a href="#" class="breadcumb__page no-decoration">{{ category.title }}</a>
+
 {% endblock %}
 
 
 {% block title %}Галлерея{% endblock title %}
 
 {% block content %}
-    <h1>{{ category.title}}</h1>
-    {{ category.content|safe }}
 
-    {% for item_obj in category.item_set.all %}
+
+
+
+    <div class="container">
+				<header class="tab-header clearfix wow fadeInUp" data-wow-delay="0.7s" data-wow-duration="1.5s" style="visibility: visible; animation-duration: 1.5s; animation-delay: 0.7s; animation-name: fadeInUp;">
+					<h2 class="title title--main pull-left">{{ category.title}}<span class="line line--small"><span class="line__first"></span><span class="line__second"></span></span></h2>
+					<div class="tab-toggles pull-right js-isotope-btns">
+
+					</div>
+				</header>
+
+        <div class="row isotope" style="position: relative; height: 315px;">
+
+
+
+             {% for item_obj in category.item_set.all %}
         {% if item_obj.youtube_url %}
             {% video item_obj.youtube_url as my_video %}
                 {# Documentation is here: http://django-embed-video.rtfd.org/#}
                 {# Thumbnail: {{ my_video.thumbnail }}#}
-                <div align="center">
-                    {% video my_video "250x250" %}<br>
-                    <b>{{ item_obj.title }}</b>
-                </div>
+
+
+
+                           <div class="col-md-3 col-xs-6 isotope-item wow fadeInLeft" data-wow-delay="0.7s" data-wow-duration="1.5s" style="position: absolute; left: 0px; top: 0px; visibility: visible; animation-duration: 1.5s; animation-delay: 0.7s; animation-name: fadeInLeft;">
+						<a href="{{ item_obj.youtube_url }}" data-toggle="lightbox" class="listing-anons equal-height-item listing-anons--home triangle triangle--big line-down no-decoration" style="height: 315px;">
+							<div class="listing-anons__img">
+
+                                <!--<img src="{{ my_video.thumbnail }}" class="img-responsive" width="250" height="250"  alt="{{ item_obj.title }}">-->
+
+                                <img src="  {% thumbnail my_video.thumbnail "250x250" crop="center" %}" class="img-responsive" width="250" height="250"  alt="{{ item_obj.title }}">
+
+							</div>
+							<div class="listing-anons__title">
+								<h4 class="name">{{ item_obj.title }}</h4>
+							</div>
+							<div class="listing-anons__hidden">
+								<h3>{{ item_obj.title }}</h3>
+							</div>
+						</a>
+					</div>
+
+
+
             {% endvideo %}
+
+
+
+
+
+
+
+
 
 
         {% else %}
             {% thumbnail item_obj.file "250x250" crop="center" as im %}
-                <div align="center">
-                    <a href="/media/{{ item_obj.file }}">
-                        <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}"><br>
-                    </a>
-                    <b>{{ item_obj.title }}</b>
-                </div>
+
+            {% thumbnail item_obj.file "800x600" crop="center" as max %}
+
+
+
+                <div class="col-md-3 col-xs-6 isotope-item wow fadeInLeft" data-wow-delay="0.7s" data-wow-duration="1.5s" style="position: absolute; left: 0px; top: 0px; visibility: visible; animation-duration: 1.5s; animation-delay: 0.7s; animation-name: fadeInLeft;">
+						<a href="{{ max.url }}" data-toggle="lightbox" class="listing-anons equal-height-item listing-anons--home triangle triangle--big line-down no-decoration" style="height: 315px;">
+							<div class="listing-anons__img">
+
+
+                                <img src="{{ im.url }}" class="img-responsive"  alt="{{ item_obj.title }}">
+							</div>
+							<div class="listing-anons__title">
+								<h4 class="name">{{ item_obj.title }}</h4>
+							</div>
+							<div class="listing-anons__hidden">
+								<h3>{{ item_obj.title }}</h3>
+							</div>
+						</a>
+					</div>
+
+
+
+
+
+
+            {% endthumbnail %}
             {% endthumbnail %}
         {% endif %}
-        <br>
-        <hr>
+
     {% endfor %}
 
+
+				</div>
+			</div>
+
+    <div><br><br></div>
+
 {% endblock content %}
+
+
