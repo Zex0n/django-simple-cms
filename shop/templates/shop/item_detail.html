@@ -43,8 +43,10 @@
                 <div>Артикул: {{ variation_obj.vendor_code }}</div>
                 <div>На складе: {{ variation_obj.stock }}</div>
                 <div>Цена 1: {{ variation_obj.price_1 }}</div>
+{% comment %}
                 <div>Цена 2: {{ variation_obj.price_2 }}</div>
                 <div>Цена 3: {{ variation_obj.price_3 }}</div>
+{% endcomment %}
             {% endfor %}
         </div>
     </div>

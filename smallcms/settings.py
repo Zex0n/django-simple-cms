@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'adminsortable2',
     'taggit',
     'mptt',
+    'cart',
     'django_mptt_admin',
     'geoposition',
     'embed_video',
