@@ -60,6 +60,7 @@ class Item_variation(models.Model):
     class Meta:
         verbose_name = _("Вариация")
         verbose_name_plural = _("Вариации")
+        ordering = ['num', ]
 
     def __str__(self):
         return self.title
@@ -74,7 +75,7 @@ class Item_image(models.Model):
     class Meta:
         verbose_name = _("Изображение")
         verbose_name_plural = _("Изображения")
-
+        ordering = ['num', ]
 
     def __str__(self):
         return self.title

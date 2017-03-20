@@ -4,7 +4,7 @@
 {% block breadcrumb %}
     <li><a href="/">Главная</a></li>
     <li> <a href="{% url 'shop:list_all'  %}"> Магазин </a></li>
-    <li> {{ current_category.title }} </li>
+    <li> <a href="{% url 'shop:detail' current_category.slug %}"> {{ current_category.title }} </a></li>
     <li> {{ current_product.title }} </li>
 {% endblock %}
 
@@ -12,13 +12,46 @@
 {% block title %}Магазин{% endblock title %}
 
 {% block content %}
+    <div class="container">
     <h1>{{ current_product.title}}</h1>
+    <div class="row">
+        <div class="col-md-5 ">
+            <div class="row">
+                <div class="col-md-10" id="item_big_img">
+                    {#Большая картинка#}
+                </div>
+                <div class="col-md-2 ">
+                    {#вывод миниатюр#}
+                    {% for variation_obj in item_variation %}
+                        {% for variation_image_obj in variation_obj.item_image_set.all %}
+                            <div class="thumbnail_container">
+                                {% thumbnail variation_image_obj.file "50x50" crop="center" as im %}
+                                {% thumbnail variation_image_obj.file "400x400" crop="center" as big_im %}
+                                    <img src="{{ im.url }}" data-url="{{ big_im.url }}" class="img-responsive img-thumbnail" alt="{{ variation_image_obj.title }}" title="{{ variation_image_obj.title }}" id="img-{{ variation_obj.pk }}-{{ forloop.counter }}">
+                                {% endthumbnail %}
+                                {% endthumbnail %}
+                            </div>
+                        {% endfor %}
+                    {% endfor %}
+                </div>
+            </div>
 
+        </div>
+        <div class="col-md-7">
+            {% for variation_obj in item_variation %}
+                <h1>{{ variation_obj.title }}</h1><br>
+                <div>Артикул: {{ variation_obj.vendor_code }}</div>
+                <div>На складе: {{ variation_obj.stock }}</div>
+                <div>Цена 1: {{ variation_obj.price_1 }}</div>
+                <div>Цена 2: {{ variation_obj.price_2 }}</div>
+                <div>Цена 3: {{ variation_obj.price_3 }}</div>
+            {% endfor %}
+        </div>
+    </div>
+    <hr>
     {{ current_product.content|safe }}
 
-{#    {% for item_obj in item_list %}#}
-{#        <a href="{% url 'shop:product' item_obj.slug category.slug %}">{{ item_obj.title }}</a><br>#}
-{#    {% endfor %}#}
 
+    </div>
 
 {% endblock content %}

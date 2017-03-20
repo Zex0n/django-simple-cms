@@ -38,8 +38,11 @@ class ProductView(generic.DetailView):
         context = super(ProductView, self).get_context_data(**kwargs)
         context['slug_category'] = self.kwargs['slug_category']
         context['slug'] = self.kwargs['slug']
-        context['current_category'] = Category.objects.get(slug=context['slug_category'])
-        context['current_product'] = Item.objects.get(slug=context['slug'])
+        context['current_category'] = get_object_or_404(Category, slug=context['slug_category'])
+        context['current_product'] = get_object_or_404(Item, slug=context['slug'], status=True)
+        context['item_variation'] = context['current_product'].item_variation_set.all()
+
+
 
         # context['object_list'] = current_category.get_children()
         # context['item_list'] = current_category.item_set.all()
