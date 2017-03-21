@@ -86,6 +86,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'page.context_processors.context',
                 'easycart.context_processors.cart',
+                'page.context_processors.offer',
             ],
             'libraries': {  # Adding this section should work around the issue.
                 #'cms_tags': 'smallcms.templatetags.cms_tags',  # to add new tags module,
