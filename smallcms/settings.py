@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'adminsortable2',
     'taggit',
     'mptt',
+    'easycart',
     'django_mptt_admin',
     'geoposition',
     'embed_video',
@@ -84,6 +85,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'page.context_processors.context',
+                'easycart.context_processors.cart',
                 'page.context_processors.offer',
             ],
             'libraries': {  # Adding this section should work around the issue.
@@ -208,3 +210,5 @@ NEWS_PAGINATE_BY = 10
 
 THUMBNAIL_DEBUG = True
 THUMBNAIL_FORCE_OVERWRITE = True
+
+EASYCART_CART_CLASS = 'cart.views.Cart'

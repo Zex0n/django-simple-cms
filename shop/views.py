@@ -1,11 +1,22 @@
 from django.conf import settings
 from django.shortcuts import render
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, render, render_to_response
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.views import generic
 from django.forms import ModelForm
-from .models import Category, Item
+from .models import Category, Item, Item_variation
+
+
+class CartView(generic.ListView):
+    template_name = 'shop/cart.html'
+
+    def queryset(self):
+        return super(CartView, self).queryset()
+
+    def get_context_data(self, **kwargs):
+        context = super(CartView, self).get_context_data(**kwargs)
+        return context
 
 
 class DetailView(generic.DetailView):
@@ -38,8 +49,11 @@ class ProductView(generic.DetailView):
         context = super(ProductView, self).get_context_data(**kwargs)
         context['slug_category'] = self.kwargs['slug_category']
         context['slug'] = self.kwargs['slug']
-        context['current_category'] = Category.objects.get(slug=context['slug_category'])
-        context['current_product'] = Item.objects.get(slug=context['slug'])
+        context['current_category'] = get_object_or_404(Category, slug=context['slug_category'])
+        context['current_product'] = get_object_or_404(Item, slug=context['slug'], status=True)
+        context['item_variation'] = context['current_product'].item_variation_set.all()
+
+
 
         # context['object_list'] = current_category.get_children()
         # context['item_list'] = current_category.item_set.all()

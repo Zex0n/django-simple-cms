@@ -426,9 +426,16 @@
 
     <script>
         $(document).on('click', '[data-toggle="lightbox"]', function(event) {
-    event.preventDefault();
-    $(this).ekkoLightbox();
-});
+            event.preventDefault();
+            $(this).ekkoLightbox();
+        });
+        $(document).ready(function() {
+            $('.thumbnail_container img').click(function () {
+                $('#item_big_img').html('');
+                $('#item_big_img').append('<img src="'+$(this).attr('data-url')+'">');
+            })
+            $('.thumbnail_container img')[0].click();
+        });
     </script>
 
 

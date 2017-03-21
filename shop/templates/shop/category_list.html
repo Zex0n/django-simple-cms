@@ -7,9 +7,11 @@
 
 {% block title %}Магазин{% endblock title %}
 {% block content %}
+<div class="container">
     <h1>Магазин</h1>
 
     {% for category_obj in object_list %}
         <a href="{% url 'shop:detail' category_obj.slug %}">{{ category_obj.title }}</a><br>
     {% endfor %}
+</div>
 {% endblock content %}
