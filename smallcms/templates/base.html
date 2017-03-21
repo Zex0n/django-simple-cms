@@ -1,4 +1,7 @@
 {% load staticfiles %}
+{% load thumbnail %}
+
+
 
 <!DOCTYPE html>
 <html>
@@ -183,119 +186,65 @@
 
 
 
+
+
+
+
+
+
 		<section class="offers dark-bg">
 			<div class="container">
-				<h2 class="title title--main"><span class="title__bold">{{ offer }}   Спецпредложения  <span></span></span>CAIMAN<span class="line line--small"><span class="line__first"></span><span class="line__second"></span></span></h2>
+				<h2 class="title title--main"><span class="title__bold">   Спецпредложения  <span></span></span>CAIMAN<span class="line line--small"><span class="line__first"></span><span class="line__second"></span></span></h2>
 				<div id="carousel-small" class="owl-carousel enable-owl-carousel" data-auto-play="5000" data-stop-on-hover="true" data-items="2" data-pagination="true" data-navigation="false" data-items-desktop="2" data-items-desktop-small="2" data-items-tablet="1" data-items-tablet-small="1" >
-					<div class="item wow slideInDown" data-wow-delay="0.7s" data-wow-duration="1.5s">
+
+
+
+                     {% for of in offer  %}
+
+                         {% thumbnail of.item_variation_set.first.item_image_set.first.file "270x270" crop="center" as im %}
+
+                         <div class="item wow slideInDown" data-wow-delay="0.7s" data-wow-duration="1.5s">
 						<div class="offer">
 							<div class="row row--no-padding">
 								<div class="col-xs-6">
 									<div class="offer__img">
-										<img class="img-responsive" src="/static/images/spec1.jpg" alt="bike"/>
+										<img class="img-responsive" src="{{ im.url }}" alt="{{ of.title}}"/>
 									</div>
 								</div>
 								<div class="col-xs-6">
 									<div class="offer__info">
-										<h4 class="title"><span class="title__bold"><span>Спининг</span></span> CAIMAN</h4>
-										<div class="offer__price">Оптовая цена <span> 998.00 р. </span></div>
-										<ul class="list">
-											<li><span class="list__circle"><span class="fa fa-check"></span></span>Высокопрочный карбон</li>
-											<li><span class="list__circle"><span class="fa fa-check"></span></span>Универсальное крепление </li>
-										</ul>
-										<a href="item.html" class="btn button button--main button--red pull-right">СМОТРЕТЬ</a>
+										<h4 class="title"><span class="title__bold"><span>{{ of.offer_name1 }}</span></span> {{ of.offer_name2 }}</h4>
+										<div class="offer__price">{{ of.offer_text_price }}<span>{{ of.offer_text_cost }}</span></div>
+
+
+                                        <ul class="list">
+
+                                            {% if of.offer_text1 %}
+                                            <li><span class="list__circle"><span class="fa fa-check"></span></span>{{ of.offer_text1}}</li>
+                                                {% else %}
+                                                <br>
+										    {% endif %}
+                                            {% if of.offer_text2 %}
+                                            <li><span class="list__circle"><span class="fa fa-check"></span></span>{{ of.offer_text2}}</li>
+                                                {% else %}
+                                                <br>
+										    {% endif %}
+                                        </ul>
+
+
+
+
+										<a href="#" class="btn button button--main button--red pull-right">СМОТРЕТЬ</a>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
+                       {% endthumbnail %}
+
+                    {% endfor %}
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                    <div class="item wow slideInDown" data-wow-delay="0.7s" data-wow-duration="1.5s">
-						<div class="offer">
-							<div class="row row--no-padding">
-								<div class="col-xs-6">
-									<div class="offer__img">
-										<img class="img-responsive" src="/static/images/spec2.jpg" alt="bike"/>
-									</div>
-								</div>
-								<div class="col-xs-6">
-									<div class="offer__info">
-										<h4 class="title"><span class="title__bold"><span>CAIMAN</span></span> CHASER</h4>
-										<div class="offer__price">Оптовая цена <span> 155.00 р. </span></div>
-										<ul class="list">
-											<li><span class="list__circle"><span class="fa fa-check"></span></span>Ультрапрочный</li>
-											<li><span class="list__circle"><span class="fa fa-check"></span></span>Толщина от 0.2 до 0.9</li>
-										</ul>
-										<a href="item.html" class="btn button button--main button--red pull-right">СМОТРЕТЬ</a>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-
-
-
-
-
-					<div class="item wow slideInDown" data-wow-delay="0.7s" data-wow-duration="1.5s">
-						<div class="offer">
-							<div class="row row--no-padding">
-								<div class="col-xs-6">
-									<div class="offer__img">
-										<img class="img-responsive" src="/static/images/spec3.jpg" alt="bike"/>
-									</div>
-								</div>
-								<div class="col-xs-6">
-									<div class="offer__info">
-										<h4 class="title"><span class="title__bold"><span>Поплавки</span></span> CAIMAN</h4>
-										<div class="offer__price">от <span>50.00 р.</span></div>
-										<ul class="list">
-											<li><span class="list__circle"><span class="fa fa-check"></span></span>Огромный ассортимент</li>
-											<li><span class="list__circle"><span class="fa fa-check"></span></span>Различная нагрузка </li>
-										</ul>
-										<a href="item.html" class="btn button button--main button--red pull-right">СМОТРЕТЬ</a>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="item wow slideInDown" data-wow-delay="0.7s" data-wow-duration="1.5s">
-						<div class="offer">
-							<div class="row row--no-padding">
-								<div class="col-xs-6">
-									<div class="offer__img">
-										<img class="img-responsive" src="/static/images/spec4.jpg" alt="bike"/>
-									</div>
-								</div>
-								<div class="col-xs-6">
-									<div class="offer__info">
-										<h4 class="title"><span class="title__bold"><span>CAYMAN</span></span> CALIPSO </h4>
-										<div class="offer__price">Оптоовая цена <span>1330.50 р.</span></div>
-										<ul class="list">
-											<li><span class="list__circle"><span class="fa fa-check"></span></span>Все опции карповой катушки</li>
-											<li><span class="list__circle"><span class="fa fa-check"></span></span>Регулируемый редуктор</li>
-										</ul>
-										<a href="item.html" class="btn button button--main button--red pull-right">СМОТРЕТЬ</a>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
 				</div>
 			</div>
 		</section><!--offers-->

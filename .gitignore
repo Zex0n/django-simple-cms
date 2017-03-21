@@ -83,7 +83,4 @@ target/
 #Ipython Notebook
 .ipynb_checkpoints
 /media/news
-/media/carousel
-/media/shop
-/media/gallery
-/media/cache
+

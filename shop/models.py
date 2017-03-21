@@ -9,6 +9,7 @@ from django.core.cache import cache
 from multiselectfield import MultiSelectField
 from django.utils.functional import lazy
 from ckeditor_uploader.fields import RichTextUploadingField
+from sorl.thumbnail import ImageField
 
 class BaseShop(models.Model):
     created_date = models.DateTimeField(_("Дата создания"), auto_now_add=True, editable=False)
@@ -18,7 +19,8 @@ class BaseShop(models.Model):
     meta_description = models.CharField(_("Description"), max_length=1000, blank=True)
     meta_keywords = models.CharField(_("Keywords"), max_length=1000, blank=True)
     slug = models.SlugField(_("Имя для url"), unique=True, blank=True, help_text=_("Только английские буквы, цифры и знаки минус и подчеркивание."))
-    tags = TaggableManager(_("Тэги"), blank=True)
+    tags = TaggableManager(_("Тэги"), blank=True),
+    file = ImageField(_("Обложка для категории 250X250"), upload_to='category', blank=True)
 
     class Meta:
         abstract = True
@@ -45,7 +47,8 @@ class Item(BaseShop):
     offer_name2 = models.CharField(_("Наименование модель"), max_length=200, default='')
     offer_text_price = models.CharField(_("Цена текст"), max_length=200, default='')
     offer_text_cost = models.CharField(_("Цена"), max_length=200, default='')
-    offer_text  = models.TextField("Описание предложения", default='')
+    offer_text1 = models.CharField(_("Строка описания 1:"), max_length=200, default='')
+    offer_text2 = models.CharField(_("Строка описания 2:"), max_length=200, default='')
 
 
     class Meta:

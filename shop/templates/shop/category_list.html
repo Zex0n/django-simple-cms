@@ -1,14 +1,18 @@
 {% extends "base.html" %}
 
 {% block breadcrumb %}
-    <li><a href="/">Главная</a></li>
-    <li><a href="{% url 'shop:list_all' %}"> Магазин </a></li>
+
+        <a href="/" class="breadcumb__page no-decoration">Главная</a>
+					<span class="breadcumb__del no-decoration">»</span>
+                    <a href="{% url 'shop:list_all' %}"> Магазин </a>
+
 {% endblock %}
 
 {% block title %}Магазин{% endblock title %}
+
 {% block content %}
 <div class="container">
-    <h1>Магазин</h1>
+
 
     {% for category_obj in object_list %}
         <a href="{% url 'shop:detail' category_obj.slug %}">{{ category_obj.title }}</a><br>
