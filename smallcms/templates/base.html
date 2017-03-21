@@ -461,6 +461,11 @@
                 $('#item_big_img').append('<img src="'+$(this).attr('data-url')+'">');
             });
             if ($('.thumbnail_container img').length) $('.thumbnail_container img')[0].click();
+            
+            $('#item-variation-select').change(function () {
+                $('.item-desc').hide();
+                $('#item-desc-'+$(this).val()).show();
+            });
         });
     </script>
 

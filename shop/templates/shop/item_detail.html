@@ -61,17 +61,30 @@
 
         </div>
         <div class="col-md-7">
+
+        <div class="input-group">
+            Модификации товара:
+            <select class="form-control" id="item-variation-select">
+                <option selected="selected">Выберите модификацию</option>
+                {% for variation_obj in item_variation %}
+                    <option value="{{ variation_obj.pk }}">{{ variation_obj.title }}</option>
+                {% endfor %}
+            </select>
+        </div>
             {% for variation_obj in item_variation %}
-                <h1>{{ variation_obj.title }}</h1><br>
-                <div>Артикул: {{ variation_obj.vendor_code }}</div>
-                <div>На складе: {{ variation_obj.stock }}</div>
-                <div>Цена 1: {{ variation_obj.price_1 }}</div>
-                <input type="number" class="cart-quantity" value="1">
-                <button onclick="cart.add('{{ variation_obj.pk }}', $(this).prev('.cart-quantity').val())">Купить</button>
+                <div class="collapse item-desc" id="item-desc-{{ variation_obj.pk }}">
+                    <div class="item-desc-text">
+                        <div>Артикул: {{ variation_obj.vendor_code }}</div>
+                        <div>На складе: {{ variation_obj.stock }}</div>
+                        <div>Цена 1: {{ variation_obj.price_1 }}</div>
+                    </div>
+                    <input type="number" class="cart-quantity" value="1">
+                    <button onclick="cart.add('{{ variation_obj.pk }}', $(this).prev('.cart-quantity').val())">Купить</button>
 {% comment %}
                 <div>Цена 2: {{ variation_obj.price_2 }}</div>
                 <div>Цена 3: {{ variation_obj.price_3 }}</div>
 {% endcomment %}
+                </div>
             {% endfor %}
         </div>
     </div>

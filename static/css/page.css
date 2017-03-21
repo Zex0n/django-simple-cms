@@ -344,3 +344,6 @@
 .social-blocks--contacts .social-blocks__logo span.fa{
     font-size:40px;
 }
+.item-desc-text {
+    padding: 10px 0;
+}
