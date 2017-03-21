@@ -1,11 +1,22 @@
 from django.conf import settings
 from django.shortcuts import render
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, render, render_to_response
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.views import generic
 from django.forms import ModelForm
-from .models import Category, Item
+from .models import Category, Item, Item_variation
+
+
+class CartView(generic.ListView):
+    template_name = 'shop/cart.html'
+
+    def queryset(self):
+        return super(CartView, self).queryset()
+
+    def get_context_data(self, **kwargs):
+        context = super(CartView, self).get_context_data(**kwargs)
+        return context
 
 
 class DetailView(generic.DetailView):

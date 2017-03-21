@@ -12,6 +12,48 @@
 {% block title %}Магазин{% endblock title %}
 
 {% block content %}
+    <script>
+    var URLS = {
+      addItem:        '{% url "cart-add" %}',
+      removeItem:     '{% url "cart-remove" %}',
+      changeQuantity: '{% url "cart-change-quantity" %}',
+      emptyCart:      '{% url "cart-empty" %}'
+    };
+    var cart = {
+        add: function (pk, quantity) {
+          quantity = quantity || 1;
+          return $.post(URLS.addItem, {pk: pk, quantity: quantity, csrfmiddlewaretoken: '{{ csrf_token }}'}, 'json');
+        },
+
+        remove: function (itemPK) {
+          return $.post(URLS.removeItem, {pk: itemPK, csrfmiddlewaretoken: '{{ csrf_token }}'}, 'json');
+        },
+
+        changeQuantity: function (pk, quantity) {
+          return $.post(URLS.changeQuantity, {pk: pk, quantity: quantity, csrfmiddlewaretoken: '{{ csrf_token }}'}, 'json');
+        },
+
+        empty: function () {
+          $.post(URLS.emptyCart, {csrfmiddlewaretoken: '{{ csrf_token }}'}, 'json');
+        }
+    }
+
+    </script>
+
+{{ cart.item_count }}
+{{ cart.total_price }}
+
+{% for item in cart.list_items %}
+<div>
+    {# Access the item's model instance using its "obj" attribute #}
+    {{ item.obj.name }}
+    <img src="{{ item.obj.picture.url }}">
+    {{ item.price }}
+    {{ item.quantity }}
+    {{ item.total }}
+</div>
+{% endfor %}
+
     <div class="container">
     <h1>{{ current_product.title}}</h1>
     <div class="row">
@@ -43,6 +85,7 @@
                 <div>Артикул: {{ variation_obj.vendor_code }}</div>
                 <div>На складе: {{ variation_obj.stock }}</div>
                 <div>Цена 1: {{ variation_obj.price_1 }}</div>
+                <button onclick="cart.add('{{ variation_obj.pk }}', '1')">Купить</button>
 {% comment %}
                 <div>Цена 2: {{ variation_obj.price_2 }}</div>
                 <div>Цена 3: {{ variation_obj.price_3 }}</div>
