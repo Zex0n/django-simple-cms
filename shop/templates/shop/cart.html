@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load thumbnail %}
 
 {% block breadcrumb %}
     <li><a href="/">Главная</a></li>
@@ -9,33 +10,6 @@
 {% block title %}Корзина{% endblock title %}
 
 {% block content %}
-    <script>
-        var URLS = {
-            addItem:        '{% url "cart-add" %}',
-            removeItem:     '{% url "cart-remove" %}',
-            changeQuantity: '{% url "cart-change-quantity" %}',
-            emptyCart:      '{% url "cart-empty" %}'
-        };
-        var cart = {
-            add: function (pk, quantity) {
-                quantity = quantity || 1;
-                return $.post(URLS.addItem, {pk: pk, quantity: quantity, csrfmiddlewaretoken: '{{ csrf_token }}'}, 'json');
-            },
-
-            remove: function (itemPK) {
-                return $.post(URLS.removeItem, {pk: itemPK, csrfmiddlewaretoken: '{{ csrf_token }}'}, 'json');
-            },
-
-            changeQuantity: function (pk, quantity) {
-                return $.post(URLS.changeQuantity, {pk: pk, quantity: quantity, csrfmiddlewaretoken: '{{ csrf_token }}'}, 'json');
-            },
-
-            empty: function () {
-                $.post(URLS.emptyCart, {csrfmiddlewaretoken: '{{ csrf_token }}'}, 'json');
-            }
-        }
-
-    </script>
 <div class="container">
   <h1>Ваша корзина товаров</h1>
   <table class="cart" width="100%" cellpadding="15" cellspacing="15">
@@ -44,9 +18,9 @@
         <th>Изображение</th>
         <th>Продукт</th>
         <th>Количество</th>
-        <th>Удалить</th>
-        <th>Полная цена</th>
         <th>Цена</th>
+        <th>Полная цена</th>
+        <th>Удалить</th>
       </tr>
     </thead>
     <tbody>
@@ -54,29 +28,42 @@
         {% with product=item.obj %}
           <tr>
             <td>
-              <a href="{{ product.get_absolute_url }}">
-                <img src="{{ product.picture.url }}" alt="" />
-              </a>
+
+                <div class="thumbnail_container">
+                    {% thumbnail product.item_image_set.first.file "50x50" crop="center" as im %}
+                        <img src="{{ im.url }}" class="img-responsive img-thumbnail">
+                    {% endthumbnail %}
+                </div>
+
             </td>
-            <td>{{ product.name }}</td>
-            <td>{{ item.quantity }}</td>
+              <td><a href="{% url "shop:product" product.item.category.first.slug product.item.slug %}">{{ product.title }}</a></td>
             <td>
-                <button onclick="cart.remove('{{ item.pk }}')">Удалить</button>
+                <div class="input-group" style="width: 120px;">
+                  <input type="number" class="form-control cart-quantity" value="{{ item.quantity }}">
+                  <span class="input-group-btn">
+                    <button class="btn btn-default" type="button" onclick="cart.changeQuantity('{{ product.pk }}', $(this).parent().prev('.cart-quantity').val())" title="Изменить количество">
+                        <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
+                    </button>
+                  </span>
+                </div>
             </td>
             <td class="num">{{ item.price }} руб.</td>
             <td class="num">{{ item.total }} руб.</td>
+            <td>
+                <button onclick="cart.remove('{{ product.pk }}')">Удалить</button>
+            </td>
           </tr>
         {% endwith %}
       {% endfor %}
         <tr class="total">
-          <td>Итого</td>
-          <td colspan="4"></td>
+          <td colspan="4" align="right">Итого</td>
+          <td>&nbsp;</td>
           <td class="num">{{ cart.total_price }} руб.</td>
         </tr>
     </tbody>
   </table>
   <p class="text-right">
-    <a href="{% url "shop:list_all"%}" class="btn">Продолжить Шопинг</a>
+    <a href="{% url "shop:list_all"%}" class="btn">Вернуться в магазин</a>
     <a href="#">Оформить заказ</a>
   </p>
 </div>

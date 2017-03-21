@@ -35,6 +35,32 @@
 			.my_menu_white {color:#FFF !important;}
 			body {font-family: 'Arsenal',sans-serif; }
 		</style>
+        <script>
+            var URLS = {
+                addItem:        '{% url "cart-add" %}',
+                removeItem:     '{% url "cart-remove" %}',
+                changeQuantity: '{% url "cart-change-quantity" %}',
+                emptyCart:      '{% url "cart-empty" %}'
+            };
+            var cart = {
+                add: function (pk, quantity) {
+                    quantity = quantity || 1;
+                    return $.post(URLS.addItem, {pk: pk, quantity: quantity, csrfmiddlewaretoken: '{{ csrf_token }}'}, function( data ) { document.location.href = document.location.href; }, 'json');
+                },
+
+                remove: function (itemPK) {
+                    $.post(URLS.removeItem, {pk: itemPK, csrfmiddlewaretoken: '{{ csrf_token }}'}, function( data ) { document.location.href = document.location.href; }, 'json');
+                },
+
+                changeQuantity: function (pk, quantity) {
+                    return $.post(URLS.changeQuantity, {pk: pk, quantity: quantity, csrfmiddlewaretoken: '{{ csrf_token }}'}, function( data ) { document.location.href = document.location.href; }, 'json');
+                },
+
+                empty: function () {
+                    $.post(URLS.emptyCart, {csrfmiddlewaretoken: '{{ csrf_token }}'}, function( data ) { document.location.href = document.location.href; }, 'json');
+                }
+            }
+        </script>
 
 	</head>
 	<body>
@@ -382,8 +408,13 @@
             $('.thumbnail_container img').click(function () {
                 $('#item_big_img').html('');
                 $('#item_big_img').append('<img src="'+$(this).attr('data-url')+'">');
-            })
-            $('.thumbnail_container img')[0].click();
+            });
+            if ($('.thumbnail_container img').length) $('.thumbnail_container img')[0].click();
+            
+            $('#item-variation-select').change(function () {
+                $('.item-desc').hide();
+                $('#item-desc-'+$(this).val()).show();
+            });
         });
     </script>
 
