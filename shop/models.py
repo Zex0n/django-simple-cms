@@ -40,6 +40,13 @@ class Item(BaseShop):
     content = RichTextUploadingField("Описание", blank=True)
     category = models.ManyToManyField(Category, verbose_name=u'Категория')
     status = models.BooleanField("Опубликовано", default=True)
+    offer = models.BooleanField("Показывать в спецпредложениях", default=False)
+    offer_name1 = models.CharField(_("Наименование бренд"), max_length=200, default='')
+    offer_name2 = models.CharField(_("Наименование модель"), max_length=200, default='')
+    offer_text_price = models.CharField(_("Цена текст"), max_length=200, default='')
+    offer_text_cost = models.CharField(_("Цена"), max_length=200, default='')
+    offer_text  = models.TextField("Описание предложения", default='')
+
 
     class Meta:
         verbose_name = _("Товар")

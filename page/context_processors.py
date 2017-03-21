@@ -1,5 +1,7 @@
 from .models import Page, Menu, MenuSection, Carousel, CarouselSlide
+from shop.models import Item
 from django.core.cache import cache
+
 
 from django.conf import settings
 
@@ -23,4 +25,16 @@ def context(request):
         context['carousel'][carousel.slug] = carousel
     cache.set(settings.CAROUSEL_CACHE_KEY, context, settings.CACHE_TIMEOUT)
 
+    #context['offer']=Item.objects.filter(offer=True)
+
     return context
+
+
+
+
+
+def offer(request):
+
+    offer=Item.objects.filter(offer=True)
+
+    return {"offer":offer}
