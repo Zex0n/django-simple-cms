@@ -18,9 +18,9 @@
         <th>Изображение</th>
         <th>Продукт</th>
         <th>Количество</th>
-        <th>Удалить</th>
-        <th>Полная цена</th>
         <th>Цена</th>
+        <th>Полная цена</th>
+        <th>Удалить</th>
       </tr>
     </thead>
     <tbody>
@@ -37,7 +37,16 @@
 
             </td>
               <td><a href="{% url "shop:product" product.item.category.first.slug product.item.slug %}">{{ product.title }}</a></td>
-            <td>{{ item.quantity }}</td>
+            <td>
+                <div class="input-group" style="width: 120px;">
+                  <input type="number" class="form-control cart-quantity" value="{{ item.quantity }}">
+                  <span class="input-group-btn">
+                    <button class="btn btn-default" type="button" onclick="cart.changeQuantity('{{ product.pk }}', $(this).parent().prev('.cart-quantity').val())" title="Изменить количество">
+                        <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
+                    </button>
+                  </span>
+                </div>
+            </td>
             <td class="num">{{ item.price }} руб.</td>
             <td class="num">{{ item.total }} руб.</td>
             <td>
