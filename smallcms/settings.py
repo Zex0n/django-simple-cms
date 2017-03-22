@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'ckeditor_uploader',
     'adminsortable2',
     'taggit',
+    'bootstrap3',
     'mptt',
     'easycart',
     'django_mptt_admin',
@@ -58,6 +59,7 @@ INSTALLED_APPS = [
     'partners',
     'shop',
     'gallery',
+    'user_profile'
 ]
 
 MIDDLEWARE = [

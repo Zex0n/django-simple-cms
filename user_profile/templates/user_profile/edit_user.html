@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% load bootstrap3 %}
+
+{% block breadcrumb %}
+
+    <li><a href="/">Главная</a></li>
+    <li>Редактирование профиля</li>
+{% endblock %}
+
+{% block title %}Редактирование профиля{% endblock title %}
+
+{% block content %}
+
+<div class="container">
+    <div class="card">
+        <div class="card-content">
+            <h2 class="flow-text">Редактирование профиля</h2>
+            {% bootstrap_messages %}
+            <form action="." method="POST" class="form-horizontal">
+                {% csrf_token %}
+
+                {% bootstrap_form noodle_form layout='horizontal' %}
+                {% bootstrap_formset formset layout='horizontal' %}
+
+              {% buttons %}
+                <button type="submit" class="btn btn-primary">
+                  {% bootstrap_icon "ok" %} Сохранить
+                </button>
+              {% endbuttons %}
+
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock content %}

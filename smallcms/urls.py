@@ -33,11 +33,13 @@ urlpatterns = [
     url(r'^parnters/', include('partners.urls',  namespace='partners')),
     url(r'^_nested_admin/', include('nested_admin.urls')),
     url(r'^admin/', admin.site.urls),
+    url(r'^accounts/', include('registration.backends.simple.urls')),
     url(r'', include('page.urls')),
     url(r'', include('news.urls', namespace='news')),
     url(r'', include('gallery.urls', namespace='gallery')),
     url(r'', include('shop.urls', namespace='shop')),
     url(r'^cart/', include('cart.urls')),
+    url(r'^accounts/', include('user_profile.urls', namespace='profile')),
 ]
 
 if settings.DEBUG:

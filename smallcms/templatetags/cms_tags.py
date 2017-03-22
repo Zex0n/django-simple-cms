@@ -7,8 +7,6 @@ from django.template.loader import get_template
 import os
 from page.models import models
 # from .models import Menu
-
-
 # register = template.Library()
 #
 #
@@ -84,12 +82,6 @@ from page.models import models
 #
 #     return PlaceholderTag(placeholder_name)
 #
-
-
-
-
-
-
 #
 # @register.simple_tag
 # def placeholder(placeholder_name):
