@@ -2,9 +2,10 @@
 {% load thumbnail %}
 
 {% block breadcrumb %}
-    <li><a href="/">Главная</a></li>
-    <li> <a href="{% url 'shop:list_all'  %}"> Магазин </a></li>
-    <li> Корзина </li>
+    <a href="/">Главная</a><span class="breadcumb__del no-decoration">»</span>
+    <a href="{% url 'shop:list_all'  %}"> Каталог продукции </a><span class="breadcumb__del no-decoration">»</span>
+    Корзина
+
 {% endblock %}
 
 {% block title %}Корзина{% endblock title %}

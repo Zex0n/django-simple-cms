@@ -1,6 +1,10 @@
 {% extends "base.html" %}
+{% load thumbnail %}
 
 {% block breadcrumb %}
+
+
+
 
         <a href="/" class="breadcumb__page no-decoration">Главная</a>
 					<span class="breadcumb__del no-decoration">»</span>
@@ -8,8 +12,75 @@
 
 {% endblock %}
 
-{% block title %}Магазин{% endblock title %}
+{% block title %}Каталог{% endblock title %}
 
+
+
+
+{% block content %}
+
+
+     <div class="container">
+				<header class="tab-header clearfix wow fadeInUp" data-wow-delay="0.7s" data-wow-duration="1.5s" style="visibility: visible; animation-duration: 1.5s; animation-delay: 0.7s; animation-name: fadeInUp;">
+					<h2 class="title title--main pull-left">Каталог продукции<span class="line line--small"><span class="line__first"></span><span class="line__second"></span></span></h2>
+					<div class="tab-toggles pull-right js-isotope-btns">
+
+					</div>
+				</header>
+
+        <div class="row isotope" style="position: relative; height: 315px;">
+
+
+            {% for category_obj in object_list %}
+
+          {% thumbnail category_obj.file "250x250" crop="center" as im %}
+
+
+        <div class="col-md-3 col-xs-6 isotope-item wow fadeInLeft" data-wow-delay="0.7s" data-wow-duration="1.5s" style="position: absolute; left: 0px; top: 0px; visibility: visible; animation-duration: 1.5s; animation-delay: 0.7s; animation-name: fadeInLeft;">
+						<a href="{% url 'shop:detail' category_obj.slug %}"  class="listing-anons equal-height-item listing-anons--home triangle triangle--big line-down no-decoration" style="height: 315px;">
+							<div class="listing-anons__img">
+
+
+                                <img src="{{ im.url }}" class="img-responsive"  alt="{{ item_obj.title }}">
+							</div>
+							<div class="listing-anons__title">
+								<h4 class="name">{{ category_obj.title }}</h4>
+							</div>
+							<div class="listing-anons__hidden">
+								<h3>{{ category_obj.title }}</h3>
+							</div>
+						</a>
+					</div>
+
+          {% endthumbnail %}
+
+         {% endfor %}
+
+
+
+
+        </div>
+     </div>
+
+<br>
+
+
+
+
+
+
+
+
+
+{% endblock content %}
+
+
+
+
+
+
+
+{% comment %}
 {% block content %}
 <div class="container">
 
@@ -18,4 +89,4 @@
         <a href="{% url 'shop:detail' category_obj.slug %}">{{ category_obj.title }}</a><br>
     {% endfor %}
 </div>
-{% endblock content %}
+{% endblock content %}{% endcomment %}

@@ -74,7 +74,7 @@
 			<div class="container">
 				<div class="top-header__main wow slideInDown" data-wow-delay="0.7s" data-wow-duration="1.5s">
 					<div class="row">
-						<div class="col-xs-4">
+						<div class="col-xs-2">
 							<div class="social social--top clearfix">
 								<a href="#" class="social__one square">
 									<span class="fa fa-vk"></span>
@@ -85,9 +85,15 @@
 
 								</a>
 							</div>
+
+
+
+
+
 						</div>
-						<div class="col-xs-8">
+						<div class="col-xs-10">
 							<div class="header-contacts clearfix">
+
 								<div class="header-contacts__one">
 									<a href="/page/kontakty/" class="header-contacts__phone square">
 										<span class="fa fa-phone"></span>
@@ -99,6 +105,13 @@
 										<span class="fa fa-envelope"></span>
 									</a>
 									<a href="mailto:info@caimanfishing.com" class="header-contacts__link">info@caimanfishing.com</a>
+								</div>
+
+                                <div class="header-contacts__one">
+									<a href="{% url "shop:cart_list" %}" class="header-contacts__phone square" title="Оформить заказ">
+										<span class="fa fa-shopping-cart"></span>
+									</a>
+                                    Товаров: {{ cart.item_count }} На сумму: {{ cart.total_price }} р. <a href="{% url "shop:cart_list" %}">Оформить заказ</a>
 								</div>
 							</div>
 						</div>

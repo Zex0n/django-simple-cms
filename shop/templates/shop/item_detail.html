@@ -2,20 +2,31 @@
 {% load thumbnail %}
 
 {% block breadcrumb %}
-    <li><a href="/">Главная</a></li>
-    <li> <a href="{% url 'shop:list_all'  %}"> Магазин </a></li>
-    <li> <a href="{% url 'shop:detail' current_category.slug %}"> {{ current_category.title }} </a></li>
-    <li> {{ current_product.title }} </li>
+
+
+           <a href="/" class="breadcumb__page no-decoration">Главная</a>
+					<span class="breadcumb__del no-decoration">»</span>
+                    <a href="{% url 'shop:list_all' %}"> Магазин </a>
+                    <span class="breadcumb__del no-decoration">»</span>
+                     <a href="{% url 'shop:detail' current_category.slug %}"> {{ current_category.title }} </a>
+                    <span class="breadcumb__del no-decoration">»</span>
+                     {{ current_product.title }}
+
 {% endblock %}
 
 
-{% block title %}Магазин{% endblock title %}
+
+
+
+{% block title %}{{ current_product.title }} - {{ current_category.title }} - Каталог продукции - CAIMAN {% endblock title %}
 
 {% block content %}
 
     <div class="container">
     <h1>{{ current_product.title}}</h1>
 
+
+    {% comment %}
     <div id="cart_block" style="background-color: #9f9f9f">
         <h3>Корзина</h3>
         {% for item in cart.list_items %}
@@ -33,7 +44,12 @@
         На сумму {{ cart.total_price }} рублей
         <br>
         <a href="{% url "shop:cart_list" %}">Оформить заказ</a>
-    </div><br>
+    </div>
+
+    {% endcomment %}
+
+
+
 
 
 
@@ -60,12 +76,18 @@
             </div>
 
         </div>
+
+        {% if item_variation.count > 1 %}
         <div class="col-md-7">
+
+
 
         <div class="input-group">
             Модификации товара:
+
+
             <select class="form-control" id="item-variation-select">
-                <option selected="selected">Выберите модификацию</option>
+                <option selected="selected">Выберите модификацию    </option>
                 {% for variation_obj in item_variation %}
                     <option value="{{ variation_obj.pk }}">{{ variation_obj.title }}</option>
                 {% endfor %}
@@ -74,22 +96,52 @@
             {% for variation_obj in item_variation %}
                 <div class="collapse item-desc" id="item-desc-{{ variation_obj.pk }}">
                     <div class="item-desc-text">
-                        <div>Артикул: {{ variation_obj.vendor_code }}</div>
-                        <div>На складе: {{ variation_obj.stock }}</div>
-                        <div>Цена 1: {{ variation_obj.price_1 }}</div>
+                        <div><b>Артикул:</b> {{ variation_obj.vendor_code }}</div>
+                        <div><b>На складе:</b> {{ variation_obj.stock }}</div>
+                        <div><b>Цена 1:</b> {{ variation_obj.price_1 }}</div>
                     </div>
                     <input type="number" class="cart-quantity" value="1">
-                    <button onclick="cart.add('{{ variation_obj.pk }}', $(this).prev('.cart-quantity').val())">Купить</button>
+                    <button class="button button--grey button--main btn button--active" onclick="cart.add('{{ variation_obj.pk }}', $(this).prev('.cart-quantity').val())">В корзину</button>
 {% comment %}
                 <div>Цена 2: {{ variation_obj.price_2 }}</div>
                 <div>Цена 3: {{ variation_obj.price_3 }}</div>
 {% endcomment %}
                 </div>
             {% endfor %}
-        </div>
+
+
+    {% else %}
+
+         <div class="col-md-7">
+
+
+
+                <div  id="item-desc-{{ item_variation.first.pk }}">
+                    <div class="item-desc-text">
+                        <div><b>Артикул:</b> {{ item_variation.first.vendor_code }}</div>
+                        <div><b>На складе:</b> {{ item_variation.first.stock }}</div>
+                        <div><b>Цена 1:</b> {{ item_variation.first.price_1 }}</div>
+                    </div>
+                    <input type="number" class="cart-quantity col-xs-2 input-lg" style="text-align: right; padding-right: 2px"  value="1">&nbsp;
+                    <button class="button button--grey button--main btn button--active" onclick="cart.add('{{ item_variation.first.pk }}', $(this).prev('.cart-quantity').val())">В корзину</button>
+{% comment %}
+                <div>Цена 2: {{ variation_obj.price_2 }}</div>
+                <div>Цена 3: {{ variation_obj.price_3 }}</div>
+{% endcomment %}
+                <br><br><br>
+                {{ current_product.content|safe }}
+                </div>
+
+
+
+    {% endif %}
+
+
+    </div>
+
     </div>
     <hr>
-    {{ current_product.content|safe }}
+
 
 
     </div>
