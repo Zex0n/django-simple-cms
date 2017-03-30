@@ -9,6 +9,8 @@ from django.core.cache import cache
 from multiselectfield import MultiSelectField
 from django.utils.functional import lazy
 from ckeditor_uploader.fields import RichTextUploadingField
+from django.contrib.auth.models import User as auth_user
+
 
 class BaseShop(models.Model):
     created_date = models.DateTimeField(_("Дата создания"), auto_now_add=True, editable=False)
@@ -83,6 +85,54 @@ class Item_image(models.Model):
         verbose_name = _("Изображение")
         verbose_name_plural = _("Изображения")
         ordering = ['num', ]
+
+    def __str__(self):
+        return self.title
+
+
+# Заказы
+class BaseOrder(models.Model):
+    created_date = models.DateTimeField(_("Дата создания"), auto_now_add=True, editable=False)
+    edited_date = models.DateTimeField(_("Дата редактирования"), auto_now=True, editable=False, null=True)
+
+    class Meta:
+        abstract = True
+
+
+class Status(models.Model):
+    title = models.CharField('Название', max_length=255)
+    num = models.IntegerField('Порядковый номер', default=0)
+
+    class Meta:
+        verbose_name = 'Статус заказа'
+        verbose_name_plural = 'Статусы заказов'
+        ordering = ['num']
+
+    def __str__(self):
+        return self.title
+
+
+class Order(BaseOrder):
+    customer = models.ForeignKey(auth_user, verbose_name=u'Пользователь')
+    total_price = models.DecimalField(_("Общая стоимость"), max_digits=10, decimal_places=2, blank=True, null=True)
+    status = models.ForeignKey(Status, verbose_name=u'Текущий статус', blank=True, null=True)
+    address = models.TextField(_("Адрес доставки"))
+
+    class Meta:
+        verbose_name = _("Заказ")
+        verbose_name_plural = _("Заказы")
+
+
+class OrderItem(BaseOrder):
+    order = models.ForeignKey(Order, verbose_name=u'Заказ', on_delete=models.CASCADE)
+    item = models.ForeignKey(Item_variation, on_delete=models.SET_NULL, null=True)
+    title = models.CharField(_("Название"), default='', max_length=255)
+    cols = models.IntegerField(_("Количество"), blank=True, default=0)
+    price = models.DecimalField(_("Стоимость"), max_digits=10, decimal_places=2, blank=True, null=True)
+
+    class Meta:
+        verbose_name = _("Товар заказа")
+        verbose_name_plural = _("Товары заказа")
 
     def __str__(self):
         return self.title

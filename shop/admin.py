@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django_mptt_admin.admin import DjangoMpttAdmin
-from .models import Item, Item_variation, Item_image, Category
+from .models import Item, Item_variation, Item_image, Category, Order
 import nested_admin
 
 
@@ -33,3 +33,17 @@ class CategoryAdmin(DjangoMpttAdmin):
     prepopulated_fields = {"slug": ("title",)}
 
 admin.site.register(Category, CategoryAdmin)
+
+
+class OrderAdmin(admin.ModelAdmin):
+    pass
+    # exclude=("customer ",)
+    # readonly_fields=('customer', )
+
+
+    # list_display = ('title', 'published_date', 'main_page')
+    # list_editable = ['main_page', ]
+    # list_filter = ['published_date', 'main_page']
+    # search_fields = ['title', 'text']
+
+admin.site.register(Order, OrderAdmin)
