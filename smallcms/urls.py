@@ -28,6 +28,7 @@ favicon_view = RedirectView.as_view(url='/static/favicon.ico', permanent=True)
 
 urlpatterns = [
     # url(r'^admin/filebrowser/', include(site.urls)),
+    url(r'^accounts/', include('registration.backends.simple.urls')),
     url(r'^grappelli/', include('grappelli.urls')),  # grappelli URLS
     url(r'^ckeditor/', include('ckeditor_uploader.urls')),
     url(r'^parnters/', include('partners.urls',  namespace='partners')),
@@ -38,6 +39,7 @@ urlpatterns = [
     url(r'', include('gallery.urls', namespace='gallery')),
     url(r'', include('shop.urls', namespace='shop')),
     url(r'^cart/', include('cart.urls')),
+    url(r'^accounts/', include('user_profile.urls', namespace='profile')),
 ]
 
 if settings.DEBUG:

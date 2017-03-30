@@ -1,0 +1,15 @@
+{% extends "registration/registration_base.html" %}
+{% block title %}Регистрация аккаунта{% endblock %}
+{% block content %}
+  {% include 'registration/form_errors.html' %}
+  <form method='post' class="well form-horizontal" action=''>{% csrf_token %}
+    {% include 'registration/form_fields.html' %}
+
+      <div class="form-group">
+          <div class="col-sm-offset-2 col-sm-10">
+              <button type="submit" class="btn btn-primary">Зарегистрироваться</button>
+          </div>
+      </div>
+
+  </form>
+{% endblock %}

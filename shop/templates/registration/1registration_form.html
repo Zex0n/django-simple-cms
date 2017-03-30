@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load cms_tags %}
+
+{% block content %}
+    <div class="container">
+        <h1>Регистрация</h1>
+        <form method="post" action="" class="form-horizontal">
+        {% csrf_token %}
+            <dl class="register">
+                {% for field in form %}
+                    <div class="form-group">
+                        <div class="col-sm-3">
+                            {{ field.label_tag }}
+                        </div>
+
+                        <div class="col-sm-9">
+                            {{ field|add_class:'form-control input-lg' }}
+
+                            {% if field.help_text %}
+                                <p class="help-block">{{ field.help_text }}</p>
+                            {% endif %}
+
+                            {% if field.errors %}
+                                <p class="text-danger">{{ field.errors }}</p>
+                            {% endif %}
+                        </div>
+
+
+                    </div>
+                {% endfor %}
+            </dl>
+
+            <div class="form-group">
+            <div class="col-sm-offset-3 col-sm-9">
+              <button type="submit" class="btn btn-primary">Зарегистрироваться</button>
+            </div>
+            </div>
+
+        </form>
+    </div>
+{% endblock %}

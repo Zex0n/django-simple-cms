@@ -95,6 +95,25 @@
 							<div class="header-contacts clearfix">
 
 								<div class="header-contacts__one">
+
+                                    {% if user and not user.is_anonymous %}
+                                        <a href="{% url 'profile:edit_user' %}" class="header-contacts__email square">
+                                            <span class="fa fa-user" aria-hidden="true"></span>
+                                        </a>
+
+                                        <a href="{% url 'profile:edit_user' %}">{{ user.username }}</a>&nbsp;
+                                        <a href="{% url 'auth_logout' %}" class="header-contacts__link">Выход</a>
+                                    {% else %}
+                                        <a href="{% url 'auth_login' %}" class="header-contacts__email square">
+                                            <span class="fa fa-sign-in"></span>
+                                        </a>
+                                        <a href="{% url 'auth_login' %}" class="header-contacts__link">Вход</a>
+                                    {% endif %}
+
+
+
+								</div>
+								<div class="header-contacts__one">
 									<a href="/page/kontakty/" class="header-contacts__phone square">
 										<span class="fa fa-phone"></span>
 									</a>
