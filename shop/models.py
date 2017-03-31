@@ -44,13 +44,13 @@ class Item(BaseShop):
     content = RichTextUploadingField("Описание", blank=True)
     category = models.ManyToManyField(Category, verbose_name=u'Категория')
     status = models.BooleanField("Опубликовано", default=True)
-    offer = models.BooleanField("Показывать в спецпредложениях", default=False)
-    offer_name1 = models.CharField(_("Наименование бренд"), max_length=200, default='')
-    offer_name2 = models.CharField(_("Наименование модель"), max_length=200, default='')
-    offer_text_price = models.CharField(_("Цена текст"), max_length=200, default='')
-    offer_text_cost = models.CharField(_("Цена"), max_length=200, default='')
-    offer_text1 = models.CharField(_("Строка описания 1:"), max_length=200, default='')
-    offer_text2 = models.CharField(_("Строка описания 2:"), max_length=200, default='')
+    offer = models.BooleanField("Показывать в спецпредложениях", default=False, blank=True)
+    offer_name1 = models.CharField(_("Наименование бренд"), max_length=200, default='', blank=True)
+    offer_name2 = models.CharField(_("Наименование модель"), max_length=200, default='', blank=True)
+    offer_text_price = models.CharField(_("Цена текст"), max_length=200, default='', blank=True)
+    offer_text_cost = models.CharField(_("Цена"), max_length=200, default='', blank=True)
+    offer_text1 = models.CharField(_("Строка описания 1:"), max_length=200, default='', blank=True)
+    offer_text2 = models.CharField(_("Строка описания 2:"), max_length=200, default='', blank=True)
 
 
     class Meta:
@@ -79,7 +79,7 @@ class Item_variation(models.Model):
 
 
 class Item_image(models.Model):
-    title = models.CharField(_("Название"), max_length=1000, default='')
+    title = models.CharField(_("Название"), max_length=1000, default='', blank=True)
     file = models.ImageField(_("Изображение"), upload_to='shop')
     item_variation = models.ForeignKey(Item_variation, on_delete=models.CASCADE, blank=True)
     num = models.IntegerField(_("Порядковый номер"), default=0, blank=True, db_index=True)
@@ -90,7 +90,7 @@ class Item_image(models.Model):
         ordering = ['num', ]
 
     def __str__(self):
-        return self.title
+        return self.file.url
 
 
 # Заказы
