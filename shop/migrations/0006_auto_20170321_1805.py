@@ -11,35 +11,14 @@ class Migration(migrations.Migration):
         ('shop', '0005_auto_20170320_1449'),
     ]
 
-    operations = [
-        migrations.AddField(
-            model_name='item',
-            name='offer',
-            field=models.BooleanField(default=False, verbose_name='Показывать в спецпредложениях'),
-        ),
-        migrations.AddField(
-            model_name='item',
-            name='offer_name1',
-            field=models.CharField(default='', max_length=200, verbose_name='Наименование бренд'),
-        ),
-        migrations.AddField(
-            model_name='item',
-            name='offer_name2',
-            field=models.CharField(default='', max_length=200, verbose_name='Наименование модель'),
-        ),
+    operations = [        
+        
+        
         migrations.AddField(
             model_name='item',
             name='offer_text',
             field=models.TextField(default='', verbose_name='Описание предложения'),
         ),
-        migrations.AddField(
-            model_name='item',
-            name='offer_text_cost',
-            field=models.CharField(default='', max_length=200, verbose_name='Цена'),
-        ),
-        migrations.AddField(
-            model_name='item',
-            name='offer_text_price',
-            field=models.CharField(default='', max_length=200, verbose_name='Цена текст'),
-        ),
+        
+        
     ]
