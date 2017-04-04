@@ -26,7 +26,7 @@ SECRET_KEY = 'qc)5rh6*$n60cdxd21m!^0hzaflw*o*k@e+91^957+g0t9lybo'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', '185.22.60.239', 'caimanfishing.ru', 'www.caimanfishing.ru']
 
 
 # Application definition
