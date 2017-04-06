@@ -13,6 +13,8 @@
 {% block content %}
 <div class="container">
   <h1>Ваша корзина товаров</h1>
+
+    {% if cart.item_count > 0 %}
   <table class="cart" width="100%" cellpadding="15" cellspacing="15">
     <thead>
       <tr>
@@ -65,7 +67,11 @@
   </table>
   <p class="text-right">
     <a href="{% url "shop:list_all"%}" class="btn">Вернуться в магазин</a>
-    <a href="#">Оформить заказ</a>
+    <a href="/page/order-success/">Оформить заказ</a>
   </p>
+        {% else %}
+            <h2 align="center">Ваша корзина пуста</h2>
+            <a href="{% url "shop:list_all"%}" class="btn">Вернуться в магазин</a>
+        {% endif %}
 </div>
 {% endblock %}

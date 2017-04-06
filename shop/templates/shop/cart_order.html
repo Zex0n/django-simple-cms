@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block breadcrumb %}
+    <a href="/">Главная</a><span class="breadcumb__del no-decoration">»</span>
+    <a href="{% url 'shop:list_all'  %}"> Каталог продукции </a><span class="breadcumb__del no-decoration">»</span>
+    Оформление заказа
+
+{% endblock %}
+
+{% block title %}Оформление заказа{% endblock title %}
+
+{% block content %}
+<div class="container">
+  <h1>Ваш заказ оформлен</h1>
+    <p>С Вами свяжутся в ближайшее время для подтверждения заказа.</p>
+</div>
+{% endblock %}
