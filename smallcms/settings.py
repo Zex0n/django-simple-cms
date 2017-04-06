@@ -29,6 +29,22 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 
+EMAIL_HOST = 'smtp.yandex.ru'
+
+EMAIL_HOST_USER = 'sendfromsite@caimanfishing.ru'
+
+EMAIL_HOST_PASSWORD = '24sendfromsite24'
+
+
+
+EMAIL_PORT = '465'
+
+EMAIL_USE_SSL = True
+
+
+
+
+
 # Application definition
 
 INSTALLED_APPS = [

@@ -357,10 +357,11 @@
 							</div>
 						</div>
 						<div class="col-xs-5 wow fadeInRight" data-wow-delay="0.7s" data-wow-duration="1.5s">
-							<form action="/" method="post" class="quick-form">
+							<form action="/page/sendmymail" method="post" class="quick-form">
+                                {% csrf_token %}
 								<h2 class="title"><span class="title__bold">Обратная</span>Связь</h2>
 								<div class="quick-input">
-									<input type="text" name="text" placeholder="Имя" />
+									<input type="text" name="name" placeholder="Имя" />
 									<div class="triangle-quick-input"></div>
 								</div>
 								<div class="quick-input">
@@ -368,7 +369,7 @@
 									<div class="triangle-quick-input"></div>
 								</div>
 								<div class="quick-input">
-									<textarea placeholder="Сообщение" name="mess"></textarea>
+									<textarea placeholder="Сообщение" name="message"></textarea>
 									<div class="triangle-quick-input"></div>
 								</div>
 								<button type="submit" class="btn button button--red button--main">Отправить</button>
