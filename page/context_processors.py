@@ -1,4 +1,4 @@
-from .models import Page, Menu, MenuSection, Carousel, CarouselSlide
+from .models import Page, Menu, MenuSection, Carousel, CarouselSlide, Setting
 from shop.models import Item
 from django.core.cache import cache
 
@@ -38,3 +38,9 @@ def offer(request):
     offer=Item.objects.filter(offer=True)
 
     return {"offer":offer}
+
+def sitting(request):
+
+    sitting=Setting.objects.first()
+
+    return {"sitting":sitting}

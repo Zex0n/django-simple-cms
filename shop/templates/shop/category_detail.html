@@ -58,11 +58,39 @@
 
          {% endfor %}
 
+
+<div class="col-md-11 col-md-offset-1 col-xs-6 isotope-item wow fadeInLeft" data-wow-delay="0.7s" data-wow-duration="1.5s" style="position: absolute; left: 0px; top: 0px; visibility: visible; animation-duration: 1.5s; animation-delay: 0.7s; animation-name: fadeInLeft;">
+
+<br><br><br>
+    <table class="table">
           {% for category_obj in item_list %}
 
-          {% thumbnail category_obj.item_variation_set.first.item_image_set.first.file "250x250" crop="center" as im %}
+          {% thumbnail category_obj.item_variation_set.first.item_image_set.first.file "150x150" crop="center" as im %}
+
+<tr>
+<td class="text-left">
+  <img src="{{ im.url }}" class="img-responsive"  alt="{{ item_obj.title }}">
+</td>
+<td>
+
+   <b style="font-size: 16px;">{{ category_obj.title }}</b>
+       <br>
+
+</td>
+
+<td>
+
+    {{ category_obj.title }}<br>
+
+</td>
+
+</tr>
 
 
+
+
+      {% comment %}
+// Товары категории
         <div class="col-md-3 col-xs-6 isotope-item wow fadeInLeft" data-wow-delay="0.7s" data-wow-duration="1.5s" style="position: absolute; left: 0px; top: 0px; visibility: visible; animation-duration: 1.5s; animation-delay: 0.7s; animation-name: fadeInLeft;">
 						<a href="{% url 'shop:product' category.slug category_obj.slug %}"  class="listing-anons equal-height-item listing-anons--home triangle triangle--big line-down no-decoration" style="height: 315px;">
 							<div class="listing-anons__img">
@@ -78,10 +106,14 @@
 							</div>
 						</a>
 					</div>
+         {% endcomment %}
+
            {% endthumbnail %}
 
 
          {% endfor %}
+</table>
+</div>
 
 
 

@@ -11,6 +11,29 @@ from django.utils.functional import lazy
 from ckeditor_uploader.fields import RichTextUploadingField
 
 
+
+from django.db import models
+from django.utils.translation import ugettext_lazy as _, ugettext
+
+
+class Setting(models.Model):
+
+    phone1 = models.CharField(_("Телефонный номер 1"), max_length=200, default='', blank=True)
+    phone2 = models.CharField(_("Телефонный номер 2"), max_length=200, default='', blank=True)
+    email1 = models.EmailField(_("E-mail 1"), blank=True)
+    email2 = models.EmailField(_("E-mail 2"), blank=True)
+    maindres = models.CharField(_("Адрес"), max_length=200, default='', blank=True)
+
+
+    class Meta:
+        verbose_name = _("Настройка")
+        verbose_name_plural = _("Настройки")
+
+
+def __str__(self):
+    return self.title
+
+
 class BasePage(MPTTModel):
     created_date = models.DateTimeField(auto_now_add=True, verbose_name=u'Дата создания', editable=False)
     edited_date = models.DateTimeField(auto_now=True, verbose_name=u'Дата редактирования', editable=False, null=True)
