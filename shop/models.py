@@ -41,6 +41,8 @@ class Category(MPTTModel, BaseShop):
 
 
 class Item(BaseShop):
+
+    content_small = offer_name1 = models.CharField(_("Краткое описание"), max_length=800, default='', blank=True)
     content = RichTextUploadingField("Описание", blank=True)
     category = models.ManyToManyField(Category, verbose_name=u'Категория')
     status = models.BooleanField("Опубликовано", default=True)

@@ -62,6 +62,9 @@
 <div class="col-md-11 col-md-offset-1 col-xs-6 isotope-item wow fadeInLeft" data-wow-delay="0.7s" data-wow-duration="1.5s" style="position: absolute; left: 0px; top: 0px; visibility: visible; animation-duration: 1.5s; animation-delay: 0.7s; animation-name: fadeInLeft;">
 
 <br><br><br>
+
+
+{{ category_obj.items_list.first.title }}
     <table class="table">
           {% for category_obj in item_list %}
 
@@ -75,12 +78,31 @@
 
    <b style="font-size: 16px;">{{ category_obj.title }}</b>
        <br>
+    {{ category_obj.content_small }} <a href="{% url 'shop:product' category.slug category_obj.slug %}">Смотреть полное описание >></a>
 
 </td>
 
 <td>
 
-    {{ category_obj.title }}<br>
+    {{ category_obj.item_variation_set.first.title }}<br>
+
+</td>
+
+<td>
+
+    &#8381; {{ category_obj.item_variation_set.first.price_1 }} <br>
+
+</td>
+
+
+    <td>
+        <input type="number" class="cart-quantity  input-sm"  value="1" size="4" style="width: 70px;height: 40px;text-align: right;">
+    </td>
+
+<td>
+
+
+                    <button class="button button--grey button--main btn button--active" onclick="cart.add('{{ variation_obj.pk }}', $(this).prev('.cart-quantity').val())">В корзину</button>
 
 </td>
 
