@@ -6,16 +6,22 @@ from django.core.urlresolvers import reverse
 from django.views import generic
 from django.forms import ModelForm
 from .models import Category, Item, Item_variation
+from easycart import BaseCart, BaseItem
 
 
-class CartOrder(generic.DetailView):
+
+
+
+class CartOrder(generic.ListView):
     template_name = 'shop/cart_order.html'
 
     def queryset(self):
         return super(CartOrder, self).queryset()
 
     def get_context_data(self, **kwargs):
+
         context = super(CartOrder, self).get_context_data(**kwargs)
+
         return context
 
 

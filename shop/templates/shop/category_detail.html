@@ -68,13 +68,13 @@
     <table class="table">
           {% for category_obj in item_list %}
 
-          {% thumbnail category_obj.item_variation_set.first.item_image_set.first.file "150x150" crop="center" as im %}
+          {% thumbnail category_obj.item_image_set.first.file "150x150" crop="center" as im %}
 
 <tr>
-<td class="text-left">
+<td class="text-left" width="10%">
   <img src="{{ im.url }}" class="img-responsive"  alt="{{ item_obj.title }}">
 </td>
-<td>
+<td width="50%">
 
    <b style="font-size: 16px;">{{ category_obj.title }}</b>
        <br>
@@ -82,27 +82,72 @@
 
 </td>
 
-<td>
+<td class="text-left" width="20%">
 
-    {{ category_obj.item_variation_set.first.title }}<br>
+
+
+
+
+
+     {% if category_obj.item_variation_set.count > 1 %}
+
+
+
+
+
+
+            <select class="form-control item-variation-select-cat"   style="width:170px; height: 40px; text-align: right;">
+                {% for variation_obj in category_obj.item_variation_set.all %}
+                    <option value="{{ variation_obj.pk }}">{{ variation_obj.title }}</option>
+                {% endfor %}
+            </select>
+    {% else %}
+
+{{ category_obj.item_variation_set.first.title }}
+
+<input type="hidden" class="item-variation-select-cat" value="{{ category_obj.item_variation_set.first.pk }}">
+    {% endif %}
+
+
+
+
+
+
+
+
+
+
+
+    <br>
 
 </td>
 
-<td>
+<td width="10%">
 
-    &#8381; {{ category_obj.item_variation_set.first.price_1 }} <br>
+    {% for variation_obj in category_obj.item_variation_set.all %}
+
+    <span class="item-desc-{{ variation_obj.pk }}"  {% if forloop.counter != 1 %} style="display: none;" {% endif %} id="span-{{ variation_obj.pk }}">{{ variation_obj.price_1 }}</span>
+
+
+    {% endfor %}
+    <b>&#8381;</b>
+
+
+
+
+
 
 </td>
 
 
-    <td>
+    <td width="10%">
         <input type="number" class="cart-quantity  input-sm"  value="1" size="4" style="width: 70px;height: 40px;text-align: right;">
     </td>
 
-<td>
+<td width="10%">
 
 
-                    <button class="button button--grey button--main btn button--active" onclick="cart.add('{{ variation_obj.pk }}', $(this).prev('.cart-quantity').val())">В корзину</button>
+                    <button class="button button--grey button--main btn button--active" onclick="cart.add($(this).parent().prev().prev().prev().children('.item-variation-select-cat').val(), $(this).parent().prev().children('.cart-quantity').val());">В корзину</button>
 
 </td>
 
@@ -176,3 +221,5 @@
 {% endblock content %}
 
 {% endcomment %}
+
+

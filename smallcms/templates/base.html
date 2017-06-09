@@ -448,6 +448,11 @@
             $(this).ekkoLightbox();
         });
         $(document).ready(function() {
+
+
+
+
+
             $('.thumbnail_container img').click(function () {
                 $('#item_big_img').html('');
                 $('#item_big_img').append('<img src="'+$(this).attr('data-url')+'">');
@@ -458,6 +463,17 @@
                 $('.item-desc').hide();
                 $('#item-desc-'+$(this).val()).show();
             });
+
+            $('.item-variation-select-cat').change(function () {
+
+                $(this).parent().next().children('span').hide();
+
+                $(this).parent().next().children('.item-desc-'+$(this).val()).show();
+
+
+
+            });
+
         });
     </script>
 

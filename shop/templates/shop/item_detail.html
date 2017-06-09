@@ -61,17 +61,17 @@
                 </div>
                 <div class="col-md-2 ">
                     {#вывод миниатюр#}
-                    {% for variation_obj in item_variation %}
-                        {% for variation_image_obj in variation_obj.item_image_set.all %}
+
+                        {% for variation_image_obj in current_product.item_image_set.all %}
                             <div class="thumbnail_container">
                                 {% thumbnail variation_image_obj.file "50x50" crop="center" as im %}
                                 {% thumbnail variation_image_obj.file "400x400" crop="center" as big_im %}
-                                    <img src="{{ im.url }}" data-url="{{ big_im.url }}" class="img-responsive img-thumbnail" alt="{{ variation_image_obj.title }}" title="{{ variation_image_obj.title }}" id="img-{{ variation_obj.pk }}-{{ forloop.counter }}">
+                                    <img src="{{ im.url }}" data-url="{{ big_im.url }}" class="img-responsive img-thumbnail" alt="{{ variation_image_obj.title }}" title="{{ variation_image_obj.title }}" style="cursor: pointer;" id="img-{{ variation_obj.pk }}-{{ forloop.counter }}">
                                 {% endthumbnail %}
                                 {% endthumbnail %}
                             </div>
                         {% endfor %}
-                    {% endfor %}
+
                 </div>
             </div>
 
@@ -98,7 +98,7 @@
                     <div class="item-desc-text">
                         <div><b>Артикул:</b> {{ variation_obj.vendor_code }}</div>
                         <div><b>На складе:</b> {{ variation_obj.stock }}</div>
-                        <div><b>Цена 1:</b> {{ variation_obj.price_1 }}</div>
+                        <div><b>Розничная цена:</b> {{ variation_obj.price_1 }}</div>
                     </div>
                     <input type="number" class="cart-quantity" value="1">
                     <button class="button button--grey button--main btn button--active" onclick="cart.add('{{ variation_obj.pk }}', $(this).prev('.cart-quantity').val())">В корзину</button>
@@ -130,6 +130,7 @@
 {% endcomment %}
                 <br><br><br>
                 {{ current_product.content|safe }}
+
                 </div>
 
 
