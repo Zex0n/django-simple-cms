@@ -53,7 +53,7 @@
 
 
 
-    <div class="row">
+     <div class="row">
         <div class="col-md-5 ">
             <div class="row">
                 <div class="col-md-10" id="item_big_img">
@@ -61,17 +61,17 @@
                 </div>
                 <div class="col-md-2 ">
                     {#вывод миниатюр#}
-
-                        {% for variation_image_obj in current_product.item_image_set.all %}
+                    {% for variation_obj in item_variation %}
+                        {% for variation_image_obj in variation_obj.item_image_set.all %}
                             <div class="thumbnail_container">
                                 {% thumbnail variation_image_obj.file "50x50" crop="center" as im %}
                                 {% thumbnail variation_image_obj.file "400x400" crop="center" as big_im %}
-                                    <img src="{{ im.url }}" data-url="{{ big_im.url }}" class="img-responsive img-thumbnail" alt="{{ variation_image_obj.title }}" title="{{ variation_image_obj.title }}" style="cursor: pointer;" id="img-{{ variation_obj.pk }}-{{ forloop.counter }}">
+                                    <img style="cursor:pointer" src="{{ im.url }}" data-url="{{ big_im.url }}" class="img-responsive img-thumbnail" alt="{{ variation_image_obj.title }}" title="{{ variation_image_obj.title }}" id="img-{{ variation_obj.pk }}-{{ forloop.counter }}">
                                 {% endthumbnail %}
                                 {% endthumbnail %}
                             </div>
                         {% endfor %}
-
+                    {% endfor %}
                 </div>
             </div>
 

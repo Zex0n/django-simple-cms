@@ -83,7 +83,7 @@ class Item_variation(models.Model):
 class Item_image(models.Model):
     title = models.CharField(_("Название"), max_length=1000, default='', blank=True)
     file = models.ImageField(_("Изображение"), upload_to='shop')
-    item = models.ForeignKey(Item, on_delete=models.CASCADE, blank=True, default='1')
+    item_variation = models.ForeignKey(Item_variation, on_delete=models.CASCADE, blank=True,)
     num = models.IntegerField(_("Порядковый номер"), default=0, blank=True, db_index=True)
 
     class Meta:

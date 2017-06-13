@@ -12,14 +12,14 @@ class Item_imageInline(nested_admin.NestedTabularInline):
 
 class Item_variationInline(nested_admin.NestedStackedInline):
     model = Item_variation
-    inlines = []
+    inlines = [Item_imageInline, ]
     extra = 1
     ordering = ['num',]
 
 
 class ItemAdmin(nested_admin.NestedModelAdmin):
     #inlines = [Item_variationInline,]
-    inlines = [Item_imageInline, Item_variationInline,]
+    inlines = [Item_variationInline,]
     prepopulated_fields = {"slug": ("title",)}
     filter_horizontal = ('category',)
     # list_display = ('title', 'published_date', 'start_date', 'end_date', 'main_page')

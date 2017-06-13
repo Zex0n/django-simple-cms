@@ -68,7 +68,7 @@
     <table class="table">
           {% for category_obj in item_list %}
 
-          {% thumbnail category_obj.item_image_set.first.file "150x150" crop="center" as im %}
+          {% thumbnail category_obj.item_variation_set.first.item_image_set.first.file "150x150" crop="center" as im %}
 
 <tr>
 <td class="text-left" width="10%">
