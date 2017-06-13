@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django_mptt_admin.admin import DjangoMpttAdmin
-from .models import Item, Item_variation, Item_image, Category, Order
+from .models import Item, Item_variation, Item_image, Category, Order, Status
 import nested_admin
 
 
@@ -47,3 +47,10 @@ class OrderAdmin(admin.ModelAdmin):
     # search_fields = ['title', 'text']
 
 admin.site.register(Order, OrderAdmin)
+
+
+class StatusAdmin(admin.ModelAdmin):
+    list_display = ('title', 'num', 'default_status')
+    list_editable = ['default_status', ]
+
+admin.site.register(Status, StatusAdmin)

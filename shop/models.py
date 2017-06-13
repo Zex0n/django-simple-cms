@@ -11,6 +11,7 @@ from django.utils.functional import lazy
 from ckeditor_uploader.fields import RichTextUploadingField
 from django.contrib.auth.models import User as auth_user
 from sorl.thumbnail import ImageField
+from phonenumber_field.modelfields import PhoneNumberField
 
 
 class BaseShop(models.Model):
@@ -110,6 +111,7 @@ class BaseOrder(models.Model):
 class Status(models.Model):
     title = models.CharField('Название', max_length=255)
     num = models.IntegerField('Порядковый номер', default=0)
+    default_status = models.BooleanField("Статус заказа при создании", default=False)
 
     class Meta:
         verbose_name = 'Статус заказа'
@@ -124,7 +126,9 @@ class Order(BaseOrder):
     customer = models.ForeignKey(auth_user, verbose_name=u'Пользователь')
     total_price = models.DecimalField(_("Общая стоимость"), max_digits=10, decimal_places=2, blank=True, null=True)
     status = models.ForeignKey(Status, verbose_name=u'Текущий статус', blank=True, null=True)
+    email = models.EmailField(_("Email"))
     address = models.TextField(_("Адрес доставки"))
+    phone_number = PhoneNumberField(_("Телефон"))
 
     class Meta:
         verbose_name = _("Заказ")

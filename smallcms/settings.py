@@ -65,6 +65,7 @@ INSTALLED_APPS = [
     'bootstrap3',
     'mptt',
     'easycart',
+    'phonenumber_field',
     'django_mptt_admin',
     'geoposition',
     'embed_video',
