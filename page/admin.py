@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Page, Menu, MenuSection, Carousel, CarouselSlide
+from .models import Page, Menu, MenuSection, Carousel, CarouselSlide, Setting
 from grappelli.forms import GrappelliSortableHiddenMixin
 from django_mptt_admin.admin import DjangoMpttAdmin
 from mptt.admin import DraggableMPTTAdmin
@@ -14,6 +14,10 @@ class MenuSectionInline(GrappelliSortableHiddenMixin, admin.TabularInline):
     extra = 1
     sortable_field_name = "my_order"
     # ordering = ("my_order",)
+
+
+
+
 
 class MenuAdmin(admin.ModelAdmin):
     inlines = [MenuSectionInline,]
@@ -70,3 +74,9 @@ class CarouselAdmin(admin.ModelAdmin):
         }
 
 admin.site.register(Carousel, CarouselAdmin)
+
+class SittinAdm(admin.ModelAdmin):
+    inlines = []
+    extra = 1
+
+admin.site.register(Setting, SittinAdm)

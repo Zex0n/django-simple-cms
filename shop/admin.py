@@ -12,7 +12,7 @@ class Item_imageInline(nested_admin.NestedTabularInline):
 
 class Item_variationInline(nested_admin.NestedStackedInline):
     model = Item_variation
-    inlines = [Item_imageInline,]
+    inlines = [Item_imageInline, ]
     extra = 1
     ordering = ['num',]
 

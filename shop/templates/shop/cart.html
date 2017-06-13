@@ -22,7 +22,7 @@
         <th>Продукт</th>
         <th>Количество</th>
         <th>Цена</th>
-        <th>Полная цена</th>
+        <th>Стоимость</th>
         <th>Удалить</th>
       </tr>
     </thead>
@@ -33,13 +33,13 @@
             <td>
 
                 <div class="thumbnail_container">
-                    {% thumbnail product.item_image_set.first.file "50x50" crop="center" as im %}
+                    {% thumbnail product.item.item_image_set.first.file "50x50" crop="center" as im %}
                         <img src="{{ im.url }}" class="img-responsive img-thumbnail">
                     {% endthumbnail %}
                 </div>
 
             </td>
-              <td><a href="{% url "shop:product" product.item.category.first.slug product.item.slug %}">{{ product.title }}</a></td>
+              <td><a href="{% url "shop:product" product.item.category.first.slug product.item.slug %}">{{ product.item.title }} ({{ product.title }})</a></td>
             <td>
                 <div class="input-group" style="width: 120px;">
                   <input type="number" class="form-control cart-quantity" value="{{ item.quantity }}">
@@ -67,7 +67,7 @@
   </table>
   <p class="text-right">
     <a href="{% url "shop:list_all"%}" class="btn">Вернуться в магазин</a>
-    <a href="/page/order-success/">Оформить заказ</a>
+    <a href="{% url "shop:order-success"%}">Оформить заказ</a>
   </p>
         {% else %}
             <h2 align="center">Ваша корзина пуста</h2>

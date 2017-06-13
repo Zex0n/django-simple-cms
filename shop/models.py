@@ -42,6 +42,8 @@ class Category(MPTTModel, BaseShop):
 
 
 class Item(BaseShop):
+
+    content_small = offer_name1 = models.CharField(_("Краткое описание"), max_length=800, default='', blank=True)
     content = RichTextUploadingField("Описание", blank=True)
     category = models.ManyToManyField(Category, verbose_name=u'Категория')
     status = models.BooleanField("Опубликовано", default=True)
@@ -64,9 +66,9 @@ class Item_variation(models.Model):
     vendor_code = models.CharField(_("Артикул"), blank=True, max_length=255)
     default_variation = models.BooleanField(_("Вариация по умолчанию"), default=False)
     stock = models.IntegerField(_("На складе"), default=0)
-    price_1 = models.DecimalField(_("Цена 1"), max_digits=10, decimal_places=2, blank=True, null=True)
-    price_2 = models.DecimalField(_("Цена 2"), max_digits=10, decimal_places=2, blank=True, null=True)
-    price_3 = models.DecimalField(_("Цена 3"), max_digits=10, decimal_places=2, blank=True, null=True)
+    price_1 = models.DecimalField(_("Розничная цена"), max_digits=10, decimal_places=2, blank=True, null=True)
+    price_2 = models.DecimalField(_("Оптовая цена"), max_digits=10, decimal_places=2, blank=True, null=True)
+
     item = models.ForeignKey(Item, on_delete=models.CASCADE)
     num = models.IntegerField(_("Порядковый номер"), default=0, blank=True, db_index=True)
 
@@ -82,7 +84,7 @@ class Item_variation(models.Model):
 class Item_image(models.Model):
     title = models.CharField(_("Название"), max_length=1000, default='', blank=True)
     file = models.ImageField(_("Изображение"), upload_to='shop')
-    item_variation = models.ForeignKey(Item_variation, on_delete=models.CASCADE, blank=True)
+    item_variation = models.ForeignKey(Item_variation, on_delete=models.CASCADE, blank=True,)
     num = models.IntegerField(_("Порядковый номер"), default=0, blank=True, db_index=True)
 
     class Meta:

@@ -5,35 +5,24 @@ from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.views import generic
 from django.forms import ModelForm
-from .models import Category, Item, Item_variation, Order, Status
-from cart.views import Cart
+from .models import Category, Item, Item_variation
+from easycart import BaseCart, BaseItem
 
 
-import logging, logging.config
-import sys
 
 
-def CartOrder(request):
-    cart = Cart(request)
 
-    total = 0
-    for item in cart.list_items(lambda item: item.obj.title):
-        total += item.obj.price_1 * item.quantity
+class CartOrder(generic.ListView):
+    template_name = 'shop/cart_order.html'
 
-    # Select default status for the order
-    try:
-        default_status = Status.objects.get(default_status=True)
-    except:
-        default_status = Status.objects.first()
+    def queryset(self):
+        return super(CartOrder, self).queryset()
 
-    order = Order (
-        total_price = total,
-        status = default_status
+    def get_context_data(self, **kwargs):
 
-    )
-    print(default_status)
+        context = super(CartOrder, self).get_context_data(**kwargs)
 
-    return render(request, 'shop/cart_order.html')
+        return context
 
 
 class CartView(generic.ListView):
