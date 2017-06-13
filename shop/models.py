@@ -46,6 +46,8 @@ class Item(BaseShop):
     content = RichTextUploadingField("Описание", blank=True)
     category = models.ManyToManyField(Category, verbose_name=u'Категория')
     status = models.BooleanField("Опубликовано", default=True)
+    view_ppc = models.BooleanField("Показывать РРЦ оптовикам", default=True)
+    min_offer = models.IntegerField(_("Минимальная партия"), default=1, blank=True, db_index=True,)
     offer = models.BooleanField("Показывать в спецпредложениях", default=False, blank=True)
     offer_name1 = models.CharField(_("Наименование бренд"), max_length=200, default='', blank=True)
     offer_name2 = models.CharField(_("Наименование модель"), max_length=200, default='', blank=True)
@@ -53,6 +55,7 @@ class Item(BaseShop):
     offer_text_cost = models.CharField(_("Цена"), max_length=200, default='', blank=True)
     offer_text1 = models.CharField(_("Строка описания 1:"), max_length=200, default='', blank=True)
     offer_text2 = models.CharField(_("Строка описания 2:"), max_length=200, default='', blank=True)
+
 
 
     class Meta:

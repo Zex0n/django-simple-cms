@@ -106,8 +106,13 @@
                 <div>Цена 2: {{ variation_obj.price_2 }}</div>
                 <div>Цена 3: {{ variation_obj.price_3 }}</div>
 {% endcomment %}
+
+
                 </div>
             {% endfor %}
+
+            <br><br><br>
+                {{ current_product.content|safe }}
 
 
     {% else %}
@@ -120,7 +125,7 @@
                     <div class="item-desc-text">
                         <div><b>Артикул:</b> {{ item_variation.first.vendor_code }}</div>
                         <div><b>На складе:</b> {{ item_variation.first.stock }}</div>
-                        <div><b>Цена 1:</b> {{ item_variation.first.price_1 }}</div>
+                        <div><b>Розничная цена:</b> {{ item_variation.first.price_1 }}</div>
                     </div>
                     <input type="number" class="cart-quantity col-xs-2 input-lg" style="text-align: right; padding-right: 2px"  value="1">&nbsp;
                     <button class="button button--grey button--main btn button--active" onclick="cart.add('{{ item_variation.first.pk }}', $(this).prev('.cart-quantity').val())">В корзину</button>
