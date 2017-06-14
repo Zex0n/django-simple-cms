@@ -76,10 +76,10 @@
 					<div class="row">
 						<div class="col-xs-2">
 							<div class="social social--top clearfix">
-								<a href="#" class="social__one square">
+								<a href="{{ sitting.vk_link | safe }}" class="social__one square">
 									<span class="fa fa-vk"></span>
 								</a>
-								<a href="#" class="social__one square">
+								<a href="{{ sitting.fb_link | safe }}" class="social__one square">
 									<span class="fa fa-facebook"></span>
 								</a>
 
@@ -462,6 +462,8 @@
             $('#item-variation-select').change(function () {
                 $('.item-desc').hide();
                 $('#item-desc-'+$(this).val()).show();
+
+
             });
 
             $('.item-variation-select-cat').change(function () {
@@ -469,6 +471,24 @@
                 $(this).parent().next().children('span').hide();
 
                 $(this).parent().next().children('.item-desc-'+$(this).val()).show();
+                $(this).parent().next().children('.item-stock-'+$(this).val()).show();
+
+
+
+                if(($(this).parent().next().children('#stock-'+$(this).val()).val()==0)||($(this).parent().next().children('#stock-'+$(this).val()).val()==2))
+                {
+                    $(this).parent().next().next().next().children().hide();
+                    $(this).parent().next().next().children().hide();
+
+                }
+                else
+
+                {
+                    $(this).parent().next().next().next().children().show();
+                    $(this).parent().next().next().children().show();
+                }
+
+
 
 
 
