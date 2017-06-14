@@ -1,5 +1,6 @@
 from .models import Page, Menu, MenuSection, Carousel, CarouselSlide, Setting
 from shop.models import Item
+from news.models import  News
 from django.core.cache import cache
 
 
@@ -44,3 +45,6 @@ def sitting(request):
     sitting=Setting.objects.first()
 
     return {"sitting":sitting}
+def news(request):
+    news=News.objects.all().order_by('-published_date')[:2]
+    return {"main_news":news}

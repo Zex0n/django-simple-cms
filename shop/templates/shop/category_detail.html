@@ -46,7 +46,7 @@
                                 <img src="{{ im.url }}" class="img-responsive"  alt="{{ item_obj.title }}">
 							</div>
 							<div class="listing-anons__title">
-								<h4 class="name">{{ category_obj.title }}</h4>
+								<h4 class="name" style="margin-top: -30px;">{{ category_obj.title }} ({{category_obj.get_children.count|add:category_obj.item_set.count}})</h4>
 							</div>
 							<div class="listing-anons__hidden">
 								<h3>{{ category_obj.title }}</h3>

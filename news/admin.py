@@ -3,9 +3,9 @@ from .models import News
 
 
 class NewsAdmin(admin.ModelAdmin):
-    list_display = ('title', 'published_date', 'main_page')
-    list_editable = ['main_page', ]
-    list_filter = ['published_date', 'main_page']
+    list_display = ('title', 'published_date')
+
+    list_filter = ['published_date']
     search_fields = ['title', 'text']
 
 admin.site.register(News, NewsAdmin)

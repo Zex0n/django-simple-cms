@@ -1,3 +1,4 @@
+{% load thumbnail %}
 	<section class="anons">
 			<div class="container">
 				<div class="row">
@@ -6,8 +7,8 @@
 							<div class="anons__img">
 								<i class="fa fa-wrench  fa-4x" aria-hidden="true" ></i>
 							</div>
-							<h2><a href="/page/tehnologii/" class="title no-decoration"><span class="title__bold">Технологии</span></a></h2>
-							<p class="text">Технологии для Вашего Улова</p>
+							<h2><a href="/news" class="title no-decoration"><span class="title__bold">Новости</span></a></h2>
+							<p class="text">Все новости нашей компании здесь</p>
 						</div>
 					</div>
 					<div class="col-md-4 col-xs-12 wow zoomInUp" data-wow-delay="0.7s" data-wow-duration="1.5s">
@@ -35,30 +36,49 @@
 			</div>
 		</section><!--anons-->
 
+
+
 		<section class="we-are ">
 			<div class="container">
-				<h2 class="title title--main wow fadeInUp" data-wow-delay="0.7s" data-wow-duration="1.5s">ТЕХНОЛОГИИ CAIMAN<span class="line line--title"><span class="line__first"></span><span class="line__second"></span></span></h2>
-				<p class="text text--anons wow fadeInUp" data-wow-delay="0.7s" data-wow-duration="1.5s">Мы используем самое современное оборудование и технологии, что позволяет получить продукцию высочайшего качества по приемлемым ценам.</p>
+				<h2 class="title title--main wow fadeInUp" data-wow-delay="0.7s" data-wow-duration="1.5s">НОВОСТИ CAIMAN <span class="line line--title"><span class="line__first"></span><span class="line__second"></span></span></h2>
+				<p class="text text--anons wow fadeInUp" data-wow-delay="0.7s" data-wow-duration="1.5s">Мы динамично развиваемся стараяcь обеспечить наших партнеров качественным товаром по приемлемым ценам</p>
 				<div class="row">
 					<div class="col-sm-6 col-xs-12">
-						<div class="we-are__img wow fadeInLeft" data-wow-delay="0.7s" data-wow-duration="1.5s"><img class="img-responsive"  src="/static/images/factory1.jpg" alt="moto"/></div>
+						<div class="we-are__img wow fadeInLeft" data-wow-delay="0.7s" data-wow-duration="1.5s">
+
+                          {% thumbnail main_news.last.file "555x315" crop="center" as im %}
+                            <img class="img-responsive"  src="{{ im.url }}" alt="{{ main_news.last.title }}"/></div>
+                        {% endthumbnail %}
+
 						<div class="we-are__block triangle triangle--big wow fadeInLeft" data-wow-delay="0.7s" data-wow-duration="2.5s">
-							<h3 class="title title--block">Современное оборудование</h3>
-							<p class="text">В производстве участвует только самое современное оборудование лучших мировых производителей </p>
-							<a href="article.html" class="btn button button--red button--main">Подробнее</a>
+							<h3 class="title title--block">{{ main_news.last.title }}</h3>
+							<p class="text">{{ main_news.last.small_text }}</p>
+							<a href="{% url 'news:detail' main_news.last.pk %}" class="btn button button--red button--main">Подробнее</a>
 						</div>
 					</div>
 					<div class="col-sm-6 col-xs-12">
 						<div class="we-are__block triangle triangle--big wow fadeInRight" data-wow-delay="0.7s" data-wow-duration="1.5s">
-							<h3 class="title title--block">Полуавтоматизирование линии</h3>
-							<p class="text">Наши производтсвенные линии позволяют выпускать боллее 300 наименований продукции</p>
-							<a href="article.html" class="btn button button--red button--main">Подробнее</a>
+							<h3 class="title title--block">{{ main_news.first.title }}</h3>
+							<p class="text">{{ main_news.first.small_text }}</p>
+							<a href="{% url 'news:detail' main_news.first.pk %}" class="btn button button--red button--main">Подробнее</a>
 						</div>
-						<div class="we-are__img wow fadeInRight" data-wow-delay="0.7s" data-wow-duration="2.5s"><img class="img-responsive"  src="/static/images/factory2.jpg" alt="moto"/></div>
+						<div class="we-are__img wow fadeInRight" data-wow-delay="0.7s" data-wow-duration="2.5s">
+
+                        {% thumbnail main_news.first.file "555x315" crop="center" as im %}
+                            <img class="img-responsive"  src="{{ im.url }}" alt="{{ main_news.first.title }}"/>
+                        {% endthumbnail %}
+                        </div>
 					</div>
 				</div>
+            <div class="row">
+                <br>
+                <div class="col-md-12" align="center"> <a class="btn button button--red button--main" style="width: 100px" href="{% url 'news:list_all' %}">все новости</a></div>
+            </div>
 			</div>
-		</section><!--we-are-->
+		</section>
+
+
+<!--we-are-->
 
 		<div class="numbers">
 			<div class="container">

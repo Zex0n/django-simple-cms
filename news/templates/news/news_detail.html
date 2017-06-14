@@ -1,17 +1,36 @@
 {% extends "base.html" %}
 
+
+
 {% block breadcrumb %}
-    <li><a href="/">Главная</a></li>
-    <li> <a href="{% url 'news:list_all'  %}"> Новости </a></li>
-    <li> {{ news.title }} </li>
+    <a href="/">Главная</a><span class="breadcumb__del no-decoration">»</span>
+    <a href="{% url 'news:list_all' %}"> Новости </a>
+    <span class="breadcumb__del no-decoration">»</span>
+    {{ news.title }} <span class="breadcumb__del no-decoration">»</span>
 {% endblock %}
 
 
-{% block title %}Новости{% endblock title %}
+{% block title %}{ news.title}}-Новости{% endblock title %}
 
 {% block content %}
-    <center><b>{{ news.title}}</b></center>
-    <div>{{ news.published_date|date:"d.m.Y" }}</div>
-    <img src="/media/{{ news.file }}">
+
+     <div class="container">
+				<header class="tab-header clearfix wow fadeInUp" data-wow-delay="0.7s" data-wow-duration="1.5s" style="visibility: visible; animation-duration: 1.5s; animation-delay: 0.7s; animation-name: fadeInUp;">
+					<h2 class="title title--main pull-left">{{ news.published_date|date:"d.m.Y" }} | {{ news.title }}<span class="line line--small"><span class="line__first"></span><span class="line__second"></span></span></h2>
+					<div class="tab-toggles pull-right js-isotope-btns">
+
+					</div>
+				</header>
+
+    <div></div>
+    <img src="/media/{{ news.file }}" width="300" style="margin: 0 20px 20px 20px; float: left;">
     {{ news.text|safe }}
+    </div>
+    <div class="row">
+                <br>
+                <div class="col-md-12" align="center"> <a class="btn button button--red button--main" style="width: 100px" href="{% url 'news:list_all' %}">все новости</a></div>
+    <br>
+    <br>
+    <br>
+            </div>
 {% endblock content %}
