@@ -23,6 +23,8 @@ class Setting(models.Model):
     email1 = models.EmailField(_("E-mail 1"), blank=True)
     email2 = models.EmailField(_("E-mail 2"), blank=True)
     maindres = models.CharField(_("Адрес"), max_length=200, default='', blank=True)
+    vk_link = models.CharField(_("Ссылка на группу Вконтакте"), max_length=200, default='', blank=True)
+    fb_link = models.CharField(_("Ссылка на группу Фейсбук"), max_length=200, default='', blank=True)
 
 
     class Meta:

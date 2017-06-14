@@ -65,12 +65,20 @@ class Item(BaseShop):
 
 
 class Item_variation(models.Model):
+    ITEM_STOCK_CHOICES = (
+        (0, 'Нет в наличии'),
+        (1, 'На складе'),
+        (2, 'Ожидается'),
+    )
+
     title = models.CharField(_("Название"), default='', max_length=255)
     vendor_code = models.CharField(_("Артикул"), blank=True, max_length=255)
     default_variation = models.BooleanField(_("Вариация по умолчанию"), default=False)
-    stock = models.IntegerField(_("На складе"), default=0)
+    stock = models.IntegerField(_("На складе"), choices=ITEM_STOCK_CHOICES, default=1)
+    stock_text = models.CharField(_("Когда ожидается"), default='', max_length=255, blank=True)
     price_1 = models.DecimalField(_("Розничная цена"), max_digits=10, decimal_places=2, blank=True, null=True)
     price_2 = models.DecimalField(_("Оптовая цена"), max_digits=10, decimal_places=2, blank=True, null=True)
+
 
     item = models.ForeignKey(Item, on_delete=models.CASCADE)
     num = models.IntegerField(_("Порядковый номер"), default=0, blank=True, db_index=True)
@@ -126,9 +134,9 @@ class Order(BaseOrder):
     customer = models.ForeignKey(auth_user, verbose_name=u'Пользователь')
     total_price = models.DecimalField(_("Общая стоимость"), max_digits=10, decimal_places=2, blank=True, null=True)
     status = models.ForeignKey(Status, verbose_name=u'Текущий статус', blank=True, null=True)
-    email = models.EmailField(_("Email"))
+    email = models.EmailField(_("Email"),  default='')
     address = models.TextField(_("Адрес доставки"))
-    phone_number = PhoneNumberField(_("Телефон"))
+    phone_number = PhoneNumberField(_("Телефон"),default='')
 
     class Meta:
         verbose_name = _("Заказ")

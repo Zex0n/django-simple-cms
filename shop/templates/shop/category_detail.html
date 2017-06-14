@@ -76,7 +76,7 @@
 </td>
 <td width="50%">
 
-   <b style="font-size: 16px;">{{ category_obj.title }}</b>
+   <b style="font-size: 16px;">{{ category_obj.title }}</b> {% if category_obj.min_offer != 1 %} (Мин.партия: {{  category_obj.min_offer }} шт. ) {% endif %}
        <br>
     {{ category_obj.content_small }} <a href="{% url 'shop:product' category.slug category_obj.slug %}">Смотреть полное описание >></a>
 
@@ -104,6 +104,11 @@
     {% else %}
 
 {{ category_obj.item_variation_set.first.title }}
+        <br>
+
+
+
+
 
 <input type="hidden" class="item-variation-select-cat" value="{{ category_obj.item_variation_set.first.pk }}">
     {% endif %}
@@ -122,15 +127,35 @@
 
 </td>
 
-<td width="10%">
+<td width="12%">
 
     {% for variation_obj in category_obj.item_variation_set.all %}
 
     <span class="item-desc-{{ variation_obj.pk }}"  {% if forloop.counter != 1 %} style="display: none;" {% endif %} id="span-{{ variation_obj.pk }}">{{ variation_obj.price_1 }}</span>
+  {% endfor %}
+    <b>&nbsp; &#8381;</b>
+        <br>
+
+     {% for variation_obj in category_obj.item_variation_set.all %}
+    <span class="item-stock-{{ variation_obj.pk }}"  {% if forloop.counter != 1 %} style="display: none;" {% endif %} id="span-stock-{{ variation_obj.pk }}">
+
+    {% if variation_obj.stock == 1 %}
+         <font color="green">    На складе </font>
+             {% elif variation_obj.stock == 2 %}
+             <font color="blue"> Ожидается  - {{ variation_obj.stock_text }} </font>
+             {% elif variation_obj.stock == 0 %}
+             <font color="red"> Нет в наличии </font>
+          {% endif %}
+        </span>
+
+
+         <input type="hidden" id="stock-{{ variation_obj.pk }}" value="{{ variation_obj.stock }}">
+
+
 
 
     {% endfor %}
-    <b>&#8381;</b>
+
 
 
 
@@ -141,13 +166,26 @@
 
 
     <td width="10%">
-        <input type="number" class="cart-quantity  input-sm"  value="1" size="4" style="width: 70px;height: 40px;text-align: right;">
+
+
+
+
+
+                     <input type="number" class="cart-quantity  input-sm"  value="1" size="4" style="width: 70px;height: 40px;text-align: right;{% if category_obj.item_variation_set.first.stock != 1  %} display: none; {% endif %}">
+
+
+
+
+
+
     </td>
 
 <td width="10%">
 
 
-                    <button class="button button--grey button--main btn button--active" onclick="cart.add($(this).parent().prev().prev().prev().children('.item-variation-select-cat').val(), $(this).parent().prev().children('.cart-quantity').val());">В корзину</button>
+
+                    <button style="{% if category_obj.item_variation_set.first.stock != 1  %} display: none; {% endif %}" class="button button--grey button--main btn button--active" onclick="cart.add($(this).parent().prev().prev().prev().children('.item-variation-select-cat').val(), $(this).parent().prev().children('.cart-quantity').val());">В корзину</button>
+
 
 </td>
 
