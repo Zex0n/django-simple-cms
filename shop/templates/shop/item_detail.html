@@ -96,9 +96,19 @@
             {% for variation_obj in item_variation %}
                 <div class="collapse item-desc" id="item-desc-{{ variation_obj.pk }}">
                     <div class="item-desc-text">
-                        <div><b>Артикул:</b> {{ variation_obj.vendor_code }}</div>
-                        <div><b>На складе:</b> {{ variation_obj.stock }}</div>
-                        <div><b>Розничная цена:</b> {{ variation_obj.price_1 }}</div>
+Наличие:
+                          {% if variation_obj.stock == 1 %}
+         <font color="green">    На складе </font>
+             {% elif variation_obj.stock == 2 %}
+             <font color="blue"> Ожидается  - {{ variation_obj.stock_text }} </font>
+             {% elif variation_obj.stock == 0 %}
+             <font color="red"> Нет в наличии </font>
+          {% endif %}
+
+                        {% if user and not user.is_anonymous  %}  <div><b>Оптовая цена:</b> {{ variation_obj.price_2 }}</div>{% else %}  <div><b>Розничная цена:</b> {{ variation_obj.price_1 }}  <b>&nbsp; &#8381;</b> </div> {% endif %}
+
+
+
                     </div>
                     <input type="number" class="cart-quantity" value="1">
                     <button class="button button--grey button--main btn button--active" onclick="cart.add('{{ variation_obj.pk }}', $(this).prev('.cart-quantity').val())">В корзину</button>
@@ -123,12 +133,20 @@
 
                 <div  id="item-desc-{{ item_variation.first.pk }}">
                     <div class="item-desc-text">
-                        <div><b>Артикул:</b> {{ item_variation.first.vendor_code }}</div>
-                        <div><b>На складе:</b> {{ item_variation.first.stock }}</div>
-                        <div><b>Розничная цена:</b> {{ item_variation.first.price_1 }}</div>
+
+                                 {% if item_variation.first.stock == 1 %}
+     Наличие:    <font color="green">    На складе </font>
+             {% elif item_variation.first.stock == 2 %}
+             <font color="blue"> Ожидается  - {{ variation_obj.stock_text }} </font>
+             {% elif item_variation.first.stock == 0 %}
+             <font color="red"> Нет в наличии </font>
+          {% endif %}
+                     {% if user and not user.is_anonymous  %}  <div><b>Оптовая цена:</b> {{ item_variation.first.price_2 }}</div>{% else %}  <div><b>Розничная цена:</b> {{ item_variation.first.price_1 }}  <b>&nbsp; &#8381;</b></div> {% endif %}
                     </div>
+                {% if item_variation.first.stock == 1 %}
                     <input type="number" class="cart-quantity col-xs-2 input-lg" style="text-align: right; padding-right: 2px"  value="1">&nbsp;
                     <button class="button button--grey button--main btn button--active" onclick="cart.add('{{ item_variation.first.pk }}', $(this).prev('.cart-quantity').val())">В корзину</button>
+                {% endif %}
 {% comment %}
                 <div>Цена 2: {{ variation_obj.price_2 }}</div>
                 <div>Цена 3: {{ variation_obj.price_3 }}</div>

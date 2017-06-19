@@ -35,10 +35,12 @@ class BaseShop(models.Model):
 class Category(MPTTModel, BaseShop):
     parent = TreeForeignKey('self', null=True, blank=True, related_name='children', db_index=True, verbose_name=u"Родительский элемент")
     content = RichTextUploadingField("Описание", blank=True)
+    num = models.IntegerField(default=0, verbose_name=u'Порядковый номер')
 
     class Meta:
         verbose_name = _("Категория")
         verbose_name_plural = _("Категории")
+        ordering = ['num']
 
 
 class Item(BaseShop):
@@ -47,7 +49,7 @@ class Item(BaseShop):
     content = RichTextUploadingField("Описание", blank=True)
     category = models.ManyToManyField(Category, verbose_name=u'Категория')
     status = models.BooleanField("Опубликовано", default=True)
-    view_ppc = models.BooleanField("Показывать РРЦ оптовикам", default=True)
+
     min_offer = models.IntegerField(_("Минимальная партия"), default=1, blank=True, db_index=True,)
     offer = models.BooleanField("Показывать в спецпредложениях", default=False, blank=True)
     offer_name1 = models.CharField(_("Наименование бренд"), max_length=200, default='', blank=True)
@@ -56,12 +58,14 @@ class Item(BaseShop):
     offer_text_cost = models.CharField(_("Цена"), max_length=200, default='', blank=True)
     offer_text1 = models.CharField(_("Строка описания 1:"), max_length=200, default='', blank=True)
     offer_text2 = models.CharField(_("Строка описания 2:"), max_length=200, default='', blank=True)
+    num = models.IntegerField(default=0, verbose_name=u'Порядковый номер')
 
 
 
     class Meta:
         verbose_name = _("Товар")
         verbose_name_plural = _("Товары")
+        ordering = ['num']
 
 
 class Item_variation(models.Model):

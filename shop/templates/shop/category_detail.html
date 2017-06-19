@@ -64,8 +64,19 @@
 <br><br><br>
 
 
-{{ category_obj.items_list.first.title }}
+    {% if item_list.count > 0 %}
+
     <table class="table">
+    <th>
+        <td></td>
+    <td></td>
+    <td>{% if  user and not user.is_anonymous  %} Оптовая цена {% else %}
+
+    <a data-toggle="popover" style="cursor: pointer;" title="Вниманию оптовикам !!! Что бы получить оптовую цену, необходимо зарегистрироваться." data-content="Что бы получить оптовую цену, необходимо зарегистрироваться, как партнер.">    Розничная цена </a>
+    {% endif %} </td>
+    <td></td>
+    <td></td>
+    </th>
           {% for category_obj in item_list %}
 
           {% thumbnail category_obj.item_variation_set.first.item_image_set.first.file "150x150" crop="center" as im %}
@@ -76,7 +87,7 @@
 </td>
 <td width="50%">
 
-   <b style="font-size: 16px;">{{ category_obj.title }}</b> {% if category_obj.min_offer != 1 %} (Мин.партия: {{  category_obj.min_offer }} шт. ) {% endif %}
+   <b style="font-size: 16px;">{{ category_obj.title }}</b>  <b> (Мин.партия: {{  category_obj.min_offer }} шт. )</b>
        <br>
     {{ category_obj.content_small }} <a href="{% url 'shop:product' category.slug category_obj.slug %}">Смотреть полное описание >></a>
 
@@ -108,7 +119,7 @@
 
 
 
-
+{% if user and not user.is_anonymous  %}  <b> РРЦ:</b> {{ category_obj.item_variation_set.first.price_1 }} &#8381; {% endif %}
 
 <input type="hidden" class="item-variation-select-cat" value="{{ category_obj.item_variation_set.first.pk }}">
     {% endif %}
@@ -131,7 +142,7 @@
 
     {% for variation_obj in category_obj.item_variation_set.all %}
 
-    <span class="item-desc-{{ variation_obj.pk }}"  {% if forloop.counter != 1 %} style="display: none;" {% endif %} id="span-{{ variation_obj.pk }}">{{ variation_obj.price_1 }}</span>
+    <span class="item-desc-{{ variation_obj.pk }}"  {% if forloop.counter != 1 %} style="display: none;" {% endif %} id="span-{{ variation_obj.pk }}">{% if user and not user.is_anonymous  %} {{ variation_obj.price_2 }} {% else %} {{ variation_obj.price_1 }} {% endif %}</span>
   {% endfor %}
     <b>&nbsp; &#8381;</b>
         <br>
@@ -218,6 +229,11 @@
 
          {% endfor %}
 </table>
+
+{% endif %}
+
+
+
 </div>
 
 
