@@ -33,7 +33,7 @@
             <td>
 
                 <div class="thumbnail_container">
-                    {% thumbnail product.item.item_image_set.first.file "50x50" crop="center" as im %}
+                    {% thumbnail product.item_image_set.first.file "50x50" crop="center" as im %}
                         <img src="{{ im.url }}" class="img-responsive img-thumbnail">
                     {% endthumbnail %}
                 </div>

@@ -59,7 +59,7 @@
          {% endfor %}
 
 
-<div class="col-md-11 col-md-offset-1 col-xs-6 isotope-item wow fadeInLeft" data-wow-delay="0.7s" data-wow-duration="1.5s" style="position: absolute; left: 0px; top: 0px; visibility: visible; animation-duration: 1.5s; animation-delay: 0.7s; animation-name: fadeInLeft;">
+<div class="col-md-11 col-md-offset-1 col-xs-6 isotope-item"  style="position: absolute; left: 0px; top: 0px; visibility: visible; animation-duration: 1.5s; animation-delay: 0.7s; animation-name: fadeInLeft;">
 
 <br><br><br>
 
@@ -90,6 +90,9 @@
    <b style="font-size: 16px;">{{ category_obj.title }}</b>  <b> (Мин.партия: {{  category_obj.min_offer }} шт. )</b>
        <br>
     {{ category_obj.content_small }} <a href="{% url 'shop:product' category.slug category_obj.slug %}">Смотреть полное описание >></a>
+
+
+    {% if user.username == 'admin' %} <br><a href="/admin/shop/item/{{ category_obj.pk }}/change/">Редактировать в системе управления {{  user.is_admin }}</a> {% endif %}
 
 </td>
 
@@ -240,7 +243,20 @@
 
 
         </div>
+
+     <div class="row">
+    <div class="col-md-12">
+
+        {{ category.content | safe}}
+
+        <br><br><br>
+    </div>
+
+    </div>
+
      </div>
+
+
 
 <br>
 

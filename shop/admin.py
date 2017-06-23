@@ -25,7 +25,7 @@ class ItemAdmin(nested_admin.NestedModelAdmin):
     # list_display = ('title', 'published_date', 'start_date', 'end_date', 'main_page')
     # list_editable = ['main_page', ]
     # list_filter = ['published_date', 'main_page']
-    #search_fields = ['title', 'content']
+    search_fields = ['title']
 
 admin.site.register(Item, ItemAdmin)
 

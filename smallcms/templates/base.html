@@ -127,10 +127,10 @@
 								</div>
 
                                 <div class="header-contacts__one">
-									<a href="{% url "shop:cart_list" %}" class="header-contacts__phone square" title="Оформить заказ">
+									<a href="{% url "shop:cart_list" %}" class="header-contacts__phone square" style="background-color: #ffc73c;color: #FFF;" title="Оформить заказ">
 										<span class="fa fa-shopping-cart"></span>
 									</a>
-                                    Товаров: {{ cart.item_count }} На сумму: {{ cart.total_price }} р. <a href="{% url "shop:cart_list" %}">Оформить заказ</a>
+                                    Товаров: <b>{{ cart.item_count }}</b> На сумму: <b>{{ cart.total_price }} р.</b> <a href="{% url "shop:cart_list" %}">Оформить заказ</a>
 								</div>
 							</div>
 						</div>
@@ -153,9 +153,12 @@
 						</div>
 						<div class="col-md-9 col-xs-12">
 							<div class="main-nav navbar-main-slide">
-								<a href="#" class="btn_header_search main-nav__search no-decoration">
+								<!--
+                                <a href="#" class="btn_header_search main-nav__search no-decoration">
 									<span class="fa fa-search"></span>
 								</a>
+								-->
+
 								<div class="navbar-header">
 									<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#nav">
 										<span class="sr-only"></span>
@@ -292,7 +295,7 @@
 
 
 
-										<a href="#" class="btn button button--main button--red pull-right">СМОТРЕТЬ</a>
+										<a href="{% url "shop:product" of.category.first.slug of.slug %}" class="btn button button--main button--red pull-right">СМОТРЕТЬ</a>
 									</div>
 								</div>
 							</div>
