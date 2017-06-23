@@ -7,9 +7,22 @@
 
         <a href="/" class="breadcumb__page no-decoration">Главная</a>
 					<span class="breadcumb__del no-decoration">»</span>
-                    <a href="{% url 'shop:list_all' %}"> Магазин </a>
+                    <a href="{% url 'shop:list_all' %}"> Каталог </a>
                     <span class="breadcumb__del no-decoration">»</span>
+                    {% for parent in category.get_ancestors %}
+                        <a href="{% url 'shop:detail' parent.slug %}">{{ parent.title }}</a>
+                    <span class="breadcumb__del no-decoration">»</span>
+                    {% endfor %}
+
      {{ category.title }}
+
+
+<br>
+
+
+
+
+
 
 
 {% endblock %}
