@@ -34,6 +34,28 @@
 
 {% block content %}
 
+    <script language="JavaScript">
+
+    function all_to_cart()
+    {
+        var post_url="{% url "cart-add" %}";
+        var csrfmiddlewaretoken = "{{ csrf_token }}";
+
+        $(".cart-quantity").each(function() {
+
+        $.post( post_url, { csrfmiddlewaretoken: csrfmiddlewaretoken, pk: $(this).parent().prev().prev().children(".item-variation-select-cat").val(), quantity: $(this).val() } );
+
+
+    });
+
+
+
+
+
+    }
+
+    </script>
+
 
      <div class="container">
 				<header class="tab-header clearfix wow fadeInUp" data-wow-delay="0.7s" data-wow-duration="1.5s" style="visibility: visible; animation-duration: 1.5s; animation-delay: 0.7s; animation-name: fadeInUp;">
@@ -198,7 +220,7 @@
 
 
 
-                     <input type="number" class="cart-quantity  input-sm"  value="1" size="4" style="width: 70px;height: 40px;text-align: right;{% if category_obj.item_variation_set.first.stock != 1  %} display: none; {% endif %}">
+                     <input type="number"   class="cart-quantity  input-sm"  value="0" size="4" style="width: 70px;height: 40px;text-align: right;{% if category_obj.item_variation_set.first.stock != 1  %} display: none; {% endif %}">
 
 
 
@@ -243,7 +265,11 @@
            {% endthumbnail %}
 
 
-         {% endfor %}
+          {% endfor %}
+
+    <tr>
+        <td colspan="6" align="right"> <button  class="button button--grey button--main btn button--active" onclick="all_to_cart();">Добавить все</button></td>
+    </tr>
 </table>
 
 {% endif %}
