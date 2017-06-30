@@ -9,6 +9,23 @@ from .models import Category, Item, Item_variation, Order, Status
 from easycart import BaseCart, BaseItem
 from cart.views import Cart
 from django.contrib.auth.models import User
+from django import forms
+from django.views.generic import View
+
+
+class NoRegOrderForm(forms.Form):
+    your_name = forms.CharField(label='Имя', max_length=100, widget=forms.TextInput(attrs={'size':'40', 'class':'form-control'}))
+    company_name = forms.CharField(required=False, label='Наименование компании', max_length=100, widget=forms.TextInput(attrs={'size':'40', 'class':'form-control'}))
+    phone = forms.CharField(label='Телефон', max_length=100, widget=forms.TextInput(attrs={'size':'40', 'class':'form-control'}))
+    email = forms.EmailField(required=False, label='E-mail', max_length=100, widget=forms.TextInput(attrs={'size':'40', 'class':'form-control'}))
+    dost_adres = forms.CharField(required=False, label='Адрес доставки', max_length=100, widget=forms.TextInput(attrs={'size':'40', 'class':'form-control'}))
+
+
+class PostOrder(View):
+    def post(self, request):
+
+        return HttpResponseRedirect('/shop/order-success')
+
 
 
 class CartOrder(generic.ListView):
@@ -53,6 +70,7 @@ class CartView(generic.ListView):
 
     def get_context_data(self, **kwargs):
         context = super(CartView, self).get_context_data(**kwargs)
+        context['form'] = NoRegOrderForm()
         return context
 
 

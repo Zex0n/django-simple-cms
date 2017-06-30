@@ -39,11 +39,11 @@
     function all_to_cart()
     {
         var post_url="{% url "cart-add" %}";
-        var csrfmiddlewaretoken = "{{ csrf_token }}";
+         var csrfmiddlewaretoken = "{{ csrf_token }}";
 
         $(".cart-quantity").each(function() {
 
-        $.post( post_url, { csrfmiddlewaretoken: csrfmiddlewaretoken, pk: $(this).parent().prev().prev().children(".item-variation-select-cat").val(), quantity: $(this).val() } );
+        $.post( post_url, { csrfmiddlewaretoken: csrfmiddlewaretoken, pk: $(this).parent().prev().prev().children(".item-variation-select-cat").val(), quantity: $(this).val() },function(){location.reload();} );
 
 
     });
