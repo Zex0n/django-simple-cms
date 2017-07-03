@@ -11,6 +11,8 @@ from cart.views import Cart
 from django.contrib.auth.models import User
 from django import forms
 from django.views.generic import View
+from django.core.mail import send_mail
+
 
 
 class NoRegOrderForm(forms.Form):
@@ -23,6 +25,37 @@ class NoRegOrderForm(forms.Form):
 
 class PostOrder(View):
     def post(self, request):
+
+        cart = Cart(request)
+
+
+
+
+        name = request.POST.get('your_name')
+        company_name = request.POST.get('company_name')
+        phone = request.POST.get('phone')
+        email = request.POST.get('email')
+        dost_adres = request.POST.get('dost_adres')
+
+        send_message = '<h2>Анонимный заказ с сайта CAIMAN </h2>'
+        send_message = send_message + '<b>Имя:</b> ' + name + '<br><br>'
+        send_message = send_message + '<b>Наименование компании:</b> ' + company_name + '<br><br>'
+        send_message = send_message + '<b>Телефон:</b> ' + phone + '<br><br>'
+        send_message = send_message + '<b>E-mail:</b> ' + email + '<br><br>'
+        send_message = send_message + '<b>Адрес доставки:</b> ' + dost_adres + '<br>'
+        send_message = send_message + '<h2>Товары заказа:</h2><table cellspacing="4" cellpadding="4"><tr><td align="center"><b>Наименование</b></td><td align="center"><b>Количество</b></td><td align="center" ><b>Цена</b></td><td align="center"><b>Сумма</b></td></tr>'
+        total=0
+        for item in cart.list_items(lambda item: item.obj.title):
+            total += item.obj.price_1 * item.quantity
+            send_message = send_message + '<tr><td>'+item.obj.item.title+' '+item.obj.title+'</td><td align="center">'+str(item.quantity)+'</td><td align="center">'+str(item.obj.price_1)+' руб.</td><td align="center">'+str(item.obj.price_1*item.quantity)+'руб.</td></tr>'
+
+        send_message = send_message + '<tr><td colspan="4" align="right"><hr></td></tr>'
+        send_message = send_message + '<tr><td colspan="4" align="right"><b>Итого: </b>'+str(total)+' руб. </td></tr></table>'
+        print(send_message)
+
+        send_mail('Анонимный заказ с сайта CAIMAN', send_message, 'sendfromsite@caimanfishing.ru', ['ivan.tolkachev@gmail.com','info@caimanfishing.ru'], fail_silently=False, auth_user=None,auth_password=None, connection=None, html_message=send_message)
+
+        cart.empty()
 
         return HttpResponseRedirect('/shop/order-success')
 
@@ -58,7 +91,21 @@ class CartOrder(generic.ListView):
         #     status=default_status
         # )
         # order.save()
-        cart.empty()
+
+        # cart.empty()
+
+
+        #for item in cart.list_items(lambda item: item.obj.title):
+
+            #print(item.obj.item.title)
+
+
+
+
+
+
+
+
         return super(CartOrder, self).get(self, request, *args, **kwargs)
 
 

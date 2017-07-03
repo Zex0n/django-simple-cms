@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 
 import os
 
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -189,6 +190,8 @@ CKEDITOR_CONFIGS = {
         'extraPlugins': 'youtube'
     },
 }
+
+
 
 # GEO MARKERS
 GEOPOSITION_GOOGLE_MAPS_API_KEY = 'AIzaSyCe3oNO59ag4XLM3Yog7X8L77-PotI3DCA'
