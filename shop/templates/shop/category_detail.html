@@ -48,12 +48,18 @@
 
         $(".cart-quantity").each(function() {
 
-        $.post( post_url, { csrfmiddlewaretoken: csrfmiddlewaretoken, pk: $(this).parent().prev().prev().children(".item-variation-select-cat").val(), quantity: $(this).val() },function(){location.reload();} );
+        //$.post( post_url, { csrfmiddlewaretoken: csrfmiddlewaretoken, pk: $(this).parent().prev().prev().children(".item-variation-select-cat").val(), quantity: $(this).val() });
 
+            $.ajax({
+            type: 'POST',
+             url: post_url,
+            data: { csrfmiddlewaretoken: csrfmiddlewaretoken, pk: $(this).parent().prev().prev().children(".item-variation-select-cat").val(), quantity: $(this).val() },
+            async:false
+                    });
 
     });
 
-
+    location.reload();
 
 
 
