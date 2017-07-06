@@ -30,13 +30,14 @@ class ItemAdmin(nested_admin.NestedModelAdmin):
 admin.site.register(Item, ItemAdmin)
 
 class CategoryAdmin(DjangoMpttAdmin):
+    exclude = ('num',)
     prepopulated_fields = {"slug": ("title",)}
 
 admin.site.register(Category, CategoryAdmin)
 
 
-class OrderAdmin(admin.ModelAdmin):
-    pass
+#class OrderAdmin(admin.ModelAdmin):
+    #pass
     # exclude=("customer ",)
     # readonly_fields=('customer', )
 
@@ -46,11 +47,11 @@ class OrderAdmin(admin.ModelAdmin):
     # list_filter = ['published_date', 'main_page']
     # search_fields = ['title', 'text']
 
-admin.site.register(Order, OrderAdmin)
+#admin.site.register(Order, OrderAdmin)
 
 
-class StatusAdmin(admin.ModelAdmin):
-    list_display = ('title', 'num', 'default_status')
-    list_editable = ['default_status', ]
+#class StatusAdmin(admin.ModelAdmin):
+    #list_display = ('title', 'num', 'default_status')
+    #list_editable = ['default_status', ]
 
-admin.site.register(Status, StatusAdmin)
+#admin.site.register(Status, StatusAdmin)

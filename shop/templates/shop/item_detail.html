@@ -61,11 +61,14 @@
         <div class="col-md-5 ">
             <div class="row">
                 <div class="col-md-10" id="item_big_img">
-                    {#Большая картинка#}
+                    {% if not item_variation.variation_obj.item_image_set.first %}
+                        <img  src="/static/images/nofoto.jpg" width="400">
+                    {% endif %}
                 </div>
                 <div class="col-md-2 ">
                     {#вывод миниатюр#}
                     {% for variation_obj in item_variation %}
+
                         {% for variation_image_obj in variation_obj.item_image_set.all %}
                             <div class="thumbnail_container">
                                 {% thumbnail variation_image_obj.file "50x50" crop="center" as im %}
@@ -75,6 +78,7 @@
                                 {% endthumbnail %}
                             </div>
                         {% endfor %}
+
                     {% endfor %}
                 </div>
             </div>

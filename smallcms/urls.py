@@ -23,12 +23,18 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.conf import settings
 
 from django.views.generic.base import RedirectView
+
+from registration.backends.simple.views import RegistrationView
+
+from shop.forms import UserRegForm
+
 favicon_view = RedirectView.as_view(url='/static/favicon.ico', permanent=True)
 
 
 urlpatterns = [
     # url(r'^admin/filebrowser/', include(site.urls)),
     url(r'^accounts/', include('registration.backends.simple.urls')),
+    url(r'^register/$', RegistrationView.as_view(form_class=UserRegForm)),
     url(r'^grappelli/', include('grappelli.urls')),  # grappelli URLS
     url(r'^ckeditor/', include('ckeditor_uploader.urls')),
     url(r'^parnters/', include('partners.urls',  namespace='partners')),

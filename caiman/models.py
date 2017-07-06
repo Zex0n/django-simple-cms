@@ -14,3 +14,7 @@ class Setting(models.Model):
     class Meta:
         verbose_name = _("Настройка")
         verbose_name_plural = _("Настройки")
+
+
+
+

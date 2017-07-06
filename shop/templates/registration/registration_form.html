@@ -1,6 +1,15 @@
 {% extends "registration/registration_base.html" %}
 {% block title %}Регистрация аккаунта{% endblock %}
 {% block content %}
+
+
+    <div class="container">
+
+    <header class="tab-header clearfix wow fadeInUp" data-wow-delay="0.7s" data-wow-duration="1.5s" style="visibility: visible; animation-duration: 1.5s; animation-delay: 0.7s; animation-name: fadeInUp;">
+					<h2 class="title title--main pull-left">Регистрация аккаунта<span class="line line--small"><span class="line__first"></span><span class="line__second"></span></span></h2>
+					<div class="tab-toggles pull-right js-isotope-btns"></div>
+				</header>
+
   {% include 'registration/form_errors.html' %}
   <form method='post' class="well form-horizontal" action=''>{% csrf_token %}
     {% include 'registration/form_fields.html' %}
@@ -12,4 +21,5 @@
       </div>
 
   </form>
+    </div>
 {% endblock %}

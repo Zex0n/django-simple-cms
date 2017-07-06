@@ -160,3 +160,10 @@ class OrderItem(BaseOrder):
 
     def __str__(self):
         return self.title
+
+class UserSettings(models.Model):
+        phone = models.CharField(_("Телефонный номер 1"), max_length=200, default='', blank=True)
+
+        class Meta:
+            verbose_name = _("Профиль пользователя")
+            verbose_name_plural = _("Профиль пользователя")

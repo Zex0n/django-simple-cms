@@ -34,7 +34,12 @@
 
 {% block content %}
 
+
+
+
     <script language="JavaScript">
+
+
 
     function all_to_cart()
     {
@@ -114,15 +119,31 @@
     </th>
           {% for category_obj in item_list %}
 
-          {% thumbnail category_obj.item_variation_set.first.item_image_set.first.file "150x150" crop="center" as im %}
+
 
 <tr>
 <td class="text-left" width="10%">
-  <img src="{{ im.url }}" class="img-responsive"  alt="{{ item_obj.title }}">
+
+    {% if category_obj.item_variation_set.first.item_image_set.first.file %}
+
+        {% thumbnail category_obj.item_variation_set.first.item_image_set.first.file "400x400" crop="center" as im %}
+        <img src="{{ im.url }}" width="150" onclick="img_on_hover()" class="img-responsive img_product_mini"  alt="{{ item_obj.title }}">
+        {% endthumbnail %}
+    {% else %}
+
+        <img src="/static/images/nofoto.jpg" class="img-responsive" width="150"  alt="{{ item_obj.title }}">
+
+    {% endif %}
+
+
+
+
+
+
 </td>
 <td width="50%">
 
-   <b style="font-size: 16px;">{{ category_obj.title }}</b>  <b> (Мин.партия: {{  category_obj.min_offer }} шт. )</b>
+   <b style="font-size: 16px;">{{ category_obj.title }}</b>  <b> (Мин.партия: {{  category_obj.min_offer }} уп. )</b>
        <br>
     {{ category_obj.content_small }} <a href="{% url 'shop:product' category.slug category_obj.slug %}">Смотреть полное описание >></a>
 
@@ -234,7 +255,11 @@
 
 
                     <button style="{% if category_obj.item_variation_set.first.stock != 1  %} display: none; {% endif %}" class="button button--grey button--main btn button--active" onclick="cart.add($(this).parent().prev().prev().prev().children('.item-variation-select-cat').val(), $(this).parent().prev().children('.cart-quantity').val());">В корзину</button>
-
+{% for item in cart.list_items  %}
+    {% if  item.obj.pk == category_obj.item_variation_set.first.pk  %}
+    <br><span style="color: red;"><span class="fa fa-shopping-cart"></span> в корзине</span>
+    {% endif %}
+{% endfor %}
 
 </td>
 
@@ -262,7 +287,7 @@
 					</div>
          {% endcomment %}
 
-           {% endthumbnail %}
+
 
 
           {% endfor %}

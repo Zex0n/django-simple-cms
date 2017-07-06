@@ -42,6 +42,11 @@ EMAIL_PORT = '465'
 
 EMAIL_USE_SSL = True
 
+ACCOUNT_ACTIVATION_DAYS = 10
+REGISTRATION_OPEN = 2
+
+
+
 
 
 
@@ -77,7 +82,8 @@ INSTALLED_APPS = [
     'partners',
     'shop',
     'gallery',
-    'user_profile'
+    'user_profile',
+    'registration',
 ]
 
 MIDDLEWARE = [
@@ -89,6 +95,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+
 
 ROOT_URLCONF = 'smallcms.urls'
 
