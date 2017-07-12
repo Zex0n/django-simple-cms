@@ -13,6 +13,21 @@ from django.contrib.auth.models import User as auth_user
 from sorl.thumbnail import ImageField
 from phonenumber_field.modelfields import PhoneNumberField
 
+from django.contrib.auth.models import User
+
+class UserProfile(models.Model):
+    user = models.OneToOneField(User,related_name='related_name_user')
+    name = models.CharField(_("Ваше имя"), max_length=1000, default='')
+    phone = models.CharField(_("Телефон"), max_length=1000, default='')
+    company_name = models.CharField(_("Название компании"), max_length=1000, default='')
+    inn = models.CharField(_("ИНН"), max_length=1000, default='')
+    city = models.CharField(_("Город"), max_length=1000, default='')
+    adres = models.CharField(_("Адрес доставки"), max_length=1000, default='')
+
+    class Meta:
+        verbose_name = _("Профиль пользователя")
+        verbose_name_plural = _("Профили пользователя")
+
 
 class BaseShop(models.Model):
     created_date = models.DateTimeField(_("Дата создания"), auto_now_add=True, editable=False)
@@ -50,7 +65,7 @@ class Item(BaseShop):
     category = models.ManyToManyField(Category, verbose_name=u'Категория')
     status = models.BooleanField("Опубликовано", default=True)
 
-    min_offer = models.IntegerField(_("Минимальная партия"), default=1, blank=True, db_index=True,)
+    min_offer = models.CharField(_("Минимальная партия"),max_length=50, blank=True, db_index=True,)
     offer = models.BooleanField("Показывать в спецпредложениях", default=False, blank=True)
     offer_name1 = models.CharField(_("Наименование бренд"), max_length=200, default='', blank=True)
     offer_name2 = models.CharField(_("Наименование модель"), max_length=200, default='', blank=True)
@@ -161,9 +176,3 @@ class OrderItem(BaseOrder):
     def __str__(self):
         return self.title
 
-class UserSettings(models.Model):
-        phone = models.CharField(_("Телефонный номер 1"), max_length=200, default='', blank=True)
-
-        class Meta:
-            verbose_name = _("Профиль пользователя")
-            verbose_name_plural = _("Профиль пользователя")

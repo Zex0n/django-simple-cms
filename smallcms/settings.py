@@ -30,6 +30,7 @@ DEBUG = True
 ALLOWED_HOSTS = ['127.0.0.1', '185.22.60.239', 'caimanfishing.ru', 'www.caimanfishing.ru']
 
 
+
 EMAIL_HOST = 'smtp.yandex.ru'
 
 EMAIL_HOST_USER = 'sendfromsite@caimanfishing.ru'
@@ -41,6 +42,8 @@ EMAIL_HOST_PASSWORD = '24sendfromsite24'
 EMAIL_PORT = '465'
 
 EMAIL_USE_SSL = True
+
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 ACCOUNT_ACTIVATION_DAYS = 10
 REGISTRATION_OPEN = 2
@@ -84,6 +87,7 @@ INSTALLED_APPS = [
     'gallery',
     'user_profile',
     'registration',
+    'smallcms'
 ]
 
 MIDDLEWARE = [

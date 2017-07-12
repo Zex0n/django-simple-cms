@@ -42,10 +42,12 @@ class Dealers (models.Model):
     file = models.ImageField(upload_to='partners', verbose_name=_('Логотип'),null=True, blank=True)
     region = models.ForeignKey(Regions, on_delete=models.SET_NULL, verbose_name=u'Регион', null=True, blank=True)
     position = GeopositionField(verbose_name=u'Расположение', blank=True)
+    num = models.IntegerField(default=0, verbose_name=u'Порядковый номер')
 
     class Meta:
         verbose_name = _("Диллер")
         verbose_name_plural = _("Диллеры")
+        ordering = ['num']
 
     def __str__(self):
         return self.title
