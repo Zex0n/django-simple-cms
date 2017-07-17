@@ -41,6 +41,7 @@
                     position: absolute;
                     z-index: 50;
                     left: -200px;
+                    border: black 1px solid;
                         }
 
 		</style>
@@ -460,6 +461,17 @@
             $(this).ekkoLightbox();
         });
         $(document).ready(function() {
+
+
+
+            $('#dost_need_check').change(function()
+
+                    {
+                        if($('#dost_need_check').is(':checked') ) $('#dost_need').show();
+                        else $('#dost_need').hide();
+                    }
+
+            );
 
 
             $('.img_product_mini').hover(function() {

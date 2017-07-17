@@ -27,8 +27,8 @@ class MyRegistrationView(RegistrationView):
 
         print(send_message)
 
-        send_mail('Анонимный заказ с сайта CAIMAN', send_message, 'sendfromsite@caimanfishing.ru',
-                  ['ivan.tolkachev@gmail.com', 'info@caimanfishing.ru'], fail_silently=False, auth_user=None,
+        send_mail('Регистрация нового пользователя', send_message, 'sendfromsite@caimanfishing.ru',
+                  ['ivan.tolkachev@gmail.com', 'orders@caimanfishing.ru'], fail_silently=False, auth_user=None,
                   auth_password=None, connection=None, html_message=send_message)
 
 

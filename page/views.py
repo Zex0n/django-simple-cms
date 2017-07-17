@@ -38,7 +38,7 @@ class SendMailCls(View):
         send_message = send_message+'<b>Имя:</b> '+name+'<br><br>'
         send_message = send_message+'<b>Телефон:</b> '+phone+'<br><br>'
         send_message = send_message+'<b>Сообщение:</b><br> '+message+'<br>'
-        send_mail('Письмо с сайта CAIMAN', send_message, 'sendfromsite@caimanfishing.ru', ['ivan.tolkachev@gmail.com','info@caimanfishing.ru'], fail_silently=False, auth_user=None, auth_password=None, connection=None, html_message=send_message)
+        send_mail('Письмо с сайта CAIMAN', send_message, 'sendfromsite@caimanfishing.ru', ['ivan.tolkachev@gmail.com','orders@caimanfishing.ru'], fail_silently=False, auth_user=None, auth_password=None, connection=None, html_message=send_message)
 
         return HttpResponseRedirect('/page/goodpost')
 

@@ -71,7 +71,45 @@
 
 <div class="col-md-6 col-md-offset-6"><h4>Данные заказа</h4>
      {% if user and not user.is_anonymous  %}
-        Зарегистрированный пользователь
+
+            <form action="{% url "shop:order-success-post"%}"  method="post">
+       {% csrf_token %}
+<hr>
+    <b>Имя:</b>     {{ userprofile.name }}<br>
+    <b>Компания:</b> {{ userprofile.company_name }}<br>
+
+     <b>Необходима доставка:</b> <input type="checkbox" id="dost_need_check" name="dost_need">
+
+    <div id="dost_need" style="display: none;"><br><b>Адрес доставки:</b>
+
+    <input type="text" size="40" class="form-control" name="dost_adres" value="{{ userprofile.adres }}"><br></div>
+
+
+    <input type="hidden" name="user_name" value="{{ user }}">
+
+    <input type="hidden" name="your_name" value="{{ userprofile.name }}">
+    <input type="hidden" name="phone" value="{{ userprofile.phone }}">
+    <input type="hidden" name="company_name" value="{{ userprofile.company_name }}">
+    <input type="hidden" name="email" value="{{ user.email }}">
+    <input type="hidden" name="inn" value="{{ userprofile.inn }}">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     {% else %}
 
 
@@ -80,6 +118,8 @@
        {% csrf_token %}
        <table class="table">
    {{ form.as_table }}
+     <div id="dost_need" style="display: none;"><br><b>Адрес доставки:</b>
+    <input type="text" size="40" class="form-control" name="dost_adres" value="{{ userprofile.adres }}"><br></div>
            </table>
 
 

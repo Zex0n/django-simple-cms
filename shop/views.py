@@ -5,7 +5,7 @@ from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.views import generic
 from django.forms import ModelForm
-from .models import Category, Item, Item_variation, Order, Status
+from .models import Category, Item, Item_variation, Order, Status, UserProfile
 from easycart import BaseCart, BaseItem
 from cart.views import Cart
 from django.contrib.auth.models import User
@@ -20,6 +20,9 @@ class NoRegOrderForm(forms.Form):
     company_name = forms.CharField(required=False, label='Наименование компании', max_length=100, widget=forms.TextInput(attrs={'size':'40', 'class':'form-control'}))
     phone = forms.CharField(label='Телефон', max_length=100, widget=forms.TextInput(attrs={'size':'40', 'class':'form-control'}))
     email = forms.EmailField(required=False, label='E-mail', max_length=100, widget=forms.TextInput(attrs={'size':'40', 'class':'form-control'}))
+
+    dost_need = forms.BooleanField(required=False, label='Необходима доставка')
+
     dost_adres = forms.CharField(required=False, label='Адрес доставки', max_length=100, widget=forms.TextInput(attrs={'size':'40', 'class':'form-control'}))
 
 
@@ -37,12 +40,23 @@ class PostOrder(View):
         email = request.POST.get('email')
         dost_adres = request.POST.get('dost_adres')
 
-        send_message = '<h2>Анонимный заказ с сайта CAIMAN </h2>'
+        user_name = request.POST.get('user_name')
+
+        dost_need = request.POST.get('dost_need')
+
+        if(user_name):
+            send_message = '<h2>Заказ с сайта CAIMAN от пользователя '+user_name+' </h2>'
+        else:
+            send_message = '<h2>Анонимный заказ с сайта CAIMAN </h2>'
+
+
+
         send_message = send_message + '<b>Имя:</b> ' + name + '<br><br>'
         send_message = send_message + '<b>Наименование компании:</b> ' + company_name + '<br><br>'
         send_message = send_message + '<b>Телефон:</b> ' + phone + '<br><br>'
         send_message = send_message + '<b>E-mail:</b> ' + email + '<br><br>'
-        send_message = send_message + '<b>Адрес доставки:</b> ' + dost_adres + '<br>'
+        if(dost_need): send_message = send_message + '<b>Необходима доставка - адрес доставки:</b> ' + dost_adres + '<br>'
+
         send_message = send_message + '<h2>Товары заказа:</h2><table cellspacing="4" cellpadding="4"><tr><td align="center"><b>Наименование</b></td><td align="center"><b>Количество</b></td><td align="center" ><b>Цена</b></td><td align="center"><b>Сумма</b></td></tr>'
         total=0
         for item in cart.list_items(lambda item: item.obj.title):
@@ -53,7 +67,7 @@ class PostOrder(View):
         send_message = send_message + '<tr><td colspan="4" align="right"><b>Итого: </b>'+str(total)+' руб. </td></tr></table>'
         print(send_message)
 
-        send_mail('Анонимный заказ с сайта CAIMAN', send_message, 'sendfromsite@caimanfishing.ru', ['ivan.tolkachev@gmail.com','info@caimanfishing.ru'], fail_silently=False, auth_user=None,auth_password=None, connection=None, html_message=send_message)
+        send_mail('Заказ с сайта CAIMAN', send_message, 'sendfromsite@caimanfishing.ru', ['ivan.tolkachev@gmail.com','orders@caimanfishing.ru'], fail_silently=False, auth_user=None,auth_password=None, connection=None, html_message=send_message)
 
         cart.empty()
 
@@ -113,11 +127,16 @@ class CartView(generic.ListView):
     template_name = 'shop/cart.html'
 
     def queryset(self):
+
         return super(CartView, self).queryset()
 
+
+
     def get_context_data(self, **kwargs):
+
         context = super(CartView, self).get_context_data(**kwargs)
         context['form'] = NoRegOrderForm()
+        context['userprofile']=UserProfile.objects.filter(user=self.request.user.id).first()
         return context
 
 
