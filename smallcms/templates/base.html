@@ -242,6 +242,7 @@
 
 {% endblock content %}
 
+    <br><br><br><br><br><br><br><br>
 
 
 {% endif %}
@@ -381,10 +382,13 @@
 							<form action="/page/sendmymail" method="post" class="quick-form">
                                 {% csrf_token %}
 								<h2 class="title"><span class="title__bold">Обратная</span>Связь</h2>
-								<div class="quick-input">
+								<!--
+                                <div class="quick-input">
 									<input type="text" name="name" placeholder="Имя" />
 									<div class="triangle-quick-input"></div>
 								</div>
+								-->
+                                <input type="hidden" name="name" value="Скрыто">
 								<div class="quick-input">
 									<input type="text" name="phone" placeholder="Телефон" />
 									<div class="triangle-quick-input"></div>

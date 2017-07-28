@@ -17,7 +17,7 @@ from django.contrib.auth.models import User
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User,related_name='related_name_user')
-    name = models.CharField(_("Ваше имя"), max_length=1000, default='')
+    name = models.CharField(_("Контактное лицо"), max_length=1000, default='')
     phone = models.CharField(_("Телефон"), max_length=1000, default='')
     company_name = models.CharField(_("Название компании"), max_length=1000, default='')
     inn = models.CharField(_("ИНН"), max_length=1000, default='')
