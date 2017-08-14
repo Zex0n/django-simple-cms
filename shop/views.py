@@ -44,7 +44,7 @@ class PostOrder(View):
 
         dost_need = request.POST.get('dost_need')
 
-        if(user_name):
+        if(request.user.is_authenticated):
             send_message = '<h2>Заказ с сайта CAIMAN от пользователя '+user_name+' </h2>'
         else:
             send_message = '<h2>Анонимный заказ с сайта CAIMAN </h2>'
@@ -59,9 +59,16 @@ class PostOrder(View):
 
         send_message = send_message + '<h2>Товары заказа:</h2><table cellspacing="4" cellpadding="4"><tr><td align="center"><b>Наименование</b></td><td align="center"><b>Количество</b></td><td align="center" ><b>Цена</b></td><td align="center"><b>Сумма</b></td></tr>'
         total=0
-        for item in cart.list_items(lambda item: item.obj.title):
-            total += item.obj.price_1 * item.quantity
-            send_message = send_message + '<tr><td>'+item.obj.item.title+' '+item.obj.title+'</td><td align="center">'+str(item.quantity)+'</td><td align="center">'+str(item.obj.price_1)+' руб.</td><td align="center">'+str(item.obj.price_1*item.quantity)+'руб.</td></tr>'
+
+        if (request.user.is_authenticated):
+            for item in cart.list_items(lambda item: item.obj.title):
+                total += item.obj.price_2 * item.quantity
+                send_message = send_message + '<tr><td>'+item.obj.item.title+' '+item.obj.title+'</td><td align="center">'+str(item.quantity)+'</td><td align="center">'+str(item.obj.price_2)+' руб.</td><td align="center">'+str(item.obj.price_2*item.quantity)+'руб.</td></tr>'
+        else:
+            for item in cart.list_items(lambda item: item.obj.title):
+                total += item.obj.price_1 * item.quantity
+                send_message = send_message + '<tr><td>'+item.obj.item.title+' '+item.obj.title+'</td><td align="center">'+str(item.quantity)+'</td><td align="center">'+str(item.obj.price_1)+' руб.</td><td align="center">'+str(item.obj.price_1*item.quantity)+'руб.</td></tr>'
+
 
         send_message = send_message + '<tr><td colspan="4" align="right"><hr></td></tr>'
         send_message = send_message + '<tr><td colspan="4" align="right"><b>Итого: </b>'+str(total)+' руб. </td></tr></table>'
@@ -126,7 +133,7 @@ class CartOrder(generic.ListView):
 class CartView(generic.ListView):
     template_name = 'shop/cart.html'
 
-    def queryset(self):
+    def queryset(self,request):
 
         return super(CartView, self).queryset()
 

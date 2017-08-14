@@ -40,32 +40,34 @@
 
 		<section class="we-are ">
 			<div class="container">
+            {% comment %}
 				<h2 class="title title--main wow fadeInUp" data-wow-delay="0.7s" data-wow-duration="1.5s">НОВОСТИ CAIMAN <span class="line line--title"><span class="line__first"></span><span class="line__second"></span></span></h2>
-				<p class="text text--anons wow fadeInUp" data-wow-delay="0.7s" data-wow-duration="1.5s">Мы динамично развиваемся стараяcь обеспечить наших партнеров качественным товаром по приемлемым ценам</p>
+				<p c1lass="text text--anons wow fadeInUp" data-wow-delay="0.7s" data-wow-duration="1.5s">Мы динамично развиваемся стараяcь обеспечить наших партнеров качественным товаром по приемлемым ценам</p>
+			{% endcomment %}
 				<div class="row">
 					<div class="col-sm-6 col-xs-12">
 						<div class="we-are__img wow fadeInLeft" data-wow-delay="0.7s" data-wow-duration="1.5s">
 
-                          {% thumbnail main_news.last.file "555x315" crop="center" as im %}
-                            <img class="img-responsive"  src="{{ im.url }}" alt="{{ main_news.last.title }}"/></div>
+                          {% thumbnail main_news.all.0.file "555x315" crop="center" as im %}
+                            <img class="img-responsive"  src="{{ im.url }}" alt="{{ main_news.all.0.title }}"/></div>
                         {% endthumbnail %}
 
 						<div class="we-are__block triangle triangle--big wow fadeInLeft" data-wow-delay="0.7s" data-wow-duration="2.5s">
-							<h3 class="title title--block">{{ main_news.last.title }}</h3>
-							<p class="text">{{ main_news.last.small_text }}</p>
-							<a href="{% url 'news:detail' main_news.last.pk %}" class="btn button button--red button--main">Подробнее</a>
+							<h3 class="title title--block">{{ main_news.all.1.title }}</h3>
+							<p class="text">{{ main_news.all.1.small_text }}</p>
+							<a href="{% url 'news:detail' main_news.all.1.pk %}" class="btn button button--red button--main">Подробнее</a>
 						</div>
 					</div>
 					<div class="col-sm-6 col-xs-12">
 						<div class="we-are__block triangle triangle--big wow fadeInRight" data-wow-delay="0.7s" data-wow-duration="1.5s">
-							<h3 class="title title--block">{{ main_news.first.title }}</h3>
-							<p class="text">{{ main_news.first.small_text }}</p>
-							<a href="{% url 'news:detail' main_news.first.pk %}" class="btn button button--red button--main">Подробнее</a>
+							<h3 class="title title--block">{{ main_news.all.0.title }}</h3>
+							<p class="text">{{ main_news.all.0.small_text }}</p>
+							<a href="{% url 'news:detail' main_news.all.0.pk %}" class="btn button button--red button--main">Подробнее</a>
 						</div>
 						<div class="we-are__img wow fadeInRight" data-wow-delay="0.7s" data-wow-duration="2.5s">
 
-                        {% thumbnail main_news.first.file "555x315" crop="center" as im %}
-                            <img class="img-responsive"  src="{{ im.url }}" alt="{{ main_news.first.title }}"/>
+                        {% thumbnail main_news.all.1.file "555x315" crop="center" as im %}
+                            <img class="img-responsive"  src="{{ im.url }}" alt="{{ main_news.all.1.title }}"/>
                         {% endthumbnail %}
                         </div>
 					</div>
@@ -89,7 +91,9 @@
 							<div class="line line--slim line--title"><div class="line__first"></div><div class="line__second"></div></div>
 						</header>
 						<div class="numbers__body chart" data-percent="5">
-							<div class="numbers__num percent">5</div>
+							<p style="color: black">более</p>
+                            <div class="numbers__num percent">5</div>
+
 							<div class="number__desc">Городов</div>
 						</div>
 					</div>
@@ -99,6 +103,7 @@
 							<div class="line line--slim line--title"><div class="line__first"></div><div class="line__second"></div></div>
 						</header>
 						<div class="numbers__body chart" data-percent="40">
+                            <p style="color: black">более</p>
 							<div class="numbers__num percent">40</div>
 							<div class="number__desc">Магазинов</div>
 						</div>
@@ -109,6 +114,7 @@
 							<div class="line line--slim line--title"><div class="line__first"></div><div class="line__second"></div></div>
 						</header>
 						<div class="numbers__body chart" data-percent="1258">
+                            <p style="color: black">более</p>
 							<div class="numbers__num percent">1258</div>
 							<div class="number__desc">Заказов в год</div>
 						</div>
@@ -119,6 +125,7 @@
 							<div class="line line--slim line--title"><div class="line__first"></div><div class="line__second"></div></div>
 						</header>
 						<div class="numbers__body chart" data-percent="60">
+                            <p style="color: black">более</p>
 							<div class="numbers__num percent">60</div>
 							<div class="number__desc">Партнеров</div>
 						</div>
@@ -129,7 +136,8 @@
 							<div class="line line--slim line--title"><div class="line__first"></div><div class="line__second"></div></div>
 						</header>
 						<div class="numbers__body chart" data-percent="10000">
-							<div class="numbers__num percent">10000</div>
+							<p style="color: black">более</p>
+                            <div class="numbers__num percent">10000</div>
 							<div class="number__desc">Покупателей</div>
 						</div>
 					</div>

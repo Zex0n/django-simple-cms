@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load thumbnail %}
+{% load cms_tags %}
 
 {% block breadcrumb %}
     <a href="/">Главная</a><span class="breadcumb__del no-decoration">»</span>
@@ -33,9 +34,15 @@
             <td>
 
                 <div class="thumbnail_container">
+
+                {% if product.item_image_set.first.file %}
                     {% thumbnail product.item_image_set.first.file "50x50" crop="center" as im %}
                         <img src="{{ im.url }}" class="img-responsive img-thumbnail">
                     {% endthumbnail %}
+                {% else %}
+                      <img src="/static/images/nofoto.jpg" class="img-responsive" width="50"  alt="{{ item_obj.title }}">
+
+               {% endif %}
                 </div>
 
             </td>
@@ -50,8 +57,22 @@
                   </span>
                 </div>
             </td>
-            <td class="num">{{ item.price }} руб.</td>
-            <td class="num">{{ item.total }} руб.</td>
+            <td class="num">
+
+
+            {% if user and not user.is_anonymous  %}    {{ product.price_2 }}
+
+                {% else %}
+                {{ product.price_1 }}
+            {% endif %}
+
+                руб.</td>
+
+          {% if user and not user.is_anonymous  %}
+            <td class="num">{% mult product.price_2 item.quantity %} руб.</td>
+          {% else %}
+          <td class="num">{% mult product.price_1 item.quantity %} руб.</td>
+          {% endif %}
             <td>
                 <button onclick="cart.remove('{{ product.pk }}')">Удалить</button>
             </td>
@@ -61,7 +82,7 @@
         <tr class="total">
           <td colspan="4" align="right"><b>Итого</b></td>
           <td>&nbsp;</td>
-          <td class="num">{{ cart.total_price }} руб.</td>
+          <td class="num">{{ real_count_cart }} руб.</td>
         </tr>
     </tbody>
   </table>

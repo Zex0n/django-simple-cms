@@ -40,7 +40,8 @@
                     width: 300px;
                     position: absolute;
                     z-index: 50;
-                    left: -200px;
+                    left: 100px;
+
                     border: black 1px solid;
                         }
 
@@ -114,12 +115,21 @@
                                         <a href="{% url 'profile:edit_user' %}">{{ user.username }}</a>&nbsp;
                                         <a href="{% url 'auth_logout' %}" class="header-contacts__link">Выход</a>
                                     {% else %}
+
+
+                                        <a href="/register/" class="header-contacts__email square">
+                                            <span class="fa fa-user-plus"></span>
+                                        </a>
+                                        <a href="/register/" class="header-contacts__link">Регистрация</a>
+                                        </div>
+                                        <div class="header-contacts__one">
                                         <a href="{% url 'auth_login' %}" class="header-contacts__email square">
                                             <span class="fa fa-sign-in"></span>
                                         </a>
                                         <a href="{% url 'auth_login' %}" class="header-contacts__link">Вход</a>
-                                    {% endif %}
 
+
+                                    {% endif %}
 
 
 								</div>
@@ -140,7 +150,7 @@
 									<a href="{% url "shop:cart_list" %}" class="header-contacts__phone square" style="background-color: #ffc73c;color: #FFF;" title="Оформить заказ">
 										<span class="fa fa-shopping-cart"></span>
 									</a>
-                                    Товаров: <b>{{ cart.item_count }}</b> На сумму: <b>{{ cart.total_price }} р.</b> <a href="{% url "shop:cart_list" %}">Оформить заказ</a>
+                                    Товаров: <b>{{ cart.item_count }}</b> На сумму: <b>{{ real_count_cart }}  р.</b> <a href="{% url "shop:cart_list" %}">Оформить заказ</a>
 								</div>
 							</div>
 						</div>
@@ -263,7 +273,7 @@
 
 
 
-
+{% comment %}
 		<section class="offers dark-bg">
 			<div class="container">
 				<h2 class="title title--main"><span class="title__bold">   Спецпредложения <span></span></span>CAIMAN<span class="line line--small"><span class="line__first"></span><span class="line__second"></span></span></h2>
@@ -365,7 +375,13 @@
 			</div>
 		</section><!--link-->
 
+		{% endcomment %}
+
+
+
 		<footer class='map-footer'>
+
+            {% if slug == 'kontakty' %}
 			<div class="footer-contacts">
 				<div class="container">
 					<div class="row">
@@ -405,6 +421,7 @@
 					</div>
 				</div>
 			</div>
+            {% endif %}
 			<div class="footer-bottom">
 				<div class="container">
 					<div class="row">
@@ -434,7 +451,7 @@
 		<script src="/static/js/bootstrap.min.js"></script>
 		<script src="/static/js/modernizr.custom.js"></script>
 		<!--Counter-->
-		<script src="/static/assets/rendro-easy-pie-chart/dist/jquery.easypiechart.min.js"></script>
+
 		<script src="/static/js/waypoints.min.js"></script>
 		<script src="/static/js/jquery.easypiechart.min.js"></script>
 		<script src="/static/js/classie.js"></script>
@@ -478,14 +495,29 @@
             );
 
 
-            $('.img_product_mini').hover(function() {
+             $('.img_product_mini').mouseenter(function() {
 
-              $(this).addClass('img_hover');
+              $(this).clone().addClass('img_hover').addClass("newElement").prependTo($(this).parent());
+            });
+
+             $('.img_product_mini').mouseleave(function() {
+
+              $(".newElement").remove();
+            });
+
+
+
+
+         {% comment %}   $('.img_product_mini').mouseleave(function() {
+
+            alert('asd');
+
+              $(this).clone().addClass('img_hover').addClass("newElement").appendTo($(this).next());
             },
             function() {
                 $(this).removeClass('img_hover');
             }
-            );
+            );{% endcomment %}
 
 
 

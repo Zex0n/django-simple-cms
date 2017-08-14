@@ -2,6 +2,8 @@ from .models import Page, Menu, MenuSection, Carousel, CarouselSlide, Setting
 from shop.models import Item
 from news.models import  News
 from django.core.cache import cache
+from cart.views import Cart
+from django.contrib.auth.models import User
 
 
 from django.conf import settings
@@ -44,7 +46,29 @@ def sitting(request):
 
     sitting=Setting.objects.first()
 
+
     return {"sitting":sitting}
+
 def news(request):
     news=News.objects.all().order_by('-published_date')[:2]
     return {"main_news":news}
+
+def count_cart(request):
+
+    real_count_cart=0
+    cart = Cart(request)
+
+    for item in cart.list_items(lambda item: item.obj.title):
+
+        if (request.user.is_authenticated):
+            real_count_cart += item.obj.price_2 * item.quantity
+        else:
+            real_count_cart += item.obj.price_1 * item.quantity
+
+
+
+    return {"real_count_cart":real_count_cart}
+
+
+
+

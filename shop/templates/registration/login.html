@@ -19,7 +19,8 @@
   <form method="post" class="well form-horizontal" action="{% url 'auth_login' %}">{% csrf_token %}
     {% include 'registration/form_fields.html' %}
 
-    <p>{% blocktrans %}<a href="{{ auth_pwd_reset_url }}">Забыли пароль</a>&nbsp;/&nbsp;
+    <p>
+{% blocktrans %}<!--<a href="{{ auth_pwd_reset_url }}">Забыли пароль</a>&nbsp;/&nbsp;-->
     <a href="{{ register_url }}">Регистрация</a>{% endblocktrans %}</p>
 
       <div class="form-group">

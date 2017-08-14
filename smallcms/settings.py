@@ -121,6 +121,8 @@ TEMPLATES = [
                 'page.context_processors.offer',
                 'page.context_processors.sitting',
                 'page.context_processors.news',
+                'page.context_processors.count_cart',
+
             ],
             'libraries': {  # Adding this section should work around the issue.
                 #'cms_tags': 'smallcms.templatetags.cms_tags',  # to add new tags module,
