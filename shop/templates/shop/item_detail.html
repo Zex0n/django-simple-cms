@@ -26,6 +26,20 @@
 
 {% block content %}
 
+      <style>
+
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+    input[type='number'] {
+    -moz-appearance: textfield;
+    }
+
+    </style>
+
     <div class="container">
     <h1>{{ current_product.title}}</h1>
 
@@ -119,6 +133,11 @@
 
                     </div>
                     <input type="number" class="cart-quantity" value="1">
+
+
+
+
+
                     <button class="button button--grey button--main btn button--active" onclick="cart.add('{{ variation_obj.pk }}', $(this).prev('.cart-quantity').val())">В корзину</button>
 {% comment %}
                 <div>Цена 2: {{ variation_obj.price_2 }}</div>
@@ -151,9 +170,32 @@
           {% endif %}
                      {% if user and not user.is_anonymous  %}  <div><b>Оптовая цена:</b> {{ item_variation.first.price_2 }}</div>{% else %}  <div><b>Розничная цена:</b> {{ item_variation.first.price_1 }}  <b>&nbsp; &#8381;</b></div> {% endif %}
                     </div>
+
+
                 {% if item_variation.first.stock == 1 %}
-                    <input type="number" class="cart-quantity col-xs-2 input-lg" style="text-align: right; padding-right: 2px"  value="1">&nbsp;
-                    <button class="button button--grey button--main btn button--active" onclick="cart.add('{{ item_variation.first.pk }}', $(this).prev('.cart-quantity').val())">В корзину</button>
+<div class="row">
+
+                       <div class="input-group col-md-2" style="{% if item_variation.first.stock != 1  %} display: none; {% endif %}">
+          <span class="input-group-btn">
+              <button type="button" class="btn btn-danger btn-number"  data-type="minus" data-field="v{{ variation_obj.pk }}">
+                <span class="glyphicon glyphicon-minus"></span>
+              </button>
+          </span>
+          <input type="number" style="min-width: 50px;" name="v{{ variation_obj.pk }}" class="cart-quantity form-control input-number" value="0" min="0" max="999">
+          <span class="input-group-btn">
+              <button type="button" class="btn btn-success btn-number" data-type="plus" data-field="v{{ variation_obj.pk  }}">
+                  <span class="glyphicon glyphicon-plus"></span>
+              </button>
+          </span>
+      </div>
+<br>
+<div class="col-md-2">
+              <button  class="button button--grey button--main btn button--active" onclick="cart.add('{{ item_variation.first.pk }}', $(this).parent().prev().prev().children('.cart-quantity').val())">В корзину</button>
+</div>
+
+
+
+</div>
                 {% endif %}
 {% comment %}
                 <div>Цена 2: {{ variation_obj.price_2 }}</div>
