@@ -20,13 +20,6 @@
 
 
 <br>
-
-
-
-
-
-
-
 {% endblock %}
 
 
@@ -35,104 +28,117 @@
 
 
 {% block content %}
-
-
-
-
     <script language="JavaScript">
 
 
-          window.onload = function() {
-        window.onbeforeunload = function() {
-            var cols=0;
-             $(".cart-quantity").each(function(){
-                 if(cols==0)cols=$(this).val();
-            });
-           if((cols!=0)&&(true_out==0)) return "Вы действительно хотите покинуть страницу ?";
-        };
+        window.onload = function () {
+            window.onbeforeunload = function () {
+                var cols = 0;
+                $(".cart-quantity").each(function () {
+                    if (cols == 0) cols = $(this).val();
+                });
+                if ((cols != 0) && (true_out == 0)) return "Вы действительно хотите покинуть страницу ?";
+            };
         }
 
+        function all_to_cart() {
+            true_out = 1;
+            var post_url = "{% url "
+            cart - add
+            " %}";
+            var csrfmiddlewaretoken = "{{ csrf_token }}";
 
+            $(".cart-quantity").each(function () {
 
+                left_coock($(this).parent().parent().prev().prev().children(".item-variation-select-cat").val());
+                //$.post( post_url, { csrfmiddlewaretoken: csrfmiddlewaretoken, pk: $(this).parent().prev().prev().children(".item-variation-select-cat").val(), quantity: $(this).val() });
 
-    function all_to_cart()
-    {
-        true_out=1;
-        var post_url="{% url "cart-add" %}";
-         var csrfmiddlewaretoken = "{{ csrf_token }}";
+                $.ajax({
+                    type: 'POST',
+                    url: post_url,
+                    data: {
+                        csrfmiddlewaretoken: csrfmiddlewaretoken,
+                        pk: $(this).parent().parent().prev().prev().children(".item-variation-select-cat").val(),
+                        quantity: $(this).val()
+                    },
+                    async: false
+                });
 
-        $(".cart-quantity").each(function() {
+            });
 
-        left_coock($(this).parent().parent().prev().prev().children(".item-variation-select-cat").val());
-        //$.post( post_url, { csrfmiddlewaretoken: csrfmiddlewaretoken, pk: $(this).parent().prev().prev().children(".item-variation-select-cat").val(), quantity: $(this).val() });
-
-            $.ajax({
-            type: 'POST',
-             url: post_url,
-            data: { csrfmiddlewaretoken: csrfmiddlewaretoken, pk: $(this).parent().parent().prev().prev().children(".item-variation-select-cat").val(), quantity: $(this).val() },
-            async:false
-                    });
-
-    });
-
-    location.reload();
-
-
-
+        location.reload();
     }
 
     </script>
 
-    <style>
+<style>
 
     input::-webkit-outer-spin-button,
     input::-webkit-inner-spin-button {
-    /* display: none; <- Crashes Chrome on hover */
-    -webkit-appearance: none;
-    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
-}
-    input[type='number'] {
-    -moz-appearance: textfield;
+        /* display: none; <- Crashes Chrome on hover */
+        -webkit-appearance: none;
+        margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
     }
 
-    </style>
+    input[type='number'] {
+        -moz-appearance: textfield;
+    }
+
+</style>
 
 
      <div class="container">
-				<header class="tab-header clearfix"  style="visibility: visible;">
-					<h2 class="title title--main pull-left">{{ category.title}}<span class="line line--small"><span class="line__first"></span><span class="line__second"></span></span></h2>
-					<div class="tab-toggles pull-right js-isotope-btns">
+         <header class="tab-header clearfix" style="visibility: visible;">
+             <h2 class="title title--main pull-left">{{ category.title}}<span class="line line--small"><span
+                     class="line__first"></span><span class="line__second"></span></span></h2>
+             <div class="tab-toggles pull-right js-isotope-btns">
 
-					</div>
-				</header>
+             </div>
+         </header>
+
+
+         <div class="row">
+             <div class="col-md-12">
+                 {{ category.content | safe}}
+                 <br><br>
+             </div>
+         </div>
 
         <div class="row isotope" style="position: relative; height: 315px;">
 
 
             {% for category_obj in object_list %}
 
-          {% thumbnail category_obj.file "250x250" crop="center" as im %}
+            {% thumbnail category_obj.file "250x250" crop="center" as im %}
 
 
-        <div class="col-md-3 col-xs-6 isotope-item "  style="position: absolute; left: 0px; top: 0px; visibility: visible;">
-						<a href="{% url 'shop:detail' category_obj.slug %}"  class="listing-anons equal-height-item listing-anons--home triangle triangle--big line-down no-decoration" style="height: 315px;">
-							<div class="listing-anons__img">
+            <div class="col-md-3 col-xs-6 isotope-item " style="position: absolute; left: 0px; top: 0px; visibility: visible;">
+                <a href="{% url 'shop:detail' category_obj.slug %}" class="listing-anons equal-height-item listing-anons--home triangle triangle--big line-down no-decoration" style="height: 315px;">
+                    <div class="listing-anons__img">
 
 
-                                <img src="{{ im.url }}" class="img-responsive"  alt="{{ item_obj.title }}">
-							</div>
-							<div class="listing-anons__title">
-								<h4 class="name" style="margin-top: -30px;">{{ category_obj.title }} ({{category_obj.get_children.count|add:category_obj.item_set.count}})</h4>
-							</div>
-							<div class="listing-anons__hidden">
-								<h3>{{ category_obj.title }}</h3>
-							</div>
-						</a>
-					</div>
+                        <img src="{{ im.url }}" class="img-responsive" alt="{{ item_obj.title }}">
+                    </div>
+                    <div class="listing-anons__title">
+                        <h4 class="name">{{ category_obj.title }}
+                            <!--({{category_obj.get_children.count|add:category_obj.item_set.count}}) категорий <br>-->
+<!--                            {% if category_obj.get_children.count %}
+                                {{category_obj.get_children.count}} категорий <br>
+                            {% endif %}-->
+                            ({% last_child category_obj %})
+                        </h4>
+                        <h5>от {% min_child category_obj user.is_anonymous %} до {% max_child category_obj user.is_anonymous %} руб</h5>
 
-          {% endthumbnail %}
+                    </div>
+                    <div class="listing-anons__hidden">
+                        <h3>{{ category_obj.title }}</h3>
+                    </div>
+                </a>
+            </div>
 
-         {% endfor %}
+            {% endthumbnail %}
+
+            {% endfor %}
 
 
 <div class="col-md-11 col-md-offset-1 col-xs-6"  style="">
@@ -145,14 +151,15 @@
     <table class="table">
     <th>
         <td></td>
-    <td></td>
-    <td>{% if  user and not user.is_anonymous  %} Оптовая цена {% else %}
+        <td></td>
+        <td>{% if user and not user.is_anonymous %} Оптовая цена {% else %}
 
-    <a data-toggle="popover" style="cursor: pointer;" title="Вниманию оптовикам !!! Что бы получить оптовую цену, необходимо зарегистрироваться." data-content="Что бы получить оптовую цену, необходимо зарегистрироваться, как партнер.">    Розничная цена </a>
-    {% endif %} </td>
-    <td></td>
-    <td></td>
-    </th>
+            <a data-toggle="popover" style="cursor: pointer;" title="Вниманию оптовикам !!! Что бы получить оптовую цену, необходимо зарегистрироваться." data-content="Что бы получить оптовую цену, необходимо зарегистрироваться, как партнер."> Розничная цена </a>
+            {% endif %}
+        </td>
+        <td></td>
+        <td></td>
+        </th>
           {% for category_obj in item_list %}
 
 
@@ -161,20 +168,12 @@
 <td class="text-left" width="10%">
 
     {% if category_obj.item_variation_set.first.item_image_set.first.file %}
-
         {% thumbnail category_obj.item_variation_set.first.item_image_set.first.file "400x400" crop="center" as im %}
-        <img src="{{ im.url }}" width="150" onclick="img_on_hover()" class="img-responsive img_product_mini"  alt="{{ item_obj.title }}">
+        <img src="{{ im.url }}" width="150" onclick="img_on_hover()" class="img-responsive img_product_mini" alt="{{ item_obj.title }}">
         {% endthumbnail %}
     {% else %}
-
-        <img src="/static/images/nofoto.jpg" class="img-responsive" width="150"  alt="{{ item_obj.title }}">
-
+        <img src="/static/images/nofoto.jpg" class="img-responsive" width="150" alt="{{ item_obj.title }}">
     {% endif %}
-
-
-
-
-
 
 </td>
 <td width="50%">
@@ -282,13 +281,13 @@
 
     <div class="input-group" style="{% if category_obj.item_variation_set.first.stock != 1  %} display: none; {% endif %}">
           <span class="input-group-btn">
-              <button type="button" class="btn btn-danger btn-number"  data-type="minus" data-field="v{{ category_obj.item_variation_set.first.pk  }}">
+              <button type="button" class="btn btn-danger btn-number"  data-type="minus" data-field="v{{ category_obj.item_variation_set.first.pk  }}" data-step="{{ category_obj.min_lot }}">
                 <span class="glyphicon glyphicon-minus"></span>
               </button>
           </span>
           <input type="number" style="min-width: 50px;" name="v{{ category_obj.item_variation_set.first.pk  }}" class="cart-quantity form-control input-number" value="{% cookie category_obj.item_variation_set.first.pk  %}" min="0" max="999">
           <span class="input-group-btn">
-              <button type="button" class="btn btn-success btn-number" data-type="plus" data-field="v{{ category_obj.item_variation_set.first.pk  }}">
+              <button type="button" class="btn btn-success btn-number" data-type="plus" data-field="v{{ category_obj.item_variation_set.first.pk  }}" data-step="{{ category_obj.min_lot }}">
                   <span class="glyphicon glyphicon-plus"></span>
               </button>
           </span>
@@ -316,26 +315,24 @@
 </tr>
 
 
-
-
-      {% comment %}
-// Товары категории
+        {% comment %}
+        // Товары категории
         <div class="col-md-3 col-xs-6 isotope-item wow fadeInLeft" data-wow-delay="0.7s" data-wow-duration="1.5s" style="position: absolute; left: 0px; top: 0px; visibility: visible; animation-duration: 1.5s; animation-delay: 0.7s; animation-name: fadeInLeft;">
-						<a href="{% url 'shop:product' category.slug category_obj.slug %}"  class="listing-anons equal-height-item listing-anons--home triangle triangle--big line-down no-decoration" style="height: 315px;">
-							<div class="listing-anons__img">
+            <a href="{% url 'shop:product' category.slug category_obj.slug %}" class="listing-anons equal-height-item listing-anons--home triangle triangle--big line-down no-decoration" style="height: 315px;">
+                <div class="listing-anons__img">
 
 
-                                <img src="{{ im.url }}" class="img-responsive"  alt="{{ item_obj.title }}">
-							</div>
-							<div class="listing-anons__title">
-								<h4 class="name">{{ category_obj.title }}</h4>
-							</div>
-							<div class="listing-anons__hidden">
-								<h3>{{ category_obj.title }}</h3>
-							</div>
-						</a>
-					</div>
-         {% endcomment %}
+                    <img src="{{ im.url }}" class="img-responsive" alt="{{ item_obj.title }}">
+                </div>
+                <div class="listing-anons__title">
+                    <h4 class="name">{{ category_obj.title }}</h4>
+                </div>
+                <div class="listing-anons__hidden">
+                    <h3>{{ category_obj.title }}</h3>
+                </div>
+            </a>
+        </div>
+        {% endcomment %}
 
 
 
@@ -358,15 +355,6 @@
 
         </div>
 
-     <div class="row">
-    <div class="col-md-12">
-
-        {{ category.content | safe}}
-
-        <br><br><br>
-    </div>
-
-    </div>
 
      </div>
 

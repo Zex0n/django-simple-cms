@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% load thumbnail %}
-
+{% load cms_tags %}
 {% block breadcrumb %}
 
 
@@ -44,7 +44,13 @@
                                 <img src="{{ im.url }}" class="img-responsive"  alt="{{ category_obj.title }}">
 							</div>
 							<div class="listing-anons__title">
-								<h4 class="name" style="margin-top: -30px;">{{ category_obj.title }} ({{category_obj.get_children.count|add:category_obj.item_set.count}})</h4>
+
+
+								<h4 class="name">{{ category_obj.title }}
+									({% last_child category_obj %})
+								</h4>
+								<h5>от {% min_child category_obj user.is_anonymous %} до {% max_child category_obj user.is_anonymous %} руб</h5>
+
 							</div>
 							<div class="listing-anons__hidden">
 								<h3>{{ category_obj.title }}</h3>
@@ -63,14 +69,6 @@
      </div>
 
 <br>
-
-
-
-
-
-
-
-
 
 {% endblock content %}
 

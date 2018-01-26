@@ -139,12 +139,17 @@ WSGI_APPLICATION = 'smallcms.wsgi.application'
 
 DATABASES = {
     'default': {
-        'CONN_MAX_AGE': 0,
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'smallcms',
-        'PASSWORD': 1,
+        # 'CONN_MAX_AGE': 0,
+        # 'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        # 'NAME': 'smallcms',
+        # 'PASSWORD': 1,
+        # 'PORT': 5432,
+        # 'USER': 'postgres'
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'postgres',
+        'USER': 'postgres',
+        'HOST': 'caimandb',
         'PORT': 5432,
-        'USER': 'postgres'
     }
 }
 

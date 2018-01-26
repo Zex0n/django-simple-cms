@@ -73,6 +73,7 @@ class Item(BaseShop):
     offer_text_cost = models.CharField(_("Цена"), max_length=200, default='', blank=True)
     offer_text1 = models.CharField(_("Строка описания 1:"), max_length=200, default='', blank=True)
     offer_text2 = models.CharField(_("Строка описания 2:"), max_length=200, default='', blank=True)
+    min_lot = models.IntegerField(default=1, verbose_name=u'Множитель для товара')
     num = models.IntegerField(default=0, verbose_name=u'Порядковый номер')
 
 
