@@ -483,18 +483,19 @@
     <script>
 
 
-        $('.btn-number').click(function(e){
+$('.btn-number').click(function(e){
     e.preventDefault();
 
     fieldName = $(this).attr('data-field');
     type      = $(this).attr('data-type');
+    step      = Number.parseInt ($(this).attr('data-step'));
     var input = $("input[name='"+fieldName+"']");
     var currentVal = parseInt(input.val());
     if (!isNaN(currentVal)) {
         if(type == 'minus') {
 
             if(currentVal > input.attr('min')) {
-                input.val(currentVal - 1).change();
+                input.val(currentVal - step).change();
             }
             if(parseInt(input.val()) == input.attr('min')) {
                 $(this).attr('disabled', true);
@@ -503,7 +504,7 @@
         } else if(type == 'plus') {
 
             if(currentVal < input.attr('max')) {
-                input.val(currentVal + 1).change();
+                input.val(currentVal + step).change();
             }
             if(parseInt(input.val()) == input.attr('max')) {
                 $(this).attr('disabled', true);
@@ -643,7 +644,7 @@ $(".input-number").keydown(function (e) {
 
             $('.thumbnail_container img').click(function () {
                 $('#item_big_img').html('');
-                $('#item_big_img').append('<img src="'+$(this).attr('data-url')+'">');
+                $('#item_big_img').append('<a href="'+$(this).attr('data-url')+'" data-toggle="lightbox"><img src="'+$(this).attr('data-url')+'">');
             });
             if ($('.thumbnail_container img').length) $('.thumbnail_container img')[0].click();
             

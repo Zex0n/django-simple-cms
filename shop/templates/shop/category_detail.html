@@ -151,12 +151,7 @@
     <table class="table">
     <th>
         <td></td>
-
         <td></td>
-
-    {% if user and not user.is_anonymous %}{% else %}<td>Оптовая цена</td>{% endif %}
-
-
         <td>{% if user and not user.is_anonymous %} Оптовая цена {% else %}
 
             <a data-toggle="popover" style="cursor: pointer;" title="Вниманию оптовикам !!! Что бы получить оптовую цену, необходимо зарегистрироваться." data-content="Что бы получить оптовую цену, необходимо зарегистрироваться, как партнер."> Розничная цена </a>
