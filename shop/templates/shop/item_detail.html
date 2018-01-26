@@ -177,13 +177,13 @@
 
                        <div class="input-group col-md-2" style="{% if item_variation.first.stock != 1  %} display: none; {% endif %}">
           <span class="input-group-btn">
-              <button type="button" class="btn btn-danger btn-number"  data-type="minus" data-field="v{{ variation_obj.pk }}">
+              <button type="button" class="btn btn-danger btn-number"  data-type="minus" data-field="v{{ variation_obj.pk }}" data-step="{{ current_product.min_lot }}">
                 <span class="glyphicon glyphicon-minus"></span>
               </button>
           </span>
           <input type="number" style="min-width: 50px;" name="v{{ variation_obj.pk }}" class="cart-quantity form-control input-number" value="0" min="0" max="999">
           <span class="input-group-btn">
-              <button type="button" class="btn btn-success btn-number" data-type="plus" data-field="v{{ variation_obj.pk  }}">
+              <button type="button" class="btn btn-success btn-number" data-type="plus" data-field="v{{ variation_obj.pk }}" data-step="{{ current_product.min_lot }}">
                   <span class="glyphicon glyphicon-plus"></span>
               </button>
           </span>
