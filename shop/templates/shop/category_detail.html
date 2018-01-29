@@ -127,7 +127,7 @@
                             {% endif %}-->
                             ({% last_child category_obj %})
                         </h4>
-                        <h5>от {% min_child category_obj user.is_anonymous %} до {% max_child category_obj user.is_anonymous %} руб</h5>
+                        <h5>Цена от <b>{% min_child category_obj user.is_anonymous %}</b> до <b>{% max_child category_obj user.is_anonymous %}</b> руб</h5>
 
                     </div>
                     <div class="listing-anons__hidden">
@@ -294,7 +294,7 @@
                 <span class="glyphicon glyphicon-minus"></span>
               </button>
           </span>
-          <input type="number" style="min-width: 50px;" name="v{{ category_obj.item_variation_set.first.pk  }}" class="cart-quantity form-control input-number" value="{% cookie category_obj.item_variation_set.first.pk  %}" min="0" max="999">
+          <input type="number" style="min-width: 50px;" name="v{{ category_obj.item_variation_set.first.pk  }}" class="cart-quantity form-control input-number" value="{% cookie category_obj.item_variation_set.first.pk  %}" min="0" max="999" readonly="readonly">
           <span class="input-group-btn">
               <button type="button" class="btn btn-success btn-number" data-type="plus" data-field="v{{ category_obj.item_variation_set.first.pk  }}" data-step="{{ category_obj.min_lot }}">
                   <span class="glyphicon glyphicon-plus"></span>
