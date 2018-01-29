@@ -129,7 +129,7 @@
              <font color="red"> Нет в наличии </font>
           {% endif %}
 
-                        {% if user and not user.is_anonymous  %}  <div><b>Оптовая цена:</b> {{ variation_obj.price_2 }}</div>{% else %}  <div><b>РРЦ:</b> {{ variation_obj.price_1 }}  <b>&nbsp; &#8381;</b> </div> {% endif %}
+                        {% if user and not user.is_anonymous  %}  <div><b>Оптовая цена1:</b> {{ variation_obj.price_2 }}</div>{% else %}  <div><b>РРЦ:</b> {{ variation_obj.price_1 }}  <b>&nbsp; &#8381;</b> </div> {% endif %}
 
 
 
@@ -170,14 +170,16 @@
              {% elif item_variation.first.stock == 0 %}
              <font color="red"> Нет в наличии </font>
           {% endif %}
-                     {% if user and not user.is_anonymous  %}  <div><b>Оптовая цена:</b> {{ item_variation.first.price_2 }}</div>{% else %}  <div><b>РРЦ:</b> {{ item_variation.first.price_1 }}  <b>&nbsp; &#8381;</b></div> {% endif %}
+                     {% if user and not user.is_anonymous  %}  <div><b>РРЦ:</b> {{ item_variation.first.price_1 }} <br><b>Оптовая цена:</b> {{ item_variation.first.price_2 }}</div>{% else %}  <div><b>РРЦ:</b> {{ item_variation.first.price_1 }}  <b>&nbsp; &#8381;</b>  <br> <b>Оптовая цена:</b> <a  title="Вниманию оптовикам !!! Что бы получить оптовую цену, необходимо зарегистрироваться." data-content="Что бы получить оптовую цену, необходимо зарегистрироваться, как партнер." href="/register/" class="btn btn-danger">
+                                            Авторизация </a></div> {% endif %}
+
                     </div>
 
 
                 {% if item_variation.first.stock == 1 %}
 <div class="row">
 
-                       <div class="input-group col-md-2" style="{% if item_variation.first.stock != 1  %} display: none; {% endif %}">
+                   <b>Количество:</b>    <div class="input-group col-md-2" style="{% if item_variation.first.stock != 1  %} display: none; {% endif %}">
           <span class="input-group-btn">
               <button type="button" class="btn btn-danger btn-number"  data-type="minus" data-field="v{{ variation_obj.pk }}" data-step="{{ current_product.min_lot }}">
                 <span class="glyphicon glyphicon-minus"></span>

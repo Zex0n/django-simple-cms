@@ -155,10 +155,10 @@
     <td></td>
 
 
-        {% if user and not user.is_anonymous %}  {% else %}<td>Оптовая цена</td>{% endif %}
+        {% if user and not user.is_anonymous %}  {% else %}<td><b>Оптовая цена</b></td>{% endif %}
         <td>
 
-            {% if user and not user.is_anonymous %} Оптовая цена  {% else %}<a data-toggle="popover" style="cursor: pointer;" title="Вниманию оптовикам !!! Что бы получить оптовую цену, необходимо зарегистрироваться." data-content="Что бы получить оптовую цену, необходимо зарегистрироваться, как партнер."> РРЦ  </a>{% endif %}
+            {% if user and not user.is_anonymous %}<b> Оптовая цена </b>  {% else %}<a data-toggle="popover" style="cursor: pointer;" title="Вниманию оптовикам !!! Что бы получить оптовую цену, необходимо зарегистрироваться." data-content="Что бы получить оптовую цену, необходимо зарегистрироваться, как партнер."> РРЦ  </a>{% endif %}
 
 
         </td>
@@ -174,7 +174,11 @@
 
     {% if category_obj.item_variation_set.first.item_image_set.first.file %}
         {% thumbnail category_obj.item_variation_set.first.item_image_set.first.file "400x400" crop="center" as im %}
+        {% thumbnail category_obj.item_variation_set.first.item_image_set.first.file "1000x1000" crop="center" as exl %}
+            <a href="{{ exl.url }}" data-toggle="lightbox">
         <img src="{{ im.url }}" width="150" onclick="img_on_hover()" class="img-responsive img_product_mini" alt="{{ item_obj.title }}">
+            </a>
+        {% endthumbnail %}
         {% endthumbnail %}
     {% else %}
         <img src="/static/images/nofoto.jpg" class="img-responsive" width="150" alt="{{ item_obj.title }}">
@@ -238,7 +242,7 @@
 </td>
 
 
-{% if user and not user.is_anonymous %}{% else %}<td><a  title="Вниманию оптовикам !!! Что бы получить оптовую цену, необходимо зарегистрироваться." data-content="Что бы получить оптовую цену, необходимо зарегистрироваться, как партнер." href="/register/" class="btn btn-default">
+{% if user and not user.is_anonymous %}{% else %}<td><a  title="Вниманию оптовикам !!! Что бы получить оптовую цену, необходимо зарегистрироваться." data-content="Что бы получить оптовую цену, необходимо зарегистрироваться, как партнер." href="/register/" class="btn btn-danger">
                                             Авторизация </a></td>{% endif %}
 
 <td width="12%">
