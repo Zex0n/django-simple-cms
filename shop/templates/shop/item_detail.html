@@ -87,7 +87,9 @@
                             <div class="thumbnail_container">
                                 {% thumbnail variation_image_obj.file "50x50" crop="center" as im %}
                                 {% thumbnail variation_image_obj.file "400x400" crop="center" as big_im %}
-                                    <img style="cursor:pointer" src="{{ im.url }}" data-url="{{ big_im.url }}" class="img-responsive img-thumbnail" alt="{{ variation_image_obj.title }}" title="{{ variation_image_obj.title }}" id="img-{{ variation_obj.pk }}-{{ forloop.counter }}">
+                                {% thumbnail variation_image_obj.file "1000x1000" crop="center" as xl_im %}
+                                    <img style="cursor:pointer" src="{{ im.url }}" data-gallery="item-gallery" data-remote="{{ xl_im.url }}" data-url="{{ big_im.url }}" data-xlurl="{{ xl_im.url }}" class="img-responsive img-thumbnail" alt="{{ variation_image_obj.title }}" title="{{ variation_image_obj.title }}" id="img-{{ variation_obj.pk }}-{{ forloop.counter }}">
+                                {% endthumbnail %}
                                 {% endthumbnail %}
                                 {% endthumbnail %}
                             </div>
@@ -181,7 +183,7 @@
                 <span class="glyphicon glyphicon-minus"></span>
               </button>
           </span>
-          <input type="number" style="min-width: 50px;" name="v{{ variation_obj.pk }}" class="cart-quantity form-control input-number" value="0" min="0" max="999">
+          <input type="number" style="min-width: 50px;" name="v{{ variation_obj.pk }}" class="cart-quantity form-control input-number" value="0" min="0" max="999" readonly="readonly">
           <span class="input-group-btn">
               <button type="button" class="btn btn-success btn-number" data-type="plus" data-field="v{{ variation_obj.pk }}" data-step="{{ current_product.min_lot }}">
                   <span class="glyphicon glyphicon-plus"></span>

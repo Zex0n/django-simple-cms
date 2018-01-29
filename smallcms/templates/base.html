@@ -644,7 +644,7 @@ $(".input-number").keydown(function (e) {
 
             $('.thumbnail_container img').click(function () {
                 $('#item_big_img').html('');
-                $('#item_big_img').append('<a href="'+$(this).attr('data-url')+'" data-toggle="lightbox"><img src="'+$(this).attr('data-url')+'">');
+                $('#item_big_img').append('<a href="'+$(this).attr('data-xlurl')+'" data-toggle="lightbox" data-gallery="item-gallery"><img src="'+$(this).attr('data-url')+'">');
             });
             if ($('.thumbnail_container img').length) $('.thumbnail_container img')[0].click();
             
