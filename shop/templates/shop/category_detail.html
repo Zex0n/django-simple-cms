@@ -151,11 +151,16 @@
     <table class="table">
     <th>
         <td></td>
-        <td></td>
-        <td>{% if user and not user.is_anonymous %} Оптовая цена {% else %}
 
-            <a data-toggle="popover" style="cursor: pointer;" title="Вниманию оптовикам !!! Что бы получить оптовую цену, необходимо зарегистрироваться." data-content="Что бы получить оптовую цену, необходимо зарегистрироваться, как партнер."> Розничная цена </a>
-            {% endif %}
+    <td></td>
+
+
+        {% if user and not user.is_anonymous %}  {% else %}<td>Оптовая цена</td>{% endif %}
+        <td>
+
+            {% if user and not user.is_anonymous %} Оптовая цена  {% else %}<a data-toggle="popover" style="cursor: pointer;" title="Вниманию оптовикам !!! Что бы получить оптовую цену, необходимо зарегистрироваться." data-content="Что бы получить оптовую цену, необходимо зарегистрироваться, как партнер."> РРЦ  </a>{% endif %}
+
+
         </td>
         <td></td>
         <td></td>
@@ -233,8 +238,8 @@
 </td>
 
 
-{% if user and not user.is_anonymous %}{% else %}<td><a title="Вниманию оптовикам !!! Что бы получить оптовую цену, необходимо зарегистрироваться." data-content="Что бы получить оптовую цену, необходимо зарегистрироваться, как партнер." href="/register/" class="header-contacts__email square">
-                                            <span class="fa fa-user-plus"></span></a></td>{% endif %}
+{% if user and not user.is_anonymous %}{% else %}<td><a  title="Вниманию оптовикам !!! Что бы получить оптовую цену, необходимо зарегистрироваться." data-content="Что бы получить оптовую цену, необходимо зарегистрироваться, как партнер." href="/register/" class="btn btn-default">
+                                            Авторизация </a></td>{% endif %}
 
 <td width="12%">
 
