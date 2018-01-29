@@ -129,7 +129,7 @@
              <font color="red"> Нет в наличии </font>
           {% endif %}
 
-                        {% if user and not user.is_anonymous  %}  <div><b>Оптовая цена:</b> {{ variation_obj.price_2 }}</div>{% else %}  <div><b>Розничная цена:</b> {{ variation_obj.price_1 }}  <b>&nbsp; &#8381;</b> </div> {% endif %}
+                        {% if user and not user.is_anonymous  %}  <div><b>Оптовая цена:</b> {{ variation_obj.price_2 }}</div>{% else %}  <div><b>РРЦ:</b> {{ variation_obj.price_1 }}  <b>&nbsp; &#8381;</b> </div> {% endif %}
 
 
 
@@ -170,7 +170,7 @@
              {% elif item_variation.first.stock == 0 %}
              <font color="red"> Нет в наличии </font>
           {% endif %}
-                     {% if user and not user.is_anonymous  %}  <div><b>Оптовая цена:</b> {{ item_variation.first.price_2 }}</div>{% else %}  <div><b>Розничная цена:</b> {{ item_variation.first.price_1 }}  <b>&nbsp; &#8381;</b></div> {% endif %}
+                     {% if user and not user.is_anonymous  %}  <div><b>Оптовая цена:</b> {{ item_variation.first.price_2 }}</div>{% else %}  <div><b>РРЦ:</b> {{ item_variation.first.price_1 }}  <b>&nbsp; &#8381;</b></div> {% endif %}
                     </div>
 
 
