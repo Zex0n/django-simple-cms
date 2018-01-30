@@ -298,7 +298,7 @@
                 <span class="glyphicon glyphicon-minus"></span>
               </button>
           </span>
-          <input type="number" style="min-width: 50px;" name="v{{ category_obj.item_variation_set.first.pk  }}" class="cart-quantity form-control input-number" value="{% cookie category_obj.item_variation_set.first.pk  %}" min="0" max="999" readonly="readonly">
+          <input type="number" style="min-width: 50px;" name="v{{ category_obj.item_variation_set.first.pk  }}" class="cart-quantity form-control input-number" value="{% cookie category_obj.item_variation_set.first.pk  %}"  data-step="{{ category_obj.min_lot }}" min="0" max="999">
           <span class="input-group-btn">
               <button type="button" class="btn btn-success btn-number" data-type="plus" data-field="v{{ category_obj.item_variation_set.first.pk  }}" data-step="{{ category_obj.min_lot }}">
                   <span class="glyphicon glyphicon-plus"></span>

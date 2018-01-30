@@ -14,15 +14,12 @@ from django.views.generic import View
 from django.core.mail import send_mail
 
 
-
 class NoRegOrderForm(forms.Form):
     your_name = forms.CharField(label='Имя', max_length=100, widget=forms.TextInput(attrs={'size':'40', 'class':'form-control'}))
     company_name = forms.CharField(required=False, label='Наименование компании', max_length=100, widget=forms.TextInput(attrs={'size':'40', 'class':'form-control'}))
     phone = forms.CharField(label='Телефон', max_length=100, widget=forms.TextInput(attrs={'size':'40', 'class':'form-control'}))
     email = forms.EmailField(required=False, label='E-mail', max_length=100, widget=forms.TextInput(attrs={'size':'40', 'class':'form-control'}))
-
     dost_need = forms.BooleanField(required=False, label='Необходима доставка')
-
     dost_adres = forms.CharField(required=False, label='Адрес доставки', max_length=100, widget=forms.TextInput(attrs={'size':'40', 'class':'form-control'}))
 
 
@@ -30,9 +27,6 @@ class PostOrder(View):
     def post(self, request):
 
         cart = Cart(request)
-
-
-
 
         name = request.POST.get('your_name')
         company_name = request.POST.get('company_name')
@@ -48,8 +42,6 @@ class PostOrder(View):
             send_message = '<h2>Заказ с сайта CAIMAN от пользователя '+user_name+' </h2>'
         else:
             send_message = '<h2>Анонимный заказ с сайта CAIMAN </h2>'
-
-
 
         send_message = send_message + '<b>Имя:</b> ' + name + '<br><br>'
         send_message = send_message + '<b>Наименование компании:</b> ' + company_name + '<br><br>'
@@ -120,13 +112,6 @@ class CartOrder(generic.ListView):
 
             #print(item.obj.item.title)
 
-
-
-
-
-
-
-
         return super(CartOrder, self).get(self, request, *args, **kwargs)
 
 
@@ -134,13 +119,9 @@ class CartView(generic.ListView):
     template_name = 'shop/cart.html'
 
     def queryset(self,request):
-
         return super(CartView, self).queryset()
 
-
-
     def get_context_data(self, **kwargs):
-
         context = super(CartView, self).get_context_data(**kwargs)
         context['form'] = NoRegOrderForm()
         context['userprofile']=UserProfile.objects.filter(user=self.request.user.id).first()
@@ -166,7 +147,6 @@ class ListView(generic.ListView):
         context = super(ListView, self).get_context_data(**kwargs)
         # context['slug'] = self.kwargs['slug']
         context['object_list'] = Category.objects.filter(level__lte=0)
-
         return context
 
 
@@ -180,9 +160,6 @@ class ProductView(generic.DetailView):
         context['current_category'] = get_object_or_404(Category, slug=context['slug_category'])
         context['current_product'] = get_object_or_404(Item, slug=context['slug'], status=True)
         context['item_variation'] = context['current_product'].item_variation_set.all()
-
-
-
         # context['object_list'] = current_category.get_children()
         # context['item_list'] = current_category.item_set.all()
         return context

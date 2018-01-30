@@ -474,6 +474,10 @@
 
     <script>
 
+function roundToNumber(roundedNumber, roundTo) {
+    amount = roundTo * Math.ceil(roundedNumber / roundTo);
+    return amount;
+}
 
 $('.btn-number').click(function(e){
     e.preventDefault();
@@ -507,6 +511,9 @@ $('.btn-number').click(function(e){
         input.val(0);
     }
 });
+$('.input-number').on("click", function () {
+   $(this).select();
+});
 $('.input-number').focusin(function(){
    $(this).data('oldValue', $(this).val());
 });
@@ -515,22 +522,21 @@ $('.input-number').change(function() {
     minValue =  parseInt($(this).attr('min'));
     maxValue =  parseInt($(this).attr('max'));
     valueCurrent = parseInt($(this).val());
+    $(this).val(roundToNumber(valueCurrent, parseInt($(this).attr('data-step'))));
 
     name = $(this).attr('name');
     if(valueCurrent >= minValue) {
         $(".btn-number[data-type='minus'][data-field='"+name+"']").removeAttr('disabled')
     } else {
-        alert('Sorry, the minimum value was reached');
+        alert('Введенное значение слишком большое');
         $(this).val($(this).data('oldValue'));
     }
     if(valueCurrent <= maxValue) {
         $(".btn-number[data-type='plus'][data-field='"+name+"']").removeAttr('disabled')
     } else {
-        alert('Sorry, the maximum value was reached');
+        alert('Введенное значение слишком большое');
         $(this).val($(this).data('oldValue'));
     }
-
-
 });
 $(".input-number").keydown(function (e) {
         // Allow: backspace, delete, tab, escape, enter and .
@@ -550,9 +556,6 @@ $(".input-number").keydown(function (e) {
 
 
 
-
-
-
         var true_out=0;
 
 
@@ -561,16 +564,6 @@ $(".input-number").keydown(function (e) {
 
            $.removeCookie("t"+left_id);
         }
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -589,11 +582,6 @@ $(".input-number").keydown(function (e) {
             $.cookie("t"+this_id,$(this).val());
 
     });
-
-
-
-
-
 
 
             $('#dost_need_check').change(function()

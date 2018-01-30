@@ -49,7 +49,7 @@
               <td><a href="{% url "shop:product" product.item.category.first.slug product.item.slug %}">{{ product.item.title }} ({{ product.title }})</a></td>
             <td>
                 <div class="input-group" style="width: 120px;">
-                  <input type="number" class="form-control cart-quantity" value="{{ item.quantity }}">
+                  <input type="number" class="form-control cart-quantity input-number" data-step="{{ product.item.min_lot }}" value="{{ item.quantity }}" min="0" max="999">
                   <span class="input-group-btn">
                     <button class="btn btn-default" type="button" onclick="cart.changeQuantity('{{ product.pk }}', $(this).parent().prev('.cart-quantity').val())" title="Изменить количество">
                         <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
