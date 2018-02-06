@@ -135,7 +135,14 @@ class DetailView(generic.DetailView):
         context = super(DetailView, self).get_context_data(**kwargs)
         context['slug'] = self.kwargs['slug']
         current_category = Category.objects.get(slug=context['slug'])
+        # print (current_category.get_family())
+        # print (current_category.get_root())
+        context['nodes'] = Category.objects.all()
+        context['current_category'] = current_category
+        context['current_category_root'] = current_category.get_root()
+        # context['current_category_root'] = current_category.values_list('dinner__id', flat=True)
         context['object_list'] = Category.objects.filter(parent=current_category.pk)
+        context['global_object_list'] = Category.objects.filter(level__lte=0)
         context['item_list'] = current_category.item_set.all()
         return context
 
