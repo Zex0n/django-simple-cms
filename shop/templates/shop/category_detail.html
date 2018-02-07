@@ -91,7 +91,7 @@
      <div class="container">
 
         <div class="row">
-            <div class="col-md-3" >
+            <div class="col-lg-3 visible-lg-block" >
 
                     {% recursetree nodes %}
 
@@ -124,7 +124,7 @@
                     {% endrecursetree %}
 
             </div>
-            <div class="col-md-9">
+            <div class="col-md-12 col-lg-9">
 
                 <header class="tab-header clearfix" style="visibility: visible;">
                     <h2 class="title title--main pull-left">{{ category.title}}<span class="line line--small"><span class="line__first"></span><span class="line__second"></span></span></h2>
@@ -134,7 +134,7 @@
                  <div class="row">
                      <div class="col-md-12">
                          {{ category.content | safe}}
-                         <br><br>
+                         <br>
                      </div>
                  </div>
 
@@ -163,8 +163,7 @@
                     </div>
                     {% endthumbnail %}
                     {% endfor %}
-        <div class="col-md-11 col-md-offset-1 col-xs-6"  style="">
-        <br><br><br>
+        <div class="col-md-12 col-xs-6"  style="">
             {% if item_list.count > 0 %}
 
             <table class="table">
