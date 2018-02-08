@@ -513,3 +513,30 @@
     margin-bottom: -10px;
     cursor:pointer;
 }
+.root_catalog {
+    overflow: hidden;
+    vertical-align: top;
+    padding: 0 0 10px;
+    font: bold 11px/14px 'Arial Black', Arial, Helvetica, 'sans-serif';
+}
+.leaf_catalog {
+    overflow: visible;
+    vertical-align: top;
+    font: normal 12px 'Arial Black', Arial, Helvetica, 'sans-serif';
+    padding-bottom: 10px;
+}
+
+.root_catalog .root_catalog_link {
+    display: block;
+    height: 20px;
+    line-height: 24px;
+    text-decoration: underline;
+    text-transform: uppercase;
+}
+.root_catalog .root_catalog_link:hover {
+    text-decoration: none;
+}
+.catalog_children_div {
+    padding: 10px 20px 0 10px;
+    border-left: 1px #a5a5a5 solid;
+}

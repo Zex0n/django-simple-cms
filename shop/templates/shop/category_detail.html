@@ -95,14 +95,14 @@
 
                     {% recursetree nodes %}
 
-                        <div >
-                            <a href="{% url 'shop:detail' node.slug %}" {% ifequal node.pk current_category.pk %}style="font-weight:bold;"{% else %}style="padding-bottom:10px;"{% endifequal %}>
+                        <div {% if node.is_root_node %}class="root_catalog"{% else %}class="leaf_catalog"{% endif %}>
+                            <a href="{% url 'shop:detail' node.slug %}"  {% if node.is_root_node %}class="root_catalog_link"{% endif %} {% ifequal node.pk current_category.pk %}style="font-weight:bold;"{% else %}style="padding-bottom:10px;"{% endifequal %}>
                             {{ node.title }}
                             </a>
                             {% if node.is_root_node %}
                                 {% ifequal node.pk current_category_root.pk %}
                                     {% if not node.is_leaf_node %}
-                                        <div style="padding-left: 20px;margin-bottom: 10px;border-left: 1px #a5a5a5 solid;">
+                                        <div class="catalog_children_div">
                                             {{ children }}
                                         </div>
                                     {% endif %}
@@ -110,11 +110,11 @@
                             {% else %}
                                 {% if not node.is_leaf_node %}
                                     {% if current_category.pk == node.pk %}
-                                        <div style="padding-left: 20px;margin-bottom: 10px;border-left: 1px #a5a5a5 solid;">
+                                        <div class="catalog_children_div">
                                             {{ children }}
                                         </div>
                                     {% elif node.level < current_category.level and current_category in node.get_descendants %}
-                                        <div style="padding-left: 20px;margin-bottom: 10px;border-left: 1px #a5a5a5 solid;">
+                                        <div class="catalog_children_div">
                                             {{ children }}
                                         </div>
                                     {% endif %}

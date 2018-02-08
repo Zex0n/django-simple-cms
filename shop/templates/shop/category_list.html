@@ -28,6 +28,16 @@
 					</div>
 				</header>
 
+
+
+        <div class="row">
+            <div class="col-lg-3 visible-lg-block" >
+
+				{% for category_obj in object_list %}
+					<div class="root_catalog"><a href="{% url 'shop:detail' category_obj.slug %}" class="root_catalog_link">{{ category_obj.title }}</a></div>
+         		{% endfor %}
+            </div>
+            <div class="col-md-12 col-lg-9">
         <div class="row isotope" style="position: relative; height: 315px;">
 
 
@@ -65,6 +75,7 @@
 
 
 
+        </div>
         </div>
      </div>
 
