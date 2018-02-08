@@ -44,9 +44,7 @@
 
         function all_to_cart() {
             true_out = 1;
-            var post_url = "{% url "
-            cart - add
-            " %}";
+            var post_url = "{% url 'cart-add' %}";
             var csrfmiddlewaretoken = "{{ csrf_token }}";
 
             $(".cart-quantity").each(function () {
