@@ -519,6 +519,9 @@
     padding: 0 0 10px;
     font: bold 11px/14px 'Arial Black', Arial, Helvetica, 'sans-serif';
 }
+.root_catalog a:hover {
+    color: #fd3e3e !important;
+}
 .leaf_catalog {
     overflow: visible;
     vertical-align: top;
