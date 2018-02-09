@@ -65,6 +65,8 @@ class Item(BaseShop):
     category = models.ManyToManyField(Category, verbose_name=u'Категория')
     status = models.BooleanField("Опубликовано", default=True)
 
+    new_flag = models.BooleanField("Показывать как новинку", default=False)
+
     min_offer = models.CharField(_("Минимальная партия"),max_length=50, blank=True, db_index=True,)
     offer = models.BooleanField("Показывать в спецпредложениях", default=False, blank=True)
     offer_name1 = models.CharField(_("Наименование бренд"), max_length=200, default='', blank=True)
