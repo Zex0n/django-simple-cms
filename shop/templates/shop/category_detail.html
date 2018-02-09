@@ -49,7 +49,7 @@
 
             $(".cart-quantity").each(function () {
 
-                left_coock($(this).parent().parent().prev().prev().children(".item-variation-select-cat").val());
+                left_coock($(this).parent().parent().prev().prev().prev().children(".item-variation-select-cat").val());
                 //$.post( post_url, { csrfmiddlewaretoken: csrfmiddlewaretoken, pk: $(this).parent().prev().prev().children(".item-variation-select-cat").val(), quantity: $(this).val() });
 
                 $.ajax({
@@ -57,7 +57,7 @@
                     url: post_url,
                     data: {
                         csrfmiddlewaretoken: csrfmiddlewaretoken,
-                        pk: $(this).parent().parent().prev().prev().children(".item-variation-select-cat").val(),
+                        pk: $(this).parent().parent().prev().prev().prev().children(".item-variation-select-cat").val(),
                         quantity: $(this).val()
                     },
                     async: false
@@ -216,11 +216,13 @@
                             <br>
                         </td>
 
+                        <td>
                         {% if user and not user.is_anonymous %}{% else %}
-                            <td>
+
                                 <a  title="Вниманию оптовикам !!! Что бы получить оптовую цену, необходимо зарегистрироваться." data-content="Что бы получить оптовую цену, необходимо зарегистрироваться, как партнер." href="/register/" class="btn btn-danger">Авторизация </a>
-                            </td>
                         {% endif %}
+                        </td>
+
 
                         <td width="12%">
                             {% for variation_obj in category_obj.item_variation_set.all %}
@@ -262,7 +264,9 @@
                         </td>
 
                         <td width="10%">
-                            <button style="{% if category_obj.item_variation_set.first.stock != 1  %} display: none; {% endif %}" class="button button--grey button--main btn button--active" onclick="cart.add($(this).parent().prev().prev().prev().children('.item-variation-select-cat').val(), $(this).parent().prev().children().children('.cart-quantity').val()); true_out=1; left_coock($(this).parent().prev().prev().prev().children('.item-variation-select-cat').val());">В корзину</button>
+
+                            <button style="{% if category_obj.item_variation_set.first.stock != 1  %} display: none; {% endif %}" class="button button--grey button--main btn button--active" onclick="cart.add($(this).parent().prev().prev().prev().prev().children('.item-variation-select-cat').val(), $(this).parent().prev().children().children('.cart-quantity').val()); true_out=1; left_coock($(this).parent().prev().prev().prev().children('.item-variation-select-cat').val());">В корзину</button>
+
                             {% for item in cart.list_items  %}
                                 {% if  item.obj.pk == category_obj.item_variation_set.first.pk  %}
                                 <small><br><span style="color: red;"><span class="fa fa-shopping-cart"></span> в корзине - <b>{{item.quantity}}</b> </span></small>
@@ -294,7 +298,7 @@
                 {% endfor %}
 
                 <tr>
-                    <td colspan="6" align="right"> <button  class="button button--grey button--main btn button--active" onclick="all_to_cart();">Добавить все</button></td>
+                    <td colspan="7" align="right"> <button  class="button button--grey button--main btn button--active" onclick="all_to_cart();">Добавить все</button></td>
                 </tr>
         </table>
 
