@@ -90,9 +90,9 @@
 							<span class="fa fa-building"></span>
 							<div class="line line--slim line--title"><div class="line__first"></div><div class="line__second"></div></div>
 						</header>
-						<div class="numbers__body chart" data-percent="5">
+						<div class="numbers__body chart" data-percent="{{ sitting.citys | safe }}">
 							<p style="color: black">более</p>
-                            <div class="numbers__num percent">5</div>
+                            <div class="numbers__num percent">{{ sitting.citys | safe }}</div>
 
 							<div class="number__desc">Городов</div>
 						</div>
@@ -102,9 +102,9 @@
 							<span class="fa fa-shopping-cart"></span>
 							<div class="line line--slim line--title"><div class="line__first"></div><div class="line__second"></div></div>
 						</header>
-						<div class="numbers__body chart" data-percent="40">
+						<div class="numbers__body chart" data-percent="{{ sitting.shops | safe }}">
                             <p style="color: black">более</p>
-							<div class="numbers__num percent">40</div>
+							<div class="numbers__num percent">{{ sitting.shops | safe }}</div>
 							<div class="number__desc">Магазинов</div>
 						</div>
 					</div>
@@ -113,9 +113,9 @@
 							<span class="fa fa-check-square-o"></span>
 							<div class="line line--slim line--title"><div class="line__first"></div><div class="line__second"></div></div>
 						</header>
-						<div class="numbers__body chart" data-percent="1258">
+						<div class="numbers__body chart" data-percent="{{ sitting.orders | safe }}">
                             <p style="color: black">более</p>
-							<div class="numbers__num percent">1258</div>
+							<div class="numbers__num percent">{{ sitting.orders | safe }}</div>
 							<div class="number__desc">Заказов в год</div>
 						</div>
 					</div>
@@ -124,9 +124,9 @@
 							<span class="fa fa-user"></span>
 							<div class="line line--slim line--title"><div class="line__first"></div><div class="line__second"></div></div>
 						</header>
-						<div class="numbers__body chart" data-percent="60">
+						<div class="numbers__body chart" data-percent="{{ sitting.partners | safe }}">
                             <p style="color: black">более</p>
-							<div class="numbers__num percent">60</div>
+							<div class="numbers__num percent">{{ sitting.partners | safe }}</div>
 							<div class="number__desc">Партнеров</div>
 						</div>
 					</div>
@@ -135,9 +135,9 @@
 							<span class="fa fa-users"></span>
 							<div class="line line--slim line--title"><div class="line__first"></div><div class="line__second"></div></div>
 						</header>
-						<div class="numbers__body chart" data-percent="10000">
+						<div class="numbers__body chart" data-percent="{{ sitting.clients | safe }}">
 							<p style="color: black">более</p>
-                            <div class="numbers__num percent">10000</div>
+                            <div class="numbers__num percent">{{ sitting.clients | safe }}</div>
 							<div class="number__desc">Покупателей</div>
 						</div>
 					</div>

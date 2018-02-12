@@ -178,7 +178,7 @@
 
                 {% for category_obj in item_list %}
                     <tr>
-                        <td class="text-left" width="10%">
+                        <td class="text-left" width="30%">
 
                             {% if category_obj.item_variation_set.first.item_image_set.first.file %}
                                 {% thumbnail category_obj.item_variation_set.first.item_image_set.first.file "400x400" crop="center" as im %}
@@ -192,12 +192,17 @@
                                 <img src="/static/images/nofoto.jpg" class="img-responsive" width="150" alt="{{ item_obj.title }}">
                             {% endif %}
 
+                            {% if category_obj.new_flag == True %}
+                            <div class="new_flag" style="width: 100%;text-align: center; background-color: #EE0000; color: #FFFFFF; font-weight: bold; position: relative;margin-top:-20px;">НОВИНКА</div>
+
+                            {% endif %}
+
                         </td>
                         <td width="50%">
                            <b style="font-size: 16px;">{{ category_obj.title }}</b>  <b> (Мин.партия: {{  category_obj.min_offer }} )</b>
                            <br>
                             {{ category_obj.content_small }} <a href="{% url 'shop:product' category.slug category_obj.slug %}">Смотреть полное описание >></a>
-                            {% if user.username == 'admin' %} <br><a href="/admin/shop/item/{{ category_obj.pk }}/change/">Редактировать в системе управления {{  user.is_admin }}</a> {% endif %}
+                            {% if user.username == 'admin' or user.username == 'tarc'  %} <br><a href="/admin/shop/item/{{ category_obj.pk }}/change/">Редактировать в системе управления {{  user.is_admin }}</a> {% endif %}
                         </td>
 
                         <td class="text-left" width="15%">
