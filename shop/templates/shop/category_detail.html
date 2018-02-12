@@ -167,8 +167,8 @@
             <table class="table">
                 <th>
                     <td></td>
-                    <td></td>
-                    {% if user and not user.is_anonymous %}  {% else %}<td><b>Оптовая цена</b></td>{% endif %}
+                   <td></td>
+                    <td>{% if user and not user.is_anonymous %}  {% else %}<b>Оптовая цена</b>{% endif %}</td>
                     <td>
                         {% if user and not user.is_anonymous %}<b> Оптовая цена </b>  {% else %}<a data-toggle="popover" style="cursor: pointer;" title="Вниманию оптовикам !!! Что бы получить оптовую цену, необходимо зарегистрироваться." data-content="Что бы получить оптовую цену, необходимо зарегистрироваться, как партнер."> РРЦ  </a>{% endif %}
                     </td>
