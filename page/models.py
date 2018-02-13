@@ -26,6 +26,12 @@ class Setting(models.Model):
     vk_link = models.CharField(_("Ссылка на группу Вконтакте"), max_length=200, default='', blank=True)
     fb_link = models.CharField(_("Ссылка на группу Фейсбук"), max_length=200, default='', blank=True)
 
+    citys = models.CharField(_("Городов на главную"), max_length=10, default='', blank=True)
+    shops = models.CharField(_("Магазинов на главную"), max_length=10, default='', blank=True)
+    orders = models.CharField(_("Заказов на главную"), max_length=10, default='', blank=True)
+    partners = models.CharField(_("Партнеров на главную"), max_length=10, default='', blank=True)
+    clients = models.CharField(_("Клиентов на главную"), max_length=10, default='', blank=True)
+
 
     class Meta:
         verbose_name = _("Настройка")
