@@ -8,6 +8,7 @@ from django.conf import settings
 from django.core.cache import cache
 from multiselectfield import MultiSelectField
 from django.utils.functional import lazy
+from sorl.thumbnail import ImageField
 from ckeditor_uploader.fields import RichTextUploadingField
 
 
@@ -17,6 +18,12 @@ from django.utils.translation import ugettext_lazy as _, ugettext
 
 
 class Setting(models.Model):
+
+
+    back_image = ImageField(_("Фон для сайта"), upload_to='category', blank=True)
+    back_color = models.CharField(_("Цвет в формате #FFFFFF"), max_length=200, default='', blank=True)
+    back_resize = models.BooleanField("Растянуть вертикально", default=False)
+
 
     phone1 = models.CharField(_("Телефонный номер 1"), max_length=200, default='', blank=True)
     phone2 = models.CharField(_("Телефонный номер 2"), max_length=200, default='', blank=True)
