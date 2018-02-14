@@ -59,18 +59,18 @@
             {%endif%}
 
 
+			background-attachment:fixed;
 
 
 
 
-                position: relative;
 
             }
             {% endif %}
 
 
 
-            .img_hover {  width: 300px;  position: absolute;  z-index: 50;  left: 100px;  border: black 1px solid;  }
+            .img_hover {  width: 300px;  position: absolute;  z-index: 50;  left: 174px;  border: black 1px solid;  }
 			.ekko-lightbox-nav-overlay a span { color: #888;}
 
 		</style>
@@ -642,22 +642,14 @@ $(".input-number").keydown(function (e) {
 
              $('.img_product_mini').mouseleave(function() {
 
-              $(".newElement").remove();
+                 $(".newElement").remove();
+
             });
 
 
 
 
-         {% comment %}   $('.img_product_mini').mouseleave(function() {
 
-            alert('asd');
-
-              $(this).clone().addClass('img_hover').addClass("newElement").appendTo($(this).next());
-            },
-            function() {
-                $(this).removeClass('img_hover');
-            }
-            );{% endcomment %}
 
 
 
