@@ -240,6 +240,16 @@
         {% block carousel %}{% endblock carousel %}
 
 
+
+{% if slug == 'main' %}
+
+  {% block mainpage_content %}{% endblock mainpage_content %}
+
+ {% else %}
+
+<div style="background: #FFFFFF" class="container">
+
+
 {% if slug != 'main' %}
 <script>
 	function goToUrl(url) {
@@ -284,15 +294,6 @@
 
 {% endif %}
 
-
-
-{% if slug == 'main' %}
-
-  {% block mainpage_content %}{% endblock mainpage_content %}
-
- {% else %}
-
-<div style="background: #FFFFFF" class="container">
 
  <section style="padding: 40px 40px 40px 40px;">
     <div class="container">
