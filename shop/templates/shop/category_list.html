@@ -30,7 +30,7 @@
 
 
 
-        <div class="row">
+        <div class="row" style="padding-right: 25px;">
             <div class="col-lg-3 visible-lg-block" >
 
 				{% for category_obj in object_list %}
@@ -46,7 +46,7 @@
           {% thumbnail category_obj.file "250x250" crop="center" as im %}
 
 
-        <div class="col-md-3 col-xs-6 isotope-item wow fadeInLeft" data-wow-delay="0.7s" data-wow-duration="1.5s" style="position: absolute; left: 0px; top: 0px; visibility: visible; animation-duration: 1.5s; animation-delay: 0.7s; animation-name: fadeInLeft;">
+        <div class="col-md-3 col-xs-6 isotope-item"  style="position: absolute; left: 0px; top: 0px; visibility: visible;">
 						<a href="{% url 'shop:detail' category_obj.slug %}"  class="listing-anons equal-height-item listing-anons--home triangle triangle--big line-down no-decoration" style="height: 315px;">
 							<div class="listing-anons__img">
 

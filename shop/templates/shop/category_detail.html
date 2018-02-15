@@ -88,7 +88,7 @@
 
      <div class="container">
 
-        <div class="row">
+        <div class="row" style="padding-right: 25px;">
             <div class="col-lg-3 visible-lg-block" >
 
                     {% recursetree nodes %}
@@ -193,7 +193,11 @@
                             {% endif %}
 
                             {% if category_obj.new_flag == True %}
-                            <div class="new_flag" style="width: 100%;text-align: center; background-color: #EE0000; color: #FFFFFF; font-weight: bold; position: relative;margin-top:-20px;">НОВИНКА</div>
+                            <div class="new_flag" style="width: 150px;text-align: center; background-color: #EE0000; color: #FFFFFF; font-weight: bold; position: relative;">НОВИНКА</div>
+
+                            {% else %}
+
+                            <div class="new_flag" style="width: 150px;text-align: center; background-color: #FFFFFF; color: #FFFFFF; font-weight: bold; position: relative;"></div>
 
                             {% endif %}
 
