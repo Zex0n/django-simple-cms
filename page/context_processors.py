@@ -51,7 +51,8 @@ def sitting(request):
 
 def news(request):
     news=News.objects.all().order_by('-published_date')[:2]
-    return {"main_news":news}
+    news_slider=News.objects.all().order_by('-published_date')
+    return {"main_news":news, "news_slider":news_slider}
 
 def count_cart(request):
 
