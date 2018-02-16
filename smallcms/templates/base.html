@@ -36,7 +36,7 @@
 			body {font-family: 'Arsenal',sans-serif;}
 
 
-            {% if slug != 'main' %}
+
             body{
 
             {%if sitting.back_image %}
@@ -66,7 +66,7 @@
 
 
             }
-            {% endif %}
+
 
 
 
@@ -187,7 +187,7 @@
 			</div>
 		</header><!--top-header-->
 
-		<nav class="top-nav">
+		<nav class="row">
 			<div class="container">
 				<div class="top-nav__main">
 					<div class="row">
@@ -200,7 +200,7 @@
 							</a>
 						</div>
 						<div class="col-md-9 col-xs-12">
-							<div class="main-nav navbar-main-slide">
+							<div class="main-nav navbar-main-slide" style="padding-right: 20px;">
 								<!--
                                 <a href="#" class="btn_header_search main-nav__search no-decoration">
 									<span class="fa fa-search"></span>
@@ -219,15 +219,7 @@
 
                                 {% include menu.mainmenu.get_template %}
 
-								<div class="search-form-modal transition">
-									<form class="navbar-form header_search_form">
-										<i class="fa fa-times search-form_close"></i>
-										<div class="form-group">
-											<input type="text" class="form-control" placeholder="Search">
-										</div>
-										<button type="submit" class="btn btn_search customBgColor">Search</button>
-									</form>
-								</div>
+
 							</div>
 						</div>
 					</div>
