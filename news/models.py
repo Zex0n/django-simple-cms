@@ -10,6 +10,7 @@ class News(models.Model):
     text = RichTextUploadingField(verbose_name=u'Текст новости')
     published_date = models.DateTimeField(default=timezone.now, blank=False, null=False, verbose_name=u'Дата для вывода')
     file = models.ImageField(upload_to='news', verbose_name=u'Изображение',null=True, blank=True)
+    file_news = models.ImageField(upload_to='file_news', verbose_name=u'Изображение для карусели новостей', null=True, blank=True)
 
     class Meta:
         verbose_name = 'Новость'

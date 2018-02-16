@@ -239,8 +239,6 @@
 
         {% block carousel %}{% endblock carousel %}
 
-
-
 {% if slug == 'main' %}
 
   {% block mainpage_content %}{% endblock mainpage_content %}
@@ -257,16 +255,27 @@
 	}
 </script>
 
+
+<section class="sliders">
+<ul class="sliders__main js-slider-main slider enable-bx-slider" data-auto="false" data-auto-hover="false" data-mode="fade" data-pager="false" data-pager-custom="null" data-prev-selector="null" data-next-selector="null" >
+	{% for news_obj in news_slider %}
+	<li onclick="goToUrl ('{% url 'news:detail' news_obj.id %}')" class="news_slider_li">
+		<img src="/media/{{ news_obj.file_news }}" class="img-responsive" alt="bxSlider" />
+	</li>
+	{% endfor %}
+</ul>
+</section>
+
+	<!--
 <section class="news-slider">
 			<div class="container">
-				<!--<h3 class="title title&#45;&#45;block">Новости</h3>-->
-				<h3 class="title title--main wow slideInRight" data-wow-delay="0.7s" data-wow-duration="1.5s" style="visibility: visible; animation-duration: 1.5s; animation-delay: 0.7s; animation-name: slideInRight;">Новости<span class="line line--title"><span class="line__first"></span><span class="line__second"></span></span></h3>
+				<h5 class="title title&#45;&#45;main wow slideInRight" data-wow-delay="0.7s" data-wow-duration="1.5s" style="visibility: visible; animation-duration: 1.5s; animation-delay: 0.7s; animation-name: slideInRight;">Новости<span class="line line&#45;&#45;title"><span class="line__first"></span><span class="line__second"></span></span></h5>
 				<div class="js-personal-slider enable-owl-carousel" data-auto-play="5000" data-stop-on-hover="true" data-items="2" data-pagination="false" data-navigation="true" data-items-desktop="4" data-items-desktop-small="3" data-items-tablet="2" data-items-tablet-small="2" >
 
 					{% for news_obj in news_slider %}
         				{% thumbnail news_obj.file "100x100" crop="center" as im %}
 							<div class="slider-item wow zoomInUp" data-wow-delay="0.7s" data-wow-duration="1.5s">
-								<div class="worker triangle line-down triangle--big" onclick="goToUrl ('{% url 'news:detail' news_obj.id %}')">
+								<div class="worker triangle line-down triangle&#45;&#45;big" onclick="goToUrl ('{% url 'news:detail' news_obj.id %}')">
 									<div class="worker__photo">
 										<img src="{{ im.url }}" alt="{{ news_obj.title }}" class="img-responsive" />
 									</div>
@@ -291,7 +300,7 @@
 			</div>
 		</section>
 
-
+-->
 {% endif %}
 
 

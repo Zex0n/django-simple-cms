@@ -353,3 +353,7 @@
 .item-desc-text {
     padding: 10px 0;
 }
+.news_slider_li {
+    text-align: -webkit-center;
+    cursor: pointer;
+}
