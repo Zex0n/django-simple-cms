@@ -248,8 +248,9 @@
 </script>
 
 
+{% if news_slider %}
 <section class="sliders">
-<ul class="sliders__main js-slider-main slider enable-bx-slider" data-auto="false" data-auto-hover="false" data-mode="fade" data-pager="false" data-pager-custom="null" data-prev-selector="null" data-next-selector="null" >
+<ul class="sliders__main js-slider-main slider enable-bx-slider" data-auto="true" data-auto-hover="true" data-mode="fade" data-pager="false" data-pager-custom="null" data-prev-selector="null" data-next-selector="null" >
 	{% for news_obj in news_slider %}
 	<li onclick="goToUrl ('{% url 'news:detail' news_obj.id %}')" class="news_slider_li">
 		<img src="/media/{{ news_obj.file_news }}" class="img-responsive" alt="bxSlider" />
@@ -257,6 +258,7 @@
 	{% endfor %}
 </ul>
 </section>
+{% endif %}
 
 	<!--
 <section class="news-slider">
