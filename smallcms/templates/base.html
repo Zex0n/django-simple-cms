@@ -109,7 +109,7 @@
 
 
 
-		<header id="header-top" class="top-header">
+		<header id="header-top" class="top-header" style="background-color: {{ sitting.main_back_color | safe }};">
 			<div class="container">
 				<div class="top-header__main wow slideInDown" data-wow-delay="0.7s" data-wow-duration="1.5s">
 					<div class="row">
@@ -243,7 +243,7 @@
 
  {% else %}
 
-<div style="background: #FFFFFF" class="container">
+<div style="background-color: {{ sitting.main_back_color | safe }}; " class="container">
 
 
 {% if slug != 'main' %}
@@ -304,7 +304,7 @@
 {% endif %}
 
 
- <section style="padding: 40px 40px 40px 40px;">
+ <section style="padding: 40px 40px 40px 40px;background-color: {{ sitting.main_back_color | safe }};">
     <div class="container">
 				<div class="row">
 				<div class="breadcumb">

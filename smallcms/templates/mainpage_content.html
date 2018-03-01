@@ -1,6 +1,6 @@
 {% load thumbnail %}
 	<section class="anons">
-			<div class="container" style="background-color: #FFFFFF">
+			<div class="container" style="background-color: {{ sitting.main_back_color | safe }};">
 				<div class="row">
 					<div class="col-md-4 col-xs-12 wow zoomInLeft" data-wow-delay="0.7s" data-wow-duration="1.5s">
 						<div class="anons__block triangle triangle--block line-down">
@@ -39,7 +39,7 @@
 
 
 		<section class="row">
-			<div class="container" style="background-color: #FFFFFF; padding-top: 20px;padding-bottom: 20px;">
+			<div class="container" style="background-color: {{ sitting.main_back_color | safe }}; padding-top: 20px;padding-bottom: 20px;">
             {% comment %}
 				<h2 class="title title--main wow fadeInUp" data-wow-delay="0.7s" data-wow-duration="1.5s">НОВОСТИ CAIMAN <span class="line line--title"><span class="line__first"></span><span class="line__second"></span></span></h2>
 				<p c1lass="text text--anons wow fadeInUp" data-wow-delay="0.7s" data-wow-duration="1.5s">Мы динамично развиваемся стараяcь обеспечить наших партнеров качественным товаром по приемлемым ценам</p>
@@ -85,8 +85,8 @@
 <!--we-are-->
 
 		<div class="numbers">
-			<div class="container" style="background-color: #FFFFFF">
-				<div class="clearfix percent-blocks" data-waypoint-scroll="true" style="padding:50px 50px 50px 50px;">
+			<div class="container" style="background-color: {{ sitting.main_back_color | safe }};">
+				<div class="clearfix percent-blocks" data-waypoint-scroll="true" style="background-color: {{ sitting.main_back_color | safe }};padding:50px 50px 50px 50px;">
 					<div class="numbers__one">
 						<header class="numbers__head">
 							<span class="fa fa-building"></span>
