@@ -21,7 +21,10 @@ class Setting(models.Model):
 
 
     back_image = ImageField(_("Фон для сайта"), upload_to='category', blank=True)
-    back_color = models.CharField(_("Цвет в формате #FFFFFF"), max_length=200, default='', blank=True)
+    back_color = models.CharField(_("Цвет фона в формате #FFFFFF"), max_length=200, default='', blank=True)
+
+    main_back_color = models.CharField(_("Цвет фона контейнера в формате #FFFFFF"), max_length=200, default='', blank=True)
+
     back_resize = models.BooleanField("Растянуть вертикально", default=False)
 
 

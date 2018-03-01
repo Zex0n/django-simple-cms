@@ -49,7 +49,7 @@
 
             $(".cart-quantity").each(function () {
 
-                left_coock($(this).parent().parent().prev().prev().prev().children(".item-variation-select-cat").val());
+                left_coock($(this).parent().parent().prev().prev().children(".item-variation-select-cat").val());
                 //$.post( post_url, { csrfmiddlewaretoken: csrfmiddlewaretoken, pk: $(this).parent().prev().prev().children(".item-variation-select-cat").val(), quantity: $(this).val() });
 
                 $.ajax({
@@ -57,7 +57,7 @@
                     url: post_url,
                     data: {
                         csrfmiddlewaretoken: csrfmiddlewaretoken,
-                        pk: $(this).parent().parent().prev().prev().prev().children(".item-variation-select-cat").val(),
+                        pk: $(this).parent().parent().prev().prev().children(".item-variation-select-cat").val(),
                         quantity: $(this).val()
                     },
                     async: false
@@ -90,6 +90,22 @@
 
         <div class="row" style="padding-right: 25px;">
             <div class="col-lg-3 visible-lg-block" >
+
+
+                <div class="order_cart" style="padding: 5px 5px 5px 5px; text-align: center; margin-bottom: 10px; line-height: 30px;">
+
+
+                    <span style="color: #cccccc; font-size: 25px; margin-right: 5px;" class="fa fa-shopping-cart"></span>
+
+                    <b>В КОРЗИНЕ</b><br>
+                                    Товаров: <b>{{ cart.item_count }}</b>,  на сумму: <b>{{ real_count_cart }}  р.</b><br>
+
+                    <a class="btn btn-danger btn-xs" href="{% url "shop:cart_list" %}">В КОРЗИНУ</a>
+
+
+
+                    </div>
+
 
                     {% recursetree nodes %}
 
@@ -165,20 +181,10 @@
             {% if item_list.count > 0 %}
 
             <table class="table">
-                <th>
-                    <td></td>
-                   <td></td>
-                    <td>{% if user and not user.is_anonymous %}  {% else %}<b>Оптовая цена</b>{% endif %}</td>
-                    <td>
-                        {% if user and not user.is_anonymous %}<b> Оптовая цена </b>  {% else %}<a data-toggle="popover" style="cursor: pointer;" title="Вниманию оптовикам !!! Что бы получить оптовую цену, необходимо зарегистрироваться." data-content="Что бы получить оптовую цену, необходимо зарегистрироваться, как партнер."> РРЦ  </a>{% endif %}
-                    </td>
-                    <td></td>
-                    <td></td>
-                </th>
 
                 {% for category_obj in item_list %}
                     <tr>
-                        <td class="text-left" width="30%">
+                        <td class="text-left" width="150">
 
                             {% if category_obj.item_variation_set.first.item_image_set.first.file %}
                                 {% thumbnail category_obj.item_variation_set.first.item_image_set.first.file "400x400" crop="center" as im %}
@@ -203,42 +209,18 @@
 
                         </td>
                         <td width="50%">
-                           <b style="font-size: 16px;">{{ category_obj.title }}</b>  <b> (Мин.партия: {{  category_obj.min_offer }} )</b>
+                            <a href="{% url 'shop:product' category.slug category_obj.slug %}"> <b style="font-size: 16px;">{{ category_obj.title }}</b> </a> <br> {{ category_obj.item_variation_set.first.title }}
                            <br>
-                            {{ category_obj.content_small }} <a href="{% url 'shop:product' category.slug category_obj.slug %}">Смотреть полное описание >></a>
+                            <input type="hidden" class="item-variation-select-cat" value="{{ category_obj.item_variation_set.first.pk }}">
+                            {{ category_obj.content_small }}
                             {% if user.username == 'admin' or user.username == 'tarc'  %} <br><a href="/admin/shop/item/{{ category_obj.pk }}/change/">Редактировать в системе управления {{  user.is_admin }}</a> {% endif %}
                         </td>
 
-                        <td class="text-left" width="15%">
-                             {% if category_obj.item_variation_set.count > 1 %}
-                                <select class="form-control item-variation-select-cat"   style="width:170px; height: 40px; text-align: right;">
-                                    {% for variation_obj in category_obj.item_variation_set.all %}
-                                        <option value="{{ variation_obj.pk }}">{{ variation_obj.title }}</option>
-                                    {% endfor %}
-                                </select>
-                            {% else %}
-                                {{ category_obj.item_variation_set.first.title }}
-                                <br>
-                                {% if user and not user.is_anonymous  %}  <b> РРЦ:</b> {{ category_obj.item_variation_set.first.price_1 }} &#8381; {% endif %}
-                                <input type="hidden" class="item-variation-select-cat" value="{{ category_obj.item_variation_set.first.pk }}">
-                            {% endif %}
-                            <br>
-                        </td>
-
-                        <td>
-                        {% if user and not user.is_anonymous %}{% else %}
-
-                                <a  title="Вниманию оптовикам !!! Что бы получить оптовую цену, необходимо зарегистрироваться." data-content="Что бы получить оптовую цену, необходимо зарегистрироваться, как партнер." href="/register/" class="btn btn-danger">Авторизация </a>
-                        {% endif %}
-                        </td>
 
 
-                        <td width="12%">
-                            {% for variation_obj in category_obj.item_variation_set.all %}
-                                <span class="item-desc-{{ variation_obj.pk }}"  {% if forloop.counter != 1 %} style="display: none;" {% endif %} id="span-{{ variation_obj.pk }}">{% if user and not user.is_anonymous  %} {{ variation_obj.price_2 }} {% else %} {{ variation_obj.price_1 }} {% endif %}</span>
-                            {% endfor %}
-                            <b>&nbsp; &#8381;</b>
-                            <br>
+
+
+                        <td width="20%">
 
                             {% for variation_obj in category_obj.item_variation_set.all %}
                                 <span class="item-stock-{{ variation_obj.pk }}"  {% if forloop.counter != 1 %} style="display: none;" {% endif %} id="span-stock-{{ variation_obj.pk }}">
@@ -252,12 +234,35 @@
                                 </span>
                                 <input type="hidden" id="stock-{{ variation_obj.pk }}" value="{{ variation_obj.stock }}">
                             {% endfor %}
+                            <br>
+                            Мин.партия: {{  category_obj.min_offer }}
+                            РРЦ: {{ category_obj.item_variation_set.first.price_1 }} &#8381; <br>
+                            {% if user and not user.is_anonymous %}
+
+
+                            <div style="font-size: 20px; font-weight: bold; padding-top: 5px;">{{ category_obj.item_variation_set.first.price_2 }} &#8381;</div>
+
+
+                            {% else %}
+                            <a  title="Вниманию оптовикам !!! Что бы получить оптовую цену, необходимо зарегистрироваться." data-content="Что бы получить оптовую цену, необходимо зарегистрироваться, как партнер." href="/register/" class="btn btn-danger btn-xs">Авторизация </a>
+                            {% endif %}
+
+
+                            {% comment %}
+                            {% for variation_obj in category_obj.item_variation_set.all %}
+                                <span class="item-desc-{{ variation_obj.pk }}"  {% if forloop.counter != 1 %} style="display: none;" {% endif %} id="span-{{ variation_obj.pk }}">{% if user and not user.is_anonymous  %} {{ variation_obj.price_2 }} {% else %} {{ variation_obj.price_1 }} {% endif %}</span>
+                            {% endfor %}
+
+                            {% endcomment %}
+
 
                         </td>
 
-                        <td width="20%">
 
-                        <div class="input-group" style="{% if category_obj.item_variation_set.first.stock != 1  %} display: none; {% endif %}">
+
+                        <td width="10%" align="center">
+
+                            <div class="input-group" style="{% if category_obj.item_variation_set.first.stock != 1  %} display: none; {% endif %}">
                               <span class="input-group-btn">
                                   <button type="button" class="btn btn-danger btn-number"  data-type="minus" data-field="v{{ category_obj.item_variation_set.first.pk  }}" data-step="{{ category_obj.min_lot }}">
                                     <span class="glyphicon glyphicon-minus"></span>
@@ -270,11 +275,12 @@
                                   </button>
                               </span>
                           </div>
-                        </td>
+                            <br>
 
-                        <td width="10%">
 
-                            <button style="{% if category_obj.item_variation_set.first.stock != 1  %} display: none; {% endif %}" class="button button--grey button--main btn button--active" onclick="cart.add($(this).parent().prev().prev().prev().prev().children('.item-variation-select-cat').val(), $(this).parent().prev().children().children('.cart-quantity').val()); true_out=1; left_coock($(this).parent().prev().prev().prev().children('.item-variation-select-cat').val());">В корзину</button>
+                            <a style="{% if category_obj.item_variation_set.first.stock != 1  %} display: none; {% endif %}; cursor:pointer; font-weight:bold; font-size:12px;" onclick="cart.add($(this).parent().prev().prev().children('.item-variation-select-cat').val(), $(this).prev().prev().children('.cart-quantity').val()); true_out=1; left_coock($(this).parent().prev().prev().children('.item-variation-select-cat').val());">ДОБАВИТЬ В ЗАКАЗ</a>
+
+
 
                             {% for item in cart.list_items  %}
                                 {% if  item.obj.pk == category_obj.item_variation_set.first.pk  %}
@@ -307,7 +313,7 @@
                 {% endfor %}
 
                 <tr>
-                    <td colspan="7" align="right"> <button  class="button button--grey button--main btn button--active" onclick="all_to_cart();">Добавить все</button></td>
+                    <td colspan="7" align="right"> <a  style="cursor:pointer; font-weight:bold; font-size:12px;"  onclick="all_to_cart();"><br><span class="fa fa-check"></span> ДОБАВИТЬ ВСЕ</a></td>
                 </tr>
         </table>
 
