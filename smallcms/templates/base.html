@@ -108,6 +108,7 @@
 		 <!--Loader end -->
 
 
+		{% comment %}
 
 		<header id="header-top" class="top-header" style="background-color: {{ sitting.main_back_color | safe }};">
 			<div class="container">
@@ -176,13 +177,13 @@
 
                                 <div class="header-contacts__one">
 
-                                    {% comment %}
+
 									<a href="{% url "shop:cart_list" %}" class="header-contacts__phone square" style="background-color: #ffc73c;color: #FFF;" title="Оформить заказ">
 										<span class="fa fa-shopping-cart"></span>
 									</a>
                                     Товаров: <b>{{ cart.item_count }}</b> На сумму: <b>{{ real_count_cart }}  р.</b> <a href="{% url "shop:cart_list" %}">Оформить заказ</a>
 
-                                    {% endcomment %}
+
 
 
 								</div>
@@ -192,6 +193,8 @@
 				</div>
 			</div>
 		</header><!--top-header-->
+
+		{% endcomment %}
 
 		<nav class="row">
 			<div class="container">
