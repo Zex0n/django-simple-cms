@@ -5,7 +5,7 @@ from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.views import generic
 from django.forms import ModelForm
-from .models import Category, Item, Item_variation, Order, Status, UserProfile
+from .models import Category, Item, Item_variation, Order, OrderItem, Status, UserProfile
 from easycart import BaseCart, BaseItem
 from cart.views import Cart
 from django.contrib.auth.models import User
@@ -75,12 +75,33 @@ class PostOrder(View):
         except:
             default_status = Status.objects.first()
 
+        # create order in the database history
         order = Order(
             customer_id=request.user.pk,
             total_price=total,
             status=default_status
         )
         order.save()
+
+
+        for item in cart.list_items(lambda item: item.obj.title):
+            if (request.user.is_authenticated):
+                order_item = OrderItem(
+                    order = order,
+                    item =  item.obj,
+                    title = item.obj.item.title + ' ' + item.obj.title,
+                    cols =  item.quantity,
+                    price = item.obj.price_2,
+                )
+            else:
+                order_item = OrderItem(
+                    order = order,
+                    item =  item.obj,
+                    title = item.obj.item.title + ' ' + item.obj.title,
+                    cols =  item.quantity,
+                    price = item.obj.price_1,
+                )
+            order_item.save()
 
         cart.empty()
 
