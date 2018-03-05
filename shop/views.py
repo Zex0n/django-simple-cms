@@ -66,7 +66,21 @@ class PostOrder(View):
         send_message = send_message + '<tr><td colspan="4" align="right"><b>Итого: </b>'+str(total)+' руб. </td></tr></table>'
         print(send_message)
 
-        send_mail('Заказ с сайта CAIMAN', send_message, 'sendfromsite@caimanfishing.ru', ['ivan.tolkachev@gmail.com','orders@caimanfishing.ru'], fail_silently=False, auth_user=None,auth_password=None, connection=None, html_message=send_message)
+        # send_mail('Заказ с сайта CAIMAN', send_message, 'sendfromsite@caimanfishing.ru', ['ivan.tolkachev@gmail.com','orders@caimanfishing.ru'], fail_silently=False, auth_user=None,auth_password=None, connection=None, html_message=send_message)
+        send_mail('Заказ с сайта CAIMAN', send_message, 'sendfromsite@caimanfishing.ru', ['trumpk@gmail.com',], fail_silently=False, auth_user=None,auth_password=None, connection=None, html_message=send_message)
+
+        # Select default status for the order
+        try:
+            default_status = Status.objects.get(default_status=True)
+        except:
+            default_status = Status.objects.first()
+
+        order = Order(
+            customer_id=request.user.pk,
+            total_price=total,
+            status=default_status
+        )
+        order.save()
 
         cart.empty()
 
