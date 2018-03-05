@@ -14,6 +14,12 @@ class MyRegistrationView(RegistrationView):
         phone = form_class.cleaned_data['phone']
         company_name = form_class.cleaned_data['company_name']
         inn = form_class.cleaned_data['inn']
+        kpp = inn = form_class.cleaned_data['kpp']
+        orgn = inn = form_class.cleaned_data['orgn']
+        bank = inn = form_class.cleaned_data['bank']
+        bik = inn = form_class.cleaned_data['bik']
+        rs = inn = form_class.cleaned_data['rs']
+        ks = inn = form_class.cleaned_data['ks']
         city = form_class.cleaned_data['city']
         adres = form_class.cleaned_data['adres']
 
@@ -36,7 +42,7 @@ class MyRegistrationView(RegistrationView):
 
 
 
-        new_profile = UserProfile.objects.create(user=new_user, name=name, phone=phone, company_name=company_name, inn=inn, city=city, adres=adres)
+        new_profile = UserProfile.objects.create(user=new_user, name=name, phone=phone, company_name=company_name, inn=inn, kpp=kpp, orgn=orgn, bank=bank, bik=bik, rs=rs,ks=ks, city=city, adres=adres)
         new_profile.save()
         return new_user
 

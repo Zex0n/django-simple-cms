@@ -21,6 +21,12 @@ class UserProfile(models.Model):
     phone = models.CharField(_("Телефон"), max_length=1000, default='')
     company_name = models.CharField(_("Название компании"), max_length=1000, default='')
     inn = models.CharField(_("ИНН"), max_length=1000, default='')
+    kpp = models.CharField(_("КПП"), max_length=1000, default='')
+    orgn = models.CharField(_("ОГРН"), max_length=1000, default='')
+    bank = models.CharField(_("Наименование банка"), max_length=1000, default='')
+    bik = models.CharField(_("БИК"), max_length=1000, default='')
+    rs = models.CharField(_("Р/C"), max_length=1000, default='')
+    ks = models.CharField(_("К/C"), max_length=1000, default='')
     city = models.CharField(_("Город"), max_length=1000, default='')
     adres = models.CharField(_("Адрес доставки"), max_length=1000, default='')
 
