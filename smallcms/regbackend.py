@@ -18,6 +18,7 @@ class MyRegistrationView(RegistrationView):
         adres = form_class.cleaned_data['adres']
 
         send_message = '<h2>Регистрация нового пользователя на сайте CAIMAN </h2>'
+        send_message = send_message + '<b>Имя пользователя:</b> ' + new_user.username + '<br><br>'
         send_message = send_message + '<b>Имя:</b> ' + name + '<br><br>'
         send_message = send_message + '<b>Наименование компании:</b> ' + company_name + '<br><br>'
         send_message = send_message + '<b>Телефон:</b> ' + phone + '<br><br>'
