@@ -2,9 +2,11 @@ from django.shortcuts import render, HttpResponseRedirect, HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from .models import UserProfile
+from shop.models import Category, Item, Item_variation, Order, OrderItem, Status
 from .forms import UserProfileForm
 from django.forms.models import inlineformset_factory
 from django.core.exceptions import PermissionDenied
+
 
 @login_required
 def edit_user(request):
@@ -33,6 +35,18 @@ def edit_user(request):
             "noodle": user_id,
             "noodle_form": user_form,
             "formset": formset,
+        })
+    else:
+        raise PermissionDenied
+
+def orders_history(request):
+    user_id = request.user.id
+    user = User.objects.get(pk=user_id)
+    order_list = Order.objects.filter(customer=user)
+
+    if request.user.is_authenticated() and request.user.id == user.id:
+        return render(request, "user_profile/orders_history.html", {
+            "order_list": order_list,
         })
     else:
         raise PermissionDenied
