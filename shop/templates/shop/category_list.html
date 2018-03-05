@@ -46,7 +46,7 @@
           {% thumbnail category_obj.file "250x250" crop="center" as im %}
 
 
-        <div class="col-md-3 col-xs-6 isotope-item"  style="position: absolute; left: 0px; top: 0px; visibility: visible;">
+        <div class="col-md-3 col-xs-6 isotope-item"  style="position: absolute; left: 0px; top: 0px; visibility: visible; margin-bottom: 15px;">
 						<a href="{% url 'shop:detail' category_obj.slug %}"  class="listing-anons equal-height-item listing-anons--home triangle triangle--big line-down no-decoration" style="height: 315px;">
 							<div class="listing-anons__img">
 
@@ -62,6 +62,13 @@
 								<h5>Цена от <b>{% min_child category_obj user.is_anonymous %}</b> до <b>{% max_child category_obj user.is_anonymous %}</b> руб</h5>
 
 							</div>
+
+							            {% if category_obj.new_flag == True %}
+
+                        <div class="new_flag" style="width: 100%;text-align: center; bottom:0; background-color: #EE0000; color: #FFFFFF; font-weight: bold; position: absolute;">НОВИНКА</div>
+
+                        {% endif %}
+
 							<div class="listing-anons__hidden">
 								<h3>{{ category_obj.title }}</h3>
 							</div>

@@ -57,6 +57,8 @@ class Category(MPTTModel, BaseShop):
     parent = TreeForeignKey('self', null=True, blank=True, related_name='children', db_index=True, verbose_name=u"Родительский элемент")
     content = RichTextUploadingField("Описание", blank=True)
     num = models.IntegerField(default=0, verbose_name=u'Порядковый номер')
+    new_flag = models.BooleanField("Показывать как новинку", default=False)
+
 
     class Meta:
         verbose_name = _("Категория")
