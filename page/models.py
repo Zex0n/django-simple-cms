@@ -68,8 +68,8 @@ class Banners(models.Model):
         verbose_name_plural = _("Баннеры в раздел продукция")
 
 
-def __str__(self):
-    return self.banner_name
+    def __str__(self):
+        return self.banner_name
 
 
 
