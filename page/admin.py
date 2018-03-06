@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Page, Menu, MenuSection, Carousel, CarouselSlide, Setting
+from .models import Page, Menu, MenuSection, Carousel, CarouselSlide, Setting, Banners
 from grappelli.forms import GrappelliSortableHiddenMixin
 from django_mptt_admin.admin import DjangoMpttAdmin
 from mptt.admin import DraggableMPTTAdmin
@@ -80,3 +80,10 @@ class SittinAdm(admin.ModelAdmin):
     extra = 1
 
 admin.site.register(Setting, SittinAdm)
+
+class BannerAdmin(admin.ModelAdmin):
+    inlines = []
+    extra = 1
+
+
+admin.site.register(Banners,BannerAdmin)

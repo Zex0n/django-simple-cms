@@ -52,6 +52,28 @@ def __str__(self):
     return self.title
 
 
+
+class Banners(models.Model):
+
+
+    banner_name=models.CharField(_("Наименование баннера"), max_length=200, default='', blank=True)
+    banner_image= ImageField(_("Картинка для баннера"), upload_to='banners', blank=True)
+    banner_link = models.CharField(_("Ссылка с баннера"), max_length=200, default='', blank=True)
+    banner_file = models.FileField(_("Файл для скачивания"), upload_to='banners', blank=True)
+
+
+
+    class Meta:
+        verbose_name = _("Баннер")
+        verbose_name_plural = _("Баннеры в раздел продукция")
+
+
+def __str__(self):
+    return self.banner_name
+
+
+
+
 class BasePage(MPTTModel):
     created_date = models.DateTimeField(auto_now_add=True, verbose_name=u'Дата создания', editable=False)
     edited_date = models.DateTimeField(auto_now=True, verbose_name=u'Дата редактирования', editable=False, null=True)
