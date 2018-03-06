@@ -36,6 +36,20 @@
 				{% for category_obj in object_list %}
 					<div class="root_catalog"><a href="{% url 'shop:detail' category_obj.slug %}" class="root_catalog_link">{{ category_obj.title }}</a></div>
          		{% endfor %}
+
+				<div style="padding-top: 20px; text-align: center;">
+				{% for banner in banners %}
+					<a href="{{ banner.banner_link }}" class="root_catalog_link" title="{{ banner.banner_name }}" >
+
+						<img src="{{banner.banner_image}}" width="200px">
+1
+					</a>
+         		{% endfor %}
+					</div>
+
+
+
+
             </div>
             <div class="col-md-12 col-lg-9">
         <div class="row isotope" style="position: relative; height: 315px;">

@@ -122,6 +122,7 @@ TEMPLATES = [
                 'page.context_processors.sitting',
                 'page.context_processors.news',
                 'page.context_processors.count_cart',
+                'shop.context_processors.banners',
 
             ],
             'libraries': {  # Adding this section should work around the issue.
