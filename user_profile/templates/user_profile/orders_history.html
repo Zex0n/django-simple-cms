@@ -1,10 +1,9 @@
 {% extends "base.html" %}
 
 {% block breadcrumb %}
-
-    <li><a href="/">Главная</a></li>
-    <li>История заказов</li>
-    <li><a href="{% url 'profile:edit_user' %}">Редактирование профиля</a></li>
+    <a href="/" class="breadcumb__page no-decoration">Главная</a>
+    <span class="breadcumb__del no-decoration">»</span>
+    <a href="{% url 'profile:edit_user' %}" class="breadcumb__page no-decoration">Личный кабинет</a>
 {% endblock %}
 
 {% block title %}История заказов{% endblock title %}
@@ -12,29 +11,37 @@
 {% block content %}
 
 <div class="container">
-    <h2 class="flow-text">История заказов</h2>
-        {% for order in order_list %}
-            <div class="panel panel-default">
-              <div class="panel-heading">
-                <h3 class="panel-title">{{ order.created_date }} {% comment %}{{ order.status }}{% endcomment %}</h3>
-              </div>
-              <div class="panel-body table-responsive">
+    <div class="row" style="padding-right: 25px;">
+        <div class="col-md-12 col-lg-3" >
+            <div class="root_catalog"><a href="{% url 'profile:orders_history' %}" class="root_catalog_link">История заказов</a></div>
+            <div class="root_catalog"><a href="{% url 'profile:edit_user' %}" class="root_catalog_link">Редактирование профиля</a></div>
+        </div>
+        <div class="col-md-12 col-lg-9">
+            <h2 class="flow-text">История заказов</h2>
+            {% for order in order_list %}
+                <div class="panel panel-default">
+                  <div class="panel-heading">
+                    <h3 class="panel-title">{{ order.created_date }} {% comment %}{{ order.status }}{% endcomment %}</h3>
+                  </div>
+                  <div class="panel-body table-responsive">
 
-                <table class="table table-hover">
-                  {% for order_item in order.orderitem_set.all %}
-                            <tr>
-                                <td><a href="{% url 'shop:product' order_item.item.item.category.first.slug order_item.item.item.slug %}">{{ order_item }}</a></td>
-                                <td class="col-lg-2">{{ order_item.cols }} шт.</td>
-                                <td class="col-lg-2">{{ order_item.price }}</td>
-                            </tr>
-                  {% endfor %}
-                </table>
+                    <table class="table table-hover">
+                      {% for order_item in order.orderitem_set.all %}
+                                <tr>
+                                    <td><a href="{% url 'shop:product' order_item.item.item.category.first.slug order_item.item.item.slug %}">{{ order_item }}</a></td>
+                                    <td class="col-lg-2">{{ order_item.cols }} шт.</td>
+                                    <td class="col-lg-2">{{ order_item.price }}</td>
+                                </tr>
+                      {% endfor %}
+                    </table>
 
-                <div class=""><b>Итого: {{ order.total_price }}</b></div>
-                {% if order.address != "" %}{{ order.address }}{% endif %}
-              </div>
-            </div>
-        {% endfor %}
+                    <div class=""><b>Итого: {{ order.total_price }}</b></div>
+                    {% if order.address != "" %}{{ order.address }}{% endif %}
+                  </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
 
 </div>
 {% endblock content %}
