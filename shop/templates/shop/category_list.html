@@ -37,15 +37,22 @@
 					<div class="root_catalog"><a href="{% url 'shop:detail' category_obj.slug %}" class="root_catalog_link">{{ category_obj.title }}</a></div>
          		{% endfor %}
 
-				<div style="padding-top: 20px; text-align: center;">
-				{% for banner in banners %}
-					<a href="{{ banner.banner_link }}" class="root_catalog_link" title="{{ banner.banner_name }}" >
 
-						<img src="{{banner.banner_image}}" width="200px">
-1
+				{% for banner in banners %}
+				<div style="padding-top: 20px; text-align: center;">
+
+					{% if banner.banner_file %}
+					<a href="{{ banner.banner_file.url }}" class="root_catalog_link" title="{{ banner.banner_name }}">
+					{% else %}
+					<a href="{{ banner.banner_link }}" class="root_catalog_link" title="{{ banner.banner_name }}">
+					{% endif %}
+
+						<img src="{{ banner.banner_image.url }}" width="270" height="120">
+
 					</a>
-         		{% endfor %}
 					</div>
+         		{% endfor %}
+
 
 
 
