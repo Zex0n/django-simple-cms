@@ -46,4 +46,3 @@ class MyRegistrationView(RegistrationView):
         new_profile.save()
         return new_user
 
-
