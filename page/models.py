@@ -57,7 +57,7 @@ class Banners(models.Model):
 
 
     banner_name=models.CharField(_("Наименование баннера"), max_length=200, default='', blank=True)
-    banner_image= ImageField(_("Картинка для баннера"), upload_to='banners', blank=True)
+    banner_image= ImageField(_("Картинка для баннера 270px X 120 px"), upload_to='banners', blank=True)
     banner_link = models.CharField(_("Ссылка с баннера"), max_length=200, default='', blank=True)
     banner_file = models.FileField(_("Файл для скачивания"), upload_to='banners', blank=True)
 

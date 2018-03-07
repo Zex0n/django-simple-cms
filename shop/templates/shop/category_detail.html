@@ -166,6 +166,21 @@
                         </div>
                     {% endrecursetree %}
 
+                {% for banner in banners %}
+				<div style="padding-top: 20px; text-align: center;">
+
+					{% if banner.banner_file %}
+					<a href="{{ banner.banner_file.url }}" class="root_catalog_link" title="{{ banner.banner_name }}">
+					{% else %}
+					<a href="{{ banner.banner_link }}" class="root_catalog_link" title="{{ banner.banner_name }}">
+					{% endif %}
+
+						<img src="{{ banner.banner_image.url }}" width="270" height="120">
+
+					</a>
+					</div>
+         		{% endfor %}
+
             </div>
             <div class="col-md-12 col-lg-9">
 
