@@ -22,12 +22,8 @@ class Setting(models.Model):
 
     back_image = ImageField(_("Фон для сайта"), upload_to='category', blank=True)
     back_color = models.CharField(_("Цвет фона в формате #FFFFFF"), max_length=200, default='', blank=True)
-
     main_back_color = models.CharField(_("Цвет фона контейнера в формате #FFFFFF"), max_length=200, default='', blank=True)
-
     back_resize = models.BooleanField("Растянуть вертикально", default=False)
-
-
     phone1 = models.CharField(_("Телефонный номер 1"), max_length=200, default='', blank=True)
     phone2 = models.CharField(_("Телефонный номер 2"), max_length=200, default='', blank=True)
     email1 = models.EmailField(_("E-mail 1"), blank=True)
@@ -35,12 +31,30 @@ class Setting(models.Model):
     maindres = models.CharField(_("Адрес"), max_length=200, default='', blank=True)
     vk_link = models.CharField(_("Ссылка на группу Вконтакте"), max_length=200, default='', blank=True)
     fb_link = models.CharField(_("Ссылка на группу Фейсбук"), max_length=200, default='', blank=True)
-
     citys = models.CharField(_("Городов на главную"), max_length=10, default='', blank=True)
     shops = models.CharField(_("Магазинов на главную"), max_length=10, default='', blank=True)
     orders = models.CharField(_("Заказов на главную"), max_length=10, default='', blank=True)
     partners = models.CharField(_("Партнеров на главную"), max_length=10, default='', blank=True)
     clients = models.CharField(_("Клиентов на главную"), max_length=10, default='', blank=True)
+
+
+    link_1_title = models.CharField(_("Название первой ссылки"), max_length=20, default='', blank=True)
+    link_1_text = models.CharField(_("Текст первой ссылки"), max_length=200, default='', blank=True)
+    link_1_link = models.CharField(_("URL первой ссылки"), max_length=200, default='', blank=True)
+    link_1_file=ImageField(_("Картинка первой ссылки"), upload_to='links', blank=True)
+
+    link_2_title = models.CharField(_("Название второй ссылки"), max_length=20, default='', blank=True)
+    link_2_text = models.CharField(_("Текст второй ссылки"), max_length=200, default='', blank=True)
+    link_2_link = models.CharField(_("URL второй ссылки"), max_length=200, default='', blank=True)
+    link_2_file = ImageField(_("Картинка второй ссылки 370X180"), upload_to='links', blank=True)
+
+    link_3_title = models.CharField(_("Название третьей ссылки"), max_length=20, default='', blank=True)
+    link_3_text = models.CharField(_("Текст третьей ссылки"), max_length=200, default='', blank=True)
+    link_3_link = models.CharField(_("URL третьей ссылки"), max_length=200, default='', blank=True)
+    link_3_file = ImageField(_("Картинка третьей ссылки"), upload_to='links', blank=True)
+
+
+
 
 
     class Meta:

@@ -4,19 +4,50 @@
 				<div class="row">
 					<div class="col-md-4 col-xs-12 wow zoomInLeft" data-wow-delay="0.7s" data-wow-duration="1.5s">
 						<div class="anons__block triangle triangle--block line-down">
-							<div class="anons__img">
+							<div class="anons__img  anons__img--bike">
+
+								{% if sitting.link_1_file %}
+
+								<img class="img-responsive" height="64" src="{{sitting.link_1_file.url}}" alt="news"/>
+
+								{% else %}
+
 								<i class="fa fa-newspaper-o  fa-4x" aria-hidden="true" ></i>
+
+								{% endif %}
+
+
 							</div>
-							<h2><a href="/news" class="title no-decoration"><span class="title__bold">Новости</span></a></h2>
-							<p class="text">Все новости нашей компании здесь</p>
+
+								<h2><a href="{{sitting.link_1_link }}" class="title no-decoration"><span class="title__bold">{{sitting.link_1_title }}</span></a></h2>
+							    <p class="text">{{sitting.link_1_text }}</p>
+
 						</div>
 					</div>
 					<div class="col-md-4 col-xs-12 wow zoomInUp" data-wow-delay="0.7s" data-wow-duration="1.5s">
 						<div class="anons__block anons__block--center triangle triangle--block-center">
-							<div class="anons__photo"><img class="img-responsive" src="/static/images/product_img.jpg" alt="news"/></div>
+							<div class="anons__photo">
+
+
+								{% if sitting.link_2_file %}
+
+								<img class="img-responsive" style="max-height: 200px;" src="{{sitting.link_2_file.url}}" alt="news"/>
+
+								{% else %}
+
+								<img class="img-responsive" src="/static/images/product_img.jpg" alt="news"/>
+
+								{% endif %}
+
+
+
+
+
+
+							</div>
 							<div class="anons__color-block">
-								<h2><a href="/shop" class="title no-decoration"><span class="title__bold">Продукция</span></a></h2>
-								<p class="text">Более 300 наименований доступны для заказа</p>
+								<h2><a href="{{sitting.link_2_link }}" class="title no-decoration"><span class="title__bold">{{sitting.link_2_title }}</span></a></h2>
+								<p class="text">{{sitting.link_2_text }}</p>
 							</div>
 						</div>
 					</div>
@@ -24,12 +55,27 @@
 						<div class="anons__block triangle triangle--block line-down">
 							<div class="anons__img anons__img--bike">
 
+
+
+											{% if sitting.link_3_file %}
+
+								<img class="img-responsive" height="64" src="{{sitting.link_3_file.url}}" alt="news"/>
+
+								{% else %}
+
 								<i class="fa fa-gift fa-5x" aria-hidden="true" ></i>
+
+								{% endif %}
+
+
+
+
+
 
 
 							</div>
-							<h2><a href="/page/spec-offers/" class="title no-decoration"><span class="title__bold">Спец. предложения</a></h2>
-							<p class="text">Товары по специальной цене</p>
+							<h2><a href="{{sitting.link_3_link}}" class="title no-decoration"><span class="title__bold">{{sitting.link_3_title }}</a></h2>
+							<p class="text">{{sitting.link_3_text }}</p>
 						</div>
 					</div>
 				</div>
