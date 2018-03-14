@@ -53,6 +53,7 @@ urlpatterns = [
     url(r'', include('shop.urls', namespace='shop')),
     url(r'^cart/', include('cart.urls')),
     url(r'^accounts/', include('user_profile.urls', namespace='profile')),
+    url(r'^search/', include('search.urls', namespace='search')),
 ]
 
 if settings.DEBUG:

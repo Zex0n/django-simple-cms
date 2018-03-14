@@ -84,6 +84,7 @@ INSTALLED_APPS = [
     'promotions',
     'partners',
     'shop',
+    'search',
     'gallery',
     'user_profile',
     'registration',
