@@ -314,7 +314,7 @@
 
                         <td width="10%" align="center">
 
-                            <div class="input-group" style="{% if category_obj.item_variation_set.first.stock != 1  %} display: none; {% endif %}">
+                            <div class="input-group" style="{% if category_obj.item_variation_set.first.stock == 0  %} display: none; {% endif %}">
                               <span class="input-group-btn">
                                   <button type="button" class="btn btn-danger btn-number"  data-type="minus" data-field="v{{ category_obj.item_variation_set.first.pk  }}" data-step="{{ category_obj.min_lot }}">
                                     <span class="glyphicon glyphicon-minus"></span>
@@ -330,7 +330,7 @@
                             <br>
 
 
-                            <a style="{% if category_obj.item_variation_set.first.stock != 1  %} display: none; {% endif %}; cursor:pointer; font-weight:bold; font-size:12px;" onclick="cart.add($(this).parent().prev().prev().children('.item-variation-select-cat').val(), $(this).prev().prev().children('.cart-quantity').val()); true_out=1; left_coock($(this).parent().prev().prev().children('.item-variation-select-cat').val());">ДОБАВИТЬ В ЗАКАЗ</a>
+                            <a style="{% if category_obj.item_variation_set.first.stock == 0  %} display: none; {% endif %}; cursor:pointer; font-weight:bold; font-size:12px;" onclick="cart.add($(this).parent().prev().prev().children('.item-variation-select-cat').val(), $(this).prev().prev().children('.cart-quantity').val()); true_out=1; left_coock($(this).parent().prev().prev().children('.item-variation-select-cat').val());">ДОБАВИТЬ В ЗАКАЗ</a>
 
 
 

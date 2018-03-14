@@ -13,9 +13,12 @@
 
 {% block content %}
 <div class="container">
-  <h1>Ваша корзина товаров</h1>
+  <div align="center" style="margin: 20px 0px 20px 0px"><h1>Ваша корзина товаров</h1></div>
 
     {% if cart.item_count > 0 %}
+
+    <h4>Товары в наличии</h4>
+
   <table class="cart" width="100%" cellpadding="15" cellspacing="15">
     <thead>
       <tr>
@@ -30,6 +33,9 @@
     <tbody>
       {% for item in cart.list_items  %}
         {% with product=item.obj %}
+
+                  {% if product.stock == 1 %}
+
           <tr>
             <td>
 
@@ -77,20 +83,95 @@
                 <button onclick="cart.remove('{{ product.pk }}')">Удалить</button>
             </td>
           </tr>
+      {% endif %}
         {% endwith %}
       {% endfor %}
-        <tr class="total">
-          <td colspan="4" align="right"><b>Итого</b></td>
-          <td>&nbsp;</td>
-          <td class="num">{{ real_count_cart }} руб.</td>
-        </tr>
+
+
+
+<tr>
+<td>
+<h4>Товары в ожидании</h4>
+</td>
+</tr>
+
+
+
+      {% for item in cart.list_items  %}
+        {% with product=item.obj %}
+
+      {% if product.stock == 2 %}
+
+          <tr>
+            <td>
+
+                <div class="thumbnail_container">
+
+                {% if product.item_image_set.first.file %}
+                    {% thumbnail product.item_image_set.first.file "50x50" crop="center" as im %}
+                        <img src="{{ im.url }}" class="img-responsive img-thumbnail">
+                    {% endthumbnail %}
+                {% else %}
+                      <img src="/static/images/nofoto.jpg" class="img-responsive" width="50"  alt="{{ item_obj.title }}">
+
+               {% endif %}
+                </div>
+
+            </td>
+              <td><a href="{% url "shop:product" product.item.category.first.slug product.item.slug %}">{{ product.item.title }} ({{ product.title }})</a></td>
+            <td>
+                <div class="input-group" style="width: 120px;">
+                  <input type="number" class="form-control cart-quantity input-number" data-step="{{ product.item.min_lot }}" value="{{ item.quantity }}" min="0" max="999">
+                  <span class="input-group-btn">
+                    <button class="btn btn-default" type="button" onclick="cart.changeQuantity('{{ product.pk }}', $(this).parent().prev('.cart-quantity').val())" title="Изменить количество">
+                        <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
+                    </button>
+                  </span>
+                </div>
+            </td>
+            <td class="num">
+
+
+            {% if user and not user.is_anonymous  %}    {{ product.price_2 }}
+
+                {% else %}
+                {{ product.price_1 }}
+            {% endif %}
+
+                руб.</td>
+
+          {% if user and not user.is_anonymous  %}
+            <td class="num">{% mult product.price_2 item.quantity %} руб.</td>
+          {% else %}
+          <td class="num">{% mult product.price_1 item.quantity %} руб.</td>
+          {% endif %}
+            <td>
+                <button onclick="cart.remove('{{ product.pk }}')">Удалить</button>
+            </td>
+          </tr>
+
+      {% endif %}
+
+        {% endwith %}
+      {% endfor %}
     </tbody>
-  </table>
+    </table>
+
+<div class="row" style="margin: 20px 0px 20px 0px">
+
+
+<div class="col-md-12 col-md-offset-9">
+      <h4><b>Итого</b> : {{ real_count_cart }} руб.</h4>
+
+
+</div>
+</div>
+
 
 <div class="row">
 
 
-<div class="col-md-6 col-md-offset-6"><h4>Данные заказа</h4>
+<div class="col-md-6 col-md-offset-5"><h4>Данные заказа</h4>
      {% if user and not user.is_anonymous  %}
 
             <form action="{% url "shop:order-success-post"%}"  method="post">
