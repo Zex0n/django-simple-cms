@@ -33,6 +33,49 @@
         <div class="row" style="padding-right: 25px;">
             <div class="col-lg-3 visible-lg-block" >
 
+				<div class="order_cart" style="padding: 5px 5px 5px 5px; text-align: center;  margin-bottom: 10px; line-height: 30px;">
+
+
+
+                                    {% if user and not user.is_anonymous %}
+                                        <a href="{% url 'profile:edit_user' %}" class="">
+                                            <span class="fa fa-user" aria-hidden="true"></span>
+                                        </a>
+                                        <a href="{% url 'profile:edit_user' %}" style="font-weight: bold;">{{ user.username }}</a>&nbsp;
+                    |&nbsp;
+
+                                        <a href="{% url 'auth_logout' %}" class="">выход <span class="fa fa-sign-in"></span></a>
+
+                                    {% else %}
+
+
+                                        <a href="/register/" class="">
+                                            <span class="fa fa-user-plus"></span>
+                                        </a>
+                                        <a href="/register/" class="">Регистрация</a>
+
+                                        |
+
+                                        <a href="{% url 'auth_login' %}" class="">
+                                            <span class="fa fa-sign-in"></span>
+                                        </a>
+                                        <a href="{% url 'auth_login' %}" class="">Вход</a>
+
+
+                                    {% endif %}
+                </div>
+<div class="order_cart" style="padding: 5px 5px 5px 5px; text-align: center; margin-bottom: 10px; line-height: 30px;">
+                    <span style="color: #cccccc; font-size: 25px; margin-right: 5px;" class="fa fa-shopping-cart"></span>
+
+                    <b>В КОРЗИНЕ</b><br>
+                                    Товаров: <b>{{ cart.item_count }}</b>,  на сумму: <b>{{ real_count_cart }}  р.</b><br>
+
+                    <a class="btn btn-danger btn-xs" href="{% url "shop:cart_list" %}">В КОРЗИНУ</a>
+
+
+
+                    </div>
+
 				{% for category_obj in object_list %}
 					<div class="root_catalog"><a href="{% url 'shop:detail' category_obj.slug %}" class="root_catalog_link">{{ category_obj.title }}</a></div>
          		{% endfor %}
