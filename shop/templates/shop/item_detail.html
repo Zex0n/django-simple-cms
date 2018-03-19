@@ -139,8 +139,11 @@
 
 
 
-
+{% if user and not user.is_anonymous %}
                     <button class="button button--grey button--main btn button--active" onclick="cart.add('{{ variation_obj.pk }}', $(this).prev('.cart-quantity').val())">В корзину</button>
+{% else %}
+                            <a  title="Авторизуйтесь что бы сделатоь заказ." data-content="Авторизуйтесь что бы сделатоь заказ." href="/register/" class="btn btn-danger btn-xs">Авторизация </a>
+                            {% endif %}
 {% comment %}
                 <div>Цена 2: {{ variation_obj.price_2 }}</div>
                 <div>Цена 3: {{ variation_obj.price_3 }}</div>
@@ -180,11 +183,15 @@
 <div class="row">
 
                    <b>Количество:</b>    <div class="input-group col-md-2" style="{% if item_variation.first.stock != 1  %} display: none; {% endif %}">
-          <span class="input-group-btn">
+
+
+    <span class="input-group-btn">
               <button type="button" class="btn btn-danger btn-number"  data-type="minus" data-field="v{{ variation_obj.pk }}" data-step="{{ current_product.min_lot }}">
                 <span class="glyphicon glyphicon-minus"></span>
               </button>
-          </span>
+    </span>
+
+
           <input type="number" style="min-width: 50px;" name="v{{ variation_obj.pk }}" class="cart-quantity form-control input-number" data-step="{{ current_product.min_lot }}" value="0" min="0" max="999">
           <span class="input-group-btn">
               <button type="button" class="btn btn-success btn-number" data-type="plus" data-field="v{{ variation_obj.pk }}" data-step="{{ current_product.min_lot }}">
@@ -194,7 +201,13 @@
       </div>
 <br>
 <div class="col-md-2">
+
+        {% if user and not user.is_anonymous %}
+
               <button  class="button button--grey button--main btn button--active" onclick="cart.add('{{ item_variation.first.pk }}', $(this).parent().prev().prev().children('.cart-quantity').val())">В корзину</button>
+     {% else %}
+                            <a  title="Авторизуйтесь что бы сделать заказ." data-content="Авторизуйтесь что бы сделать заказ." href="/register/" class="btn btn-danger btn-xs">Авторизация </a>
+                            {% endif %}
 </div>
 
 

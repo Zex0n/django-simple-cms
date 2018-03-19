@@ -262,7 +262,8 @@ ul.triangle-list .triangle-list__one--active a,
 .shop-item-desc__head > h1
 {
     color:#333;
-    fill:#333
+    fill:#333;
+    font-weight: bold;
 }
 
 .line--title .line__first,

@@ -329,8 +329,13 @@
                           </div>
                             <br>
 
-
+                            {% if user and not user.is_anonymous %}
                             <a style="{% if category_obj.item_variation_set.first.stock == 0  %} display: none; {% endif %}; cursor:pointer; font-weight:bold; font-size:12px;" onclick="cart.add($(this).parent().prev().prev().children('.item-variation-select-cat').val(), $(this).prev().prev().children('.cart-quantity').val()); true_out=1; left_coock($(this).parent().prev().prev().children('.item-variation-select-cat').val());">ДОБАВИТЬ В ЗАКАЗ</a>
+                            {% else %}
+                            <a  title="Авторизуйтесь что бы сделатоь заказ." data-content="Авторизуйтесь что бы сделать заказ." href="/register/" class="btn btn-danger btn-xs">Авторизация </a>
+                            {% endif %}
+
+
 
 
 
