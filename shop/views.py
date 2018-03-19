@@ -12,6 +12,7 @@ from django.contrib.auth.models import User
 from django import forms
 from django.views.generic import View
 from django.core.mail import send_mail
+from django.contrib.postgres.search import SearchQuery, SearchRank, SearchVector
 
 
 class NoRegOrderForm(forms.Form):
@@ -227,4 +228,27 @@ class ProductView(generic.DetailView):
         context['item_variation'] = context['current_product'].item_variation_set.all()
         # context['object_list'] = current_category.get_children()
         # context['item_list'] = current_category.item_set.all()
+        return context
+
+
+class SearchListView(generic.ListView):
+    model = Item
+    template_name = 'shop/category_detail.html'
+    # paginate_by = 10
+
+    def get_context_data(self, **kwargs):
+        context = super(SearchListView, self).get_context_data(**kwargs)
+        qs = Item.objects.all()
+        keywords = self.request.GET.get('q')
+        if keywords:
+            query = SearchQuery(keywords)
+            # vector = SearchVector('title', 'content')
+            vector = SearchVector('title')
+            qs = qs.annotate(search=vector).filter(search=query)
+
+        context['item_list'] = qs
+        context['object_list'] = {}
+
+        context['nodes'] = Category.objects.all()
+
         return context

@@ -229,9 +229,9 @@
                                 {% include menu.mainmenu.get_template %}
 
 
-								<form class="navbar-form navbar-right form-inline" id="searchform" action="{% url 'search:list_search' %}" method="get" accept-charset="utf-8">
+								<form class="navbar-form navbar-right form-inline" id="searchform" action="{% url 'shop:list_search' %}" method="get" accept-charset="utf-8">
 									<div class="form-group">
-										<input type="text" class="form-control" placeholder="Поиск" name="q">
+										<input type="text" class="form-control" placeholder="Поиск по каталогу" name="q">
 										<button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
 									</div>
 								</form>
@@ -268,7 +268,7 @@
 <ul class="sliders__main js-slider-main slider enable-bx-slider" data-auto="true" data-auto-hover="true" data-mode="fade" data-pager="false" data-pager-custom="null" data-prev-selector="null" data-next-selector="null" >
 	{% for news_obj in news_slider %}
 	<li onclick="goToUrl ('{% url 'news:detail' news_obj.id %}')" class="news_slider_li">
-		<img src="/media/{{ news_obj.file_news }}" class="img-responsive" alt="bxSlider" />
+		<img src="/media/{{ news_obj.file_news }}" class="img-responsive" alt="bxSlider" style="margin:0 auto;" />
 	</li>
 	{% endfor %}
 </ul>

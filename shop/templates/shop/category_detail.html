@@ -208,10 +208,13 @@
                             </div>
                             <div class="listing-anons__title">
                                 <h4 class="name">{{ category_obj.title }}
+                                    {%comment%}
                                     <!--({{category_obj.get_children.count|add:category_obj.item_set.count}}) категорий <br>-->
                                     <!--{% if category_obj.get_children.count %}
                                         {{category_obj.get_children.count}} категорий <br>
                                     {% endif %}-->
+                                    {%endcomment%}
+
                                     ({% last_child category_obj %})
                                 </h4>
 
@@ -261,7 +264,11 @@
 
                         </td>
                         <td width="50%">
-                            <a href="{% url 'shop:product' category.slug category_obj.slug %}"> <b style="font-size: 16px;">{{ category_obj.title }}</b> </a> <br> {{ category_obj.item_variation_set.first.title }}
+                            {% if category %}
+                                <a href="{% url 'shop:product' category.slug category_obj.slug %}"> <b style="font-size: 16px;">{{ category_obj.title }}</b> </a> <br> {{ category_obj.item_variation_set.first.title }}
+                            {% else %}
+                                <a href="{% url 'shop:product' category_obj.category.first.slug category_obj.slug %}"> <b style="font-size: 16px;">{{ category_obj.title }}</b> </a> <br> {{ category_obj.item_variation_set.first.title }}
+                            {% endif %}
                            <br>
                             <input type="hidden" class="item-variation-select-cat" value="{{ category_obj.item_variation_set.first.pk }}">
                             {{ category_obj.content_small }}

@@ -81,7 +81,7 @@
                                 <input type="hidden" id="stock-{{ variation_obj.pk }}" value="{{ variation_obj.stock }}">
                             {% endfor %}
                             <br>
-                            Мин.партия: {{  category_obj.min_offer }}
+                            Мин.партия: {{  category_obj.min_offer }}<br>
                             РРЦ: {{ category_obj.item_variation_set.first.price_1 }} &#8381; <br>
                             {% if user and not user.is_anonymous %}
 
@@ -96,36 +96,7 @@
 
 
                         </td>
-
-
-
-                        <td width="10%" align="center">
-
-                            <div class="input-group" style="{% if category_obj.item_variation_set.first.stock != 1  %} display: none; {% endif %}">
-                              <span class="input-group-btn">
-                                  <button type="button" class="btn btn-danger btn-number"  data-type="minus" data-field="v{{ category_obj.item_variation_set.first.pk  }}" data-step="{{ category_obj.min_lot }}">
-                                    <span class="glyphicon glyphicon-minus"></span>
-                                  </button>
-                              </span>
-                              <input type="number" style="min-width: 50px;" name="v{{ category_obj.item_variation_set.first.pk  }}" class="cart-quantity form-control input-number" value="{% cookie category_obj.item_variation_set.first.pk  %}"  data-step="{{ category_obj.min_lot }}" min="0" max="999">
-                              <span class="input-group-btn">
-                                  <button type="button" class="btn btn-success btn-number" data-type="plus" data-field="v{{ category_obj.item_variation_set.first.pk  }}" data-step="{{ category_obj.min_lot }}">
-                                      <span class="glyphicon glyphicon-plus"></span>
-                                  </button>
-                              </span>
-                          </div>
-                            <br>
-
-
-
-
-                        </td>
-
                     </tr>
-
-
-
-
                 {% endfor %}
 
 
