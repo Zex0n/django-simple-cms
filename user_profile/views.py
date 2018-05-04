@@ -55,12 +55,14 @@ def edit_user(request):
     else:
         raise PermissionDenied
 
+@login_required
 def orders_history(request):
     user_id = request.user.id
     user = User.objects.get(pk=user_id)
-    order_list = Order.objects.filter(customer=user)
 
     if request.user.is_authenticated() and request.user.id == user.id:
+        order_list = Order.objects.filter(customer=user)
+
         return render(request, "user_profile/orders_history.html", {
             "order_list": order_list,
         })
