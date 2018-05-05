@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+
+
+
+{% block breadcrumb %}
+    <a href="/">Главная</a><span class="breadcumb__del no-decoration">»</span>
+
+
+
+{% endblock %}
+
+{% block title %}Обратная связь{% endblock title %}
+
+{% block content %}
+
+    {% if cart.total_price  %}
+<script>
+
+</script>
+
+{% endif %}
+
+    <div class="container" align="center">
+    <h1>Ошибка! </h1>
+    <p>Вы не правильно выполнили условия решения капчи.</p>
+    </div>
+    <br><br><br><br><br><br>
+
+{% endblock %}
