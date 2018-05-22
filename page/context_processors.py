@@ -50,7 +50,7 @@ def sitting(request):
     return {"sitting":sitting}
 
 def news(request):
-    news=News.objects.all().order_by('-published_date')[:2]
+    news=News.objects.all().order_by('-published_date')[:4]
     news_slider=News.objects.all().exclude(file_news__isnull=True).exclude(file_news='').order_by('-published_date')
     print(news_slider)
     return {"main_news":news, "news_slider":news_slider}

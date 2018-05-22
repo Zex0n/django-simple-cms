@@ -206,6 +206,13 @@
                             <div class="listing-anons__img">
                                 <img src="{{ im.url }}" class="img-responsive" alt="{{ item_obj.title }}">
                             </div>
+                            {% if category_obj.new_flag == True %}
+
+                        <div class="new_flag" style="width: 100%;text-align: center;  background-color: #EE0000; color: #FFFFFF; font-weight: bold; ">НОВИНКА</div>
+
+                            {% else %}
+                        <br>
+                        {% endif %}
                             <div class="listing-anons__title">
                                 <h4 class="name">{{ category_obj.title }}
                                     {%comment%}
@@ -220,11 +227,7 @@
 
                                 <h5 style="font-weight: normal;">Цена от <b>{% min_child category_obj user.is_anonymous %}</b> до <b>{% max_child category_obj user.is_anonymous %}</b> руб</h5>
                             </div>
-                                    {% if category_obj.new_flag == True %}
 
-                        <div class="new_flag" style="width: 100%;text-align: center; bottom:0; background-color: #EE0000; color: #FFFFFF; font-weight: bold; position: absolute;">НОВИНКА</div>
-
-                        {% endif %}
                             <div class="listing-anons__hidden">
                                 <h3>{{ category_obj.title }}</h3>
                             </div>

@@ -475,6 +475,8 @@
 		<footer class='map-footer'>
 
             {% if slug == 'kontakty' %}
+			<script src='https://www.google.com/recaptcha/api.js'></script>
+
 			<div class="footer-contacts">
 				<div class="container">
 					<div class="row">
@@ -488,6 +490,7 @@
 						</div>
 
 						<div class="col-xs-5"  >
+
 							<form action="/page/sendmymail" method="post" class="quick-form">
                                 {% csrf_token %}
 								<h2 class="title"><span class="title__bold">Обратная</span>Связь</h2>
@@ -505,6 +508,9 @@
 								<div class="quick-input">
 									<textarea placeholder="Сообщение" name="message"></textarea>
 									<div class="triangle-quick-input"></div>
+								</div>
+								<div class="quick-input">
+									<div class="g-recaptcha" data-sitekey="6LcVNlcUAAAAAHkOineD4RZmvWpP6fyXcxSYOAH-"></div>
 								</div>
 								<button type="submit" class="btn button button--red button--main">Отправить</button>
 							</form>

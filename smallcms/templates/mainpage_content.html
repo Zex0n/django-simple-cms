@@ -3,8 +3,8 @@
 			<div class="container" style="background-color: {{ sitting.main_back_color | safe }};">
 				<div class="row">
 					<div class="col-md-4 col-xs-12 wow zoomInLeft" data-wow-delay="0.7s" data-wow-duration="1.5s">
-						<div class="anons__block triangle triangle--block line-down">
-							<div class="anons__img  anons__img--bike">
+						<div class="anons__block triangle triangle--block line-down" onclick="location.href='{{sitting.link_1_link }}'" style="cursor: pointer;">
+							<div class="anons__img  anons__img--bike" onclick="location.href='{{sitting.link_1_link }}'" style="cursor: pointer;">
 
 								{% if sitting.link_1_file %}
 
@@ -25,13 +25,13 @@
 						</div>
 					</div>
 					<div class="col-md-4 col-xs-12 wow zoomInUp" data-wow-delay="0.7s" data-wow-duration="1.5s">
-						<div class="anons__block anons__block--center triangle triangle--block-center">
-							<div class="anons__photo">
+						<div class="anons__block anons__block--center triangle triangle--block-center" onclick="location.href='{{sitting.link_2_link }}'" style="cursor: pointer;">
+							<div class="anons__photo" onclick="location.href='{{sitting.link_2_link }}'" style="cursor: pointer;">
 
 
 								{% if sitting.link_2_file %}
 
-								<img class="img-responsive" style="max-height: 200px;" src="{{sitting.link_2_file.url}}" alt="news"/>
+								<img  width="360" height="175" src="{{sitting.link_2_file.url}}" alt="news"/>
 
 								{% else %}
 
@@ -52,8 +52,8 @@
 						</div>
 					</div>
 					<div class="col-md-4 col-xs-12 wow zoomInRight" data-wow-delay="0.7s" data-wow-duration="1.5s">
-						<div class="anons__block triangle triangle--block line-down">
-							<div class="anons__img anons__img--bike">
+						<div class="anons__block triangle triangle--block line-down" onclick="location.href='{{sitting.link_3_link }}'" style="cursor: pointer;">
+							<div class="anons__img anons__img--bike" onclick="location.href='{{sitting.link_3_link }}'" style="cursor: pointer;">
 
 
 
@@ -92,32 +92,93 @@
 			{% endcomment %}
 				<div class="row">
 					<div class="col-sm-6 col-xs-12">
-						<div class="we-are__img wow fadeInLeft" data-wow-delay="0.7s" data-wow-duration="1.5s">
+						<div class="we-are__img wow fadeInLeft" data-wow-delay="0.7s" data-wow-duration="1.5s" style="height: 248px">
 
-                          {% thumbnail main_news.all.0.file "555x315" crop="center" as im %}
+                          {% thumbnail main_news.all.0.file "555x248" crop="center" as im %}
                             <img class="img-responsive"  src="{{ im.url }}" alt="{{ main_news.all.0.title }}"/></div>
                         {% endthumbnail %}
 
-						<div class="we-are__block triangle triangle--big wow fadeInLeft" data-wow-delay="0.7s" data-wow-duration="2.5s">
-							<h3 class="title title--block">{{ main_news.all.1.title }}</h3>
-							<p class="text">{{ main_news.all.1.small_text }}</p>
-							<a href="{% url 'news:detail' main_news.all.1.pk %}" class="btn button button--red button--main">Подробнее</a>
-						</div>
 					</div>
+
 					<div class="col-sm-6 col-xs-12">
-						<div class="we-are__block triangle triangle--big wow fadeInRight" data-wow-delay="0.7s" data-wow-duration="1.5s">
+						<div class="we-are__block triangle triangle--big wow fadeInRight" data-wow-delay="0.7s" data-wow-duration="1.5s" style="height: 248px">
 							<h3 class="title title--block">{{ main_news.all.0.title }}</h3>
 							<p class="text">{{ main_news.all.0.small_text }}</p>
 							<a href="{% url 'news:detail' main_news.all.0.pk %}" class="btn button button--red button--main">Подробнее</a>
 						</div>
-						<div class="we-are__img wow fadeInRight" data-wow-delay="0.7s" data-wow-duration="2.5s">
+					</div>
+				</div>
 
-                        {% thumbnail main_news.all.1.file "555x315" crop="center" as im %}
+				<div class="row">
+							<div class="col-sm-6 col-xs-12">
+					<div class="we-are__block triangle triangle--big wow fadeInLeft" data-wow-delay="0.7s" data-wow-duration="2.5s" style="height: 248px">
+							<h3 class="title title--block">{{ main_news.all.1.title }}</h3>
+							<p class="text">{{ main_news.all.1.small_text }}</p>
+							<a href="{% url 'news:detail' main_news.all.1.pk %}" class="btn button button--red button--main">Подробнее</a>
+						</div>
+
+					</div>
+
+					<div class="col-sm-6 col-xs-12">
+						<div class="we-are__img wow fadeInRight" data-wow-delay="0.7s" data-wow-duration="2.5s" style="height: 248px">
+
+                        {% thumbnail main_news.all.1.file "555x248" crop="center" as im %}
                             <img class="img-responsive"  src="{{ im.url }}" alt="{{ main_news.all.1.title }}"/>
                         {% endthumbnail %}
                         </div>
 					</div>
 				</div>
+
+				<div class="row">
+					<div class="col-sm-6 col-xs-12">
+						<div class="we-are__img wow fadeInLeft" data-wow-delay="0.7s" data-wow-duration="1.5s" style="height: 248px">
+
+                          {% thumbnail main_news.all.2.file "555x248" crop="center" as im %}
+                            <img class="img-responsive"  src="{{ im.url }}" alt="{{ main_news.all.2.title }}"/></div>
+                        {% endthumbnail %}
+
+					</div>
+
+					<div class="col-sm-6 col-xs-12">
+						<div class="we-are__block triangle triangle--big wow fadeInRight" data-wow-delay="0.7s" data-wow-duration="1.5s" style="height: 248px">
+							<h3 class="title title--block">{{ main_news.all.2.title }}</h3>
+							<p class="text">{{ main_news.all.2.small_text }}</p>
+							<a href="{% url 'news:detail' main_news.all.2.pk %}" class="btn button button--red button--main">Подробнее</a>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+							<div class="col-sm-6 col-xs-12">
+					<div class="we-are__block triangle triangle--big wow fadeInLeft" data-wow-delay="0.7s" data-wow-duration="2.5s" style="height: 248px">
+							<h3 class="title title--block">{{ main_news.all.3.title }}</h3>
+							<p class="text">{{ main_news.all.3.small_text }}</p>
+							<a href="{% url 'news:detail' main_news.all.3.pk %}" class="btn button button--red button--main">Подробнее</a>
+						</div>
+
+					</div>
+
+					<div class="col-sm-6 col-xs-12">
+						<div class="we-are__img wow fadeInRight" data-wow-delay="0.7s" data-wow-duration="2.5s" style="height: 248px">
+
+                        {% thumbnail main_news.all.3.file "555x248" crop="center" as im %}
+                            <img class="img-responsive"  src="{{ im.url }}" alt="{{ main_news.all.3.title }}"/>
+                        {% endthumbnail %}
+                        </div>
+					</div>
+				</div>
+
+
+
+
+
+
+
+
+
+
+
+
             <div class="row">
                 <br>
                 <div class="col-md-12" align="center"> <a class="btn button button--red button--main" style="width: 100px" href="{% url 'news:list_all' %}">все новости</a></div>
