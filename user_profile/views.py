@@ -1,12 +1,15 @@
-from django.shortcuts import render, HttpResponseRedirect, HttpResponse
+from django.shortcuts import render, HttpResponseRedirect, HttpResponse, render_to_response
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 # from .models import UserProfile
 from shop.models import Category, Item, Item_variation, Order, OrderItem, Status, UserProfile
-from .forms import UserProfileForm
+from .forms import RegisterForm1,RegisterForm2
 
 from django.forms.models import inlineformset_factory
 from django.core.exceptions import PermissionDenied
+
+
+import django
 
 
 @login_required
@@ -68,3 +71,32 @@ def orders_history(request):
         })
     else:
         raise PermissionDenied
+
+
+
+
+def user_register(request):
+    uf = RegisterForm1(request.POST)
+    upf = RegisterForm2(request.POST)
+    if request.method == 'POST':
+        if uf.is_valid() * upf.is_valid():
+
+            uf.is_valid = False
+            user = uf.save()
+            userprofile = upf.save(commit=False)
+            userprofile.user = user
+            userprofile.save()
+
+            return HttpResponseRedirect("/shop/")
+        else:
+            return render(request, 'registration/test_new_register.html', dict(userform=uf, userprofileform=upf))
+
+    else:
+
+        return render(request,'registration/test_new_register.html',dict(userform=uf,userprofileform=upf))
+
+
+        # else:
+        #     uf = RegisterForm1(prefix='user')
+        #     upf = RegisterForm2(prefix='userprofile')
+        # return render(request,'registration/registration_base.html')

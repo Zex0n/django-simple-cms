@@ -12,6 +12,8 @@ def context(request):
     cached_menus = cache.get(settings.MYMENU_CACHE_KEY)
     cached_carousel = cache.get(settings.CAROUSEL_CACHE_KEY)
 
+
+
     if cached_menus is not None:
         return cached_menus
     menus = Menu.objects.filter()
@@ -19,6 +21,7 @@ def context(request):
     for menu in menus:
         context['menu'][menu.slug] = menu
     cache.set(settings.MYMENU_CACHE_KEY, context, settings.CACHE_TIMEOUT)
+    return context
 
     if cached_carousel is not None:
             return cached_carousel
@@ -31,6 +34,7 @@ def context(request):
     #context['offer']=Item.objects.filter(offer=True)
 
     return context
+
 
 
 

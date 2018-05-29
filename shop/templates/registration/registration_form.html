@@ -11,7 +11,9 @@
 				</header>
 
   {% include 'registration/form_errors.html' %}
-  <form method='post' class="well form-horizontal" action=''>{% csrf_token %}
+  <form method='post' class="well form-horizontal" action=''>
+
+      {% csrf_token %}
     {% include 'registration/form_fields.html' %}
 
       <div class="form-group">
