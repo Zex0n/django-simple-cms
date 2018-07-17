@@ -136,6 +136,8 @@
                     </div>
 
 
+
+
                     {% recursetree nodes %}
 
                         <div {% if node.is_root_node %}class="root_catalog"{% else %}class="leaf_catalog"{% endif %}>
@@ -166,20 +168,28 @@
                         </div>
                     {% endrecursetree %}
 
-                {% for banner in banners %}
-				<div style="padding-top: 20px; text-align: center;">
 
+                  {% for banner in banners %}
+				<div style="padding-top: 10px; text-align: center;">
+
+                    {% if user and not user.is_anonymous %}
 					{% if banner.banner_file %}
 					<a href="{{ banner.banner_file.url }}" class="root_catalog_link" title="{{ banner.banner_name }}">
 					{% else %}
 					<a href="{{ banner.banner_link }}" class="root_catalog_link" title="{{ banner.banner_name }}">
 					{% endif %}
 
+                     {% endif %}
+
 						<img src="{{ banner.banner_image.url }}" width="270" height="120">
 
+                        {% if user and not user.is_anonymous %}
 					</a>
+                        {% endif %}
+
 					</div>
          		{% endfor %}
+
 
             </div>
             <div class="col-md-12 col-lg-9">
@@ -208,7 +218,25 @@
                             </div>
                             {% if category_obj.new_flag == True %}
 
-                        <div class="new_flag" style="width: 100%;text-align: center;  background-color: #EE0000; color: #FFFFFF; font-weight: bold; ">НОВИНКА</div>
+                        <div class="new_flag" style="width: 100%;text-align: center;
+
+                        {% if category_obj.new_flag_color != '' %}
+                         background-color: {{ category_obj.new_flag_color }};
+                         {% else %}
+                         background-color: #EE0000;
+                         {% endif %}
+                         color: #FFFFFF; font-weight: bold; ">
+
+                            {% if category_obj.new_flag_text != '' %}
+
+                            {{category_obj.new_flag_text}}
+
+                            {% else %}
+                            НОВИНКА
+
+                            {% endif %}
+
+                        </div>
 
                             {% else %}
                         <br>
@@ -257,7 +285,31 @@
                             {% endif %}
 
                             {% if category_obj.new_flag == True %}
-                            <div class="new_flag" style="width: 150px;text-align: center; background-color: #EE0000; color: #FFFFFF; font-weight: bold; position: relative;">НОВИНКА</div>
+
+                            <div class="new_flag" style="width: 150px;text-align: center;
+
+                            {% if category_obj.new_flag_color != '' %}
+
+                            background-color: {{ category_obj.new_flag_color }};
+
+                             {% else %}
+
+                            background-color: #EE0000;
+
+                                 {% endif %}
+                             color: #FFFFFF; font-weight: bold; position: relative;">
+
+                                   {% if category_obj.new_flag_text != '' %}
+
+                            {{category_obj.new_flag_text}}
+
+                            {% else %}
+                            НОВИНКА
+
+                            {% endif %}
+
+                            </div>
+
 
                             {% else %}
 
@@ -342,7 +394,12 @@
                             {% if user and not user.is_anonymous %}
                             <a style="{% if category_obj.item_variation_set.first.stock == 0  %} display: none; {% endif %}; cursor:pointer; font-weight:bold; font-size:12px;" onclick="cart.add($(this).parent().prev().prev().children('.item-variation-select-cat').val(), $(this).prev().prev().children('.cart-quantity').val()); true_out=1; left_coock($(this).parent().prev().prev().children('.item-variation-select-cat').val());">ДОБАВИТЬ В ЗАКАЗ</a>
                             {% else %}
+
+                            <a  title="Авторизуйтесь что бы сделатоь заказ." data-content="Авторизуйтесь что бы сделать заказ." href="/accounts/login/" class="btn btn-primary btn-xs">Вход </a>
+
                             <a  title="Авторизуйтесь что бы сделатоь заказ." data-content="Авторизуйтесь что бы сделать заказ." href="/register/" class="btn btn-danger btn-xs">Авторизация </a>
+
+
                             {% endif %}
 
 

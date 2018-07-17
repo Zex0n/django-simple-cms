@@ -15,6 +15,7 @@ class UserProfileInline(admin.StackedInline):
 
 class UserProfileAdmin(UserAdmin):
     inlines = [UserProfileInline, ]
+    list_display = ['username','email','date_joined','is_active']
 admin.site.register(User, UserProfileAdmin)
 
 
@@ -69,3 +70,5 @@ admin.site.register(Category, CategoryAdmin)
     #list_editable = ['default_status', ]
 
 #admin.site.register(Status, StatusAdmin)
+
+

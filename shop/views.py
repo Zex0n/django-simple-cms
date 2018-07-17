@@ -5,7 +5,7 @@ from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.views import generic
 from django.forms import ModelForm
-from .models import Category, Item, Item_variation, Order, OrderItem, Status, UserProfile
+from .models import Category, Item, Item_variation, Order, OrderItem, Status, UserProfile, TreeCash
 from easycart import BaseCart, BaseItem
 from cart.views import Cart
 from django.contrib.auth.models import User
@@ -13,7 +13,9 @@ from django import forms
 from django.views.generic import View
 from django.core.mail import send_mail
 from django.contrib.postgres.search import SearchQuery, SearchRank, SearchVector
-
+from datetime import datetime, timedelta
+from django.utils import timezone
+from operator import attrgetter
 
 class NoRegOrderForm(forms.Form):
     your_name = forms.CharField(label='Имя', max_length=100, widget=forms.TextInput(attrs={'size':'40', 'class':'form-control'}))
@@ -56,6 +58,8 @@ class PostOrder(View):
         send_message = send_message + '<tr><td><h4>Товары в наличии</h4></td></tr>'
 
         if (request.user.is_authenticated):
+
+
             for item in cart.list_items(lambda item: item.obj.title):
 
                 if (item.obj.stock == 1):
@@ -88,11 +92,11 @@ class PostOrder(View):
 
         send_message = send_message + '<tr><td colspan="4" align="right"><hr></td></tr>'
         send_message = send_message + '<tr><td colspan="4" align="right"><b>Итого: </b>'+str(total)+' руб. </td></tr></table>'
-        print(send_message)
+        #print(send_message)
 
-        send_mail('Заказ с сайта CAIMAN', send_message, 'sendfromsite@caimanfishing.ru', ['ivan.tolkachev@gmail.com','orders@caimanfishing.ru'], fail_silently=False, auth_user=None,auth_password=None, connection=None, html_message=send_message)
+        send_mail('Заказ с сайта CAIMAN', send_message, 'sendfromsite@caimanfishing.ru', ['ivan.tolkachev@gmail.com','orders@caimanfishing.ru'], fail_silently=False, auth_user='sendfromsite@caimanfishing.ru',auth_password='24sendfromsite24', connection=None, html_message=send_message)
         # send_mail('Заказ с сайта CAIMAN', send_message, 'sendfromsite@caimanfishing.ru', ['trumpk@gmail.com',], fail_silently=False, auth_user=None,auth_password=None, connection=None, html_message=send_message)
-
+        #send_mail('Заказ с сайта CAIMAN', send_message, 'sendfromcaimansite@mail.ru', ['ivan.tolkachev@gmail.com'], fail_silently=False, auth_user=None,auth_password=None, connection=None, html_message=send_message)
         # Select default status for the order
         try:
             default_status = Status.objects.get(default_status=True)
@@ -196,6 +200,18 @@ class DetailView(generic.DetailView):
         current_category = Category.objects.get(slug=context['slug'])
         # print (current_category.get_family())
         # print (current_category.get_root())
+
+        #Очистка кеша
+
+        if TreeCash.objects.filter(cat_id=current_category).filter(created_date__lte=timezone.now() - timedelta(days=1)).count():
+            cash=TreeCash.objects.filter(cat_id=current_category).filter(created_date__lte=timezone.now() - timedelta(days=1)).first()
+            cash.delete()
+
+        #cash = TreeCash.objects.get(cat_id=current_category)
+
+
+
+
         context['nodes'] = Category.objects.all()
         context['current_category'] = current_category
         context['current_category_root'] = current_category.get_root()

@@ -58,6 +58,8 @@ class Category(MPTTModel, BaseShop):
     content = RichTextUploadingField("Описание", blank=True)
     num = models.IntegerField(default=0, verbose_name=u'Порядковый номер')
     new_flag = models.BooleanField("Показывать как новинку", default=False)
+    new_flag_text = models.CharField(_("Текст надписи НОВИНКА"), max_length=200, default='', blank=True)
+    new_flag_color = models.CharField(_("Цвет подложки надписи"), max_length=200, default='', blank=True)
 
 
     class Meta:
@@ -74,6 +76,11 @@ class Item(BaseShop):
     status = models.BooleanField("Опубликовано", default=True)
 
     new_flag = models.BooleanField("Показывать как новинку", default=False)
+    new_flag_text = models.CharField(_("Текст надписи НОВИНКА"), max_length=200, default='', blank=True)
+    new_flag_color = models.CharField(_("Цвет подложки надписи"), max_length=200, default='', blank=True)
+
+
+
 
     min_offer = models.CharField(_("Минимальная партия"),max_length=50, blank=True, db_index=True,)
     offer = models.BooleanField("Показывать в спецпредложениях", default=False, blank=True)
@@ -186,4 +193,17 @@ class OrderItem(BaseOrder):
 
     def __str__(self):
         return self.title
+
+
+
+class TreeCash(models.Model):
+    cat_id=models.ForeignKey(Category,on_delete=models.SET_NULL, null=True)
+    created_date = models.DateTimeField(_("Дата создания"), auto_now_add=True, editable=False)
+    elm_cols=models.IntegerField('Количество в категории', default=0)
+    price_from = models.DecimalField(_("Цены от"), max_digits=10, decimal_places=2, blank=True, null=True)
+    price_to = models.DecimalField(_("Цены до"), max_digits=10, decimal_places=2, blank=True, null=True)
+    price_from_anon=models.DecimalField(_("Цены от анонимный"), max_digits=10, decimal_places=2, blank=True, null=True)
+    price_to_anon = models.DecimalField(_("Цены до анонимный"), max_digits=10, decimal_places=2, blank=True, null=True)
+
+
 

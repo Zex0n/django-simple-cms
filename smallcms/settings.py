@@ -38,6 +38,15 @@ EMAIL_HOST_USER = 'sendfromsite@caimanfishing.ru'
 EMAIL_HOST_PASSWORD = '24sendfromsite24'
 
 
+# EMAIL_HOST = 'smtp.mail.ru'
+#
+# EMAIL_HOST_USER = 'sendfromcaimansite@mail.ru'
+#
+# EMAIL_HOST_PASSWORD = '24sendfromsite24'
+
+
+
+
 
 EMAIL_PORT = '465'
 

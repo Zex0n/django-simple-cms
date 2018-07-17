@@ -2,8 +2,6 @@ from django import template
 register = template.Library()
 from decimal import *
 
-from shop.models import Category, TreeCash
-
 @register.filter()
 def add_class(field, css):
    return field.as_widget(attrs={"class":css})
@@ -25,18 +23,7 @@ def mult(value, arg):
 
 @register.simple_tag
 def last_child(node):
-
-    count=TreeCash.objects.filter(cat_id=node)
-    if not count:
-        last_count=recursive_list(node)
-        cash=TreeCash(cat_id=node,elm_cols=last_count)
-        cash.save()
-    else:
-        last_count=count.first().elm_cols
-
-
-    #last_count = recursive_list(node)
-
+    last_count = recursive_list(node)
     return last_count
     # children = node.get_children()
     # if children:
@@ -57,29 +44,7 @@ def recursive_list(nodes):
 
 @register.simple_tag
 def min_child(node, is_anonymous):
-
-    if is_anonymous:
-
-        if TreeCash.objects.filter(cat_id=node).exclude(price_from_anon=None).count():
-            min = TreeCash.objects.filter(cat_id=node).first().price_from_anon
-            last_count=min
-        else:
-            last_count = recursive_list_min(node, is_anonymous)
-            cash = TreeCash.objects.get(cat_id=node)
-            cash.price_from_anon=last_count
-            cash.save()
-    else:
-        if TreeCash.objects.filter(cat_id=node).exclude(price_from=None).count():
-            min = TreeCash.objects.filter(cat_id=node).first().price_from
-            last_count=min
-        else:
-            last_count = recursive_list_min(node, is_anonymous)
-            cash = TreeCash.objects.get(cat_id=node)
-            cash.price_from=last_count
-            cash.save()
-
-
-    last_count = last_count
+    last_count = recursive_list_min(node, is_anonymous)
     return last_count
 
 def recursive_list_min(nodes, is_anonymous):
@@ -114,28 +79,7 @@ def recursive_list_min(nodes, is_anonymous):
 
 @register.simple_tag
 def max_child(node, is_anonymous):
-
-    if is_anonymous:
-
-        if TreeCash.objects.filter(cat_id=node).exclude(price_to_anon=None).count():
-            min = TreeCash.objects.filter(cat_id=node).first().price_to_anon
-            last_count=min
-        else:
-            last_count = recursive_list_max(node, is_anonymous)
-            cash = TreeCash.objects.get(cat_id=node)
-            cash.price_to_anon=last_count
-            cash.save()
-    else:
-        if TreeCash.objects.filter(cat_id=node).exclude(price_to=None).count():
-            min = TreeCash.objects.filter(cat_id=node).first().price_to
-            last_count=min
-        else:
-            last_count = recursive_list_max(node, is_anonymous)
-            cash = TreeCash.objects.get(cat_id=node)
-            cash.price_to=last_count
-            cash.save()
-
-    last_count = last_count
+    last_count = recursive_list_max(node, is_anonymous)
     return last_count
 
 def recursive_list_max(nodes, is_anonymous):
