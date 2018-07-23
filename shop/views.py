@@ -57,16 +57,20 @@ class PostOrder(View):
 
         send_message = send_message + '<tr><td><h4>Товары в наличии</h4></td></tr>'
 
+
+
+
+
         if (request.user.is_authenticated):
 
 
-            for item in cart.list_items(lambda item: item.obj.title):
+            for item in cart.list_items(lambda item: item.obj.item.title):
 
                 if (item.obj.stock == 1):
                     total += item.obj.price_2 * item.quantity
                     send_message = send_message + '<tr><td>'+item.obj.item.title+' '+item.obj.title+'</td><td align="center">'+str(item.quantity)+'</td><td align="center">'+str(item.obj.price_2)+' руб.</td><td align="center">'+str(item.obj.price_2*item.quantity)+'руб.</td></tr>'
         else:
-            for item in cart.list_items(lambda item: item.obj.title):
+            for item in cart.list_items(lambda item: item.obj.item.title):
                 if (item.obj.stock == 1):
                     total += item.obj.price_1 * item.quantity
                     send_message = send_message + '<tr><td>'+item.obj.item.title+' '+item.obj.title+'</td><td align="center">'+str(item.quantity)+'</td><td align="center">'+str(item.obj.price_1)+' руб.</td><td align="center">'+str(item.obj.price_1*item.quantity)+'руб.</td></tr>'
@@ -75,12 +79,15 @@ class PostOrder(View):
 
 
         if (request.user.is_authenticated):
-            for item in cart.list_items(lambda item: item.obj.title):
+
+
+
+            for item in cart.list_items(lambda item: item.obj.item.title):
                 if (item.obj.stock == 2):
                     total += item.obj.price_2 * item.quantity
                     send_message = send_message + '<tr><td>'+item.obj.item.title+' '+item.obj.title+'</td><td align="center">'+str(item.quantity)+'</td><td align="center">'+str(item.obj.price_2)+' руб.</td><td align="center">'+str(item.obj.price_2*item.quantity)+'руб.</td></tr>'
         else:
-            for item in cart.list_items(lambda item: item.obj.title):
+            for item in cart.list_items(lambda item: item.obj.item.title):
                 if (item.obj.stock == 2):
                     total += item.obj.price_1 * item.quantity
                     send_message = send_message + '<tr><td>'+item.obj.item.title+' '+item.obj.title+'</td><td align="center">'+str(item.quantity)+'</td><td align="center">'+str(item.obj.price_1)+' руб.</td><td align="center">'+str(item.obj.price_1*item.quantity)+'руб.</td></tr>'
@@ -130,6 +137,8 @@ class PostOrder(View):
                     price = item.obj.price_1,
                 )
             order_item.save()
+
+       # print(send_message)
 
         cart.empty()
 

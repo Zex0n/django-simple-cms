@@ -65,7 +65,7 @@ def min_child(node, is_anonymous):
             last_count=min
         else:
             last_count = recursive_list_min(node, is_anonymous)
-            cash = TreeCash.objects.get(cat_id=node)
+            cash = TreeCash.objects.filter(cat_id=node).first()
             cash.price_from_anon=last_count
             cash.save()
     else:
@@ -74,7 +74,7 @@ def min_child(node, is_anonymous):
             last_count=min
         else:
             last_count = recursive_list_min(node, is_anonymous)
-            cash = TreeCash.objects.get(cat_id=node)
+            cash = TreeCash.objects.filter(cat_id=node).first()
             cash.price_from=last_count
             cash.save()
 
@@ -122,7 +122,7 @@ def max_child(node, is_anonymous):
             last_count=min
         else:
             last_count = recursive_list_max(node, is_anonymous)
-            cash = TreeCash.objects.get(cat_id=node)
+            cash = TreeCash.objects.filter(cat_id=node).first()
             cash.price_to_anon=last_count
             cash.save()
     else:
@@ -131,7 +131,7 @@ def max_child(node, is_anonymous):
             last_count=min
         else:
             last_count = recursive_list_max(node, is_anonymous)
-            cash = TreeCash.objects.get(cat_id=node)
+            cash = TreeCash.objects.filter(cat_id=node).first()
             cash.price_to=last_count
             cash.save()
 
