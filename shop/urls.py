@@ -3,6 +3,8 @@ from . import views
 
 
 urlpatterns = [
+    url(r'^shop/capi/', views.capi, name='capi'),
+    url(r'^shop/test_api/', views.TestApi.as_view(), name='test_api'),
     url(r'^shop/order-success/$', views.CartOrder.as_view(), name='order-success'),
     url(r'^shop/order-success-post/', views.PostOrder.as_view(), name='order-success-post'),
     url(r'^shop/cart/$', views.CartView.as_view(), name='cart_list'),

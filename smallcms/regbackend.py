@@ -3,7 +3,7 @@ from .forms import UserProfileRegistrationForm
 from shop.models import UserProfile
 from django.core.mail import send_mail
 from django.contrib.auth.models import User
-from django.shortcuts import redirect
+from django.shortcuts import render, HttpResponseRedirect, HttpResponse, render_to_response
 
 # from django.dispatch import receiver
 # from django.db.models.signals import pre_save
@@ -49,14 +49,15 @@ class MyRegistrationView(RegistrationView):
         send_message = send_message + '<b>Адрес доставки:</b> ' + adres + '<br>'
 
 
-        #print(send_message)
+        print(send_message)
 
-        # try:
-        #     send_mail('Регистрация нового пользователя', send_message, 'sendfromsite@caimanfishing.ru',
-        #           ['ivan.tolkachev@gmail.com', 'orders@caimanfishing.ru'], fail_silently=False, auth_user=None,
-        #           auth_password=None, connection=None, html_message=send_message)
-        # except Exception:
-        #     print("Nosend")
+        try:
+            send_mail('Регистрация нового пользователя', send_message, 'sendfromsite@caimanfishing.ru',
+                      ['ivan.tolkachev@gmail.com', 'orders@caimanfishing.ru'], fail_silently=False,
+                      auth_user='sendfromsite@caimanfishing.ru', auth_password='JmsdlfsldiJHMlsadfmKJ', connection=None,
+                      html_message=send_message)
+        except Exception:
+            print("Nosend")
 
 
 
@@ -68,18 +69,12 @@ class MyRegistrationView(RegistrationView):
         new_profile.save()
 
 
-        #print(new_user.pk)
+        print(new_user.pk)
 
         user = User.objects.get(pk=new_user.pk)
         user.is_active = False
         user.save()
 
-        redirect('/shop/')
 
-        print('adASADaD')
-
-        redirect('/shop/')
-
-        #return new_user
-        return redirect('/shop/')
+        return HttpResponseRedirect("/shop/")
 

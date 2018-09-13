@@ -60,6 +60,7 @@ class Category(MPTTModel, BaseShop):
     new_flag = models.BooleanField("Показывать как новинку", default=False)
     new_flag_text = models.CharField(_("Текст надписи НОВИНКА"), max_length=200, default='', blank=True)
     new_flag_color = models.CharField(_("Цвет подложки надписи"), max_length=200, default='', blank=True)
+    code1c = models.IntegerField(_("Код базы"), default=0)
 
 
     class Meta:
@@ -92,6 +93,8 @@ class Item(BaseShop):
     offer_text2 = models.CharField(_("Строка описания 2:"), max_length=200, default='', blank=True)
     min_lot = models.IntegerField(default=1, verbose_name=u'Множитель для товара')
     num = models.IntegerField(default=0, verbose_name=u'Порядковый номер')
+    offer_price=models.DecimalField(_("Цена без скидки"), max_digits=10, decimal_places=2, blank=True, null=True)
+
 
 
 
@@ -108,10 +111,11 @@ class Item_variation(models.Model):
         (2, 'Ожидается'),
     )
 
-    title = models.CharField(_("Название"), default='', max_length=255)
+    title = models.CharField(_("Название"), default='', max_length=255,blank=True)
     vendor_code = models.CharField(_("Артикул"), blank=True, max_length=255)
     default_variation = models.BooleanField(_("Вариация по умолчанию"), default=False)
     stock = models.IntegerField(_("На складе"), choices=ITEM_STOCK_CHOICES, default=1)
+    in_stock = models.IntegerField(default=0, verbose_name=u'Количество на складе (шт.)')
     stock_text = models.CharField(_("Когда ожидается"), default='', max_length=255, blank=True)
     price_1 = models.DecimalField(_("Розничная цена"), max_digits=10, decimal_places=2, blank=True, null=True)
     price_2 = models.DecimalField(_("Оптовая цена"), max_digits=10, decimal_places=2, blank=True, null=True)

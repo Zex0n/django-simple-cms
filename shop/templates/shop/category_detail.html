@@ -320,9 +320,9 @@
                         </td>
                         <td width="50%">
                             {% if category %}
-                                <a href="{% url 'shop:product' category.slug category_obj.slug %}"> <b style="font-size: 16px;">{{ category_obj.title }}</b> </a> <br> {{ category_obj.item_variation_set.first.title }}
+                            {% if category_obj.offer_price %} <span style="font-weight: bold; background-color: red; color: #FFFFFF; padding: 2px 2px 4px 6px; text-align: center; margin-right: 5px;" > SALE </span> {% endif %}  <a href="{% url 'shop:product' category.slug category_obj.slug %}"> <b style="font-size: 16px;">{{ category_obj.title }}</b> </a> <br> {{ category_obj.item_variation_set.first.title }}
                             {% else %}
-                                <a href="{% url 'shop:product' category_obj.category.first.slug category_obj.slug %}"> <b style="font-size: 16px;">{{ category_obj.title }}</b> </a> <br> {{ category_obj.item_variation_set.first.title }}
+                                <a href="{% url 'shop:product' category_obj.category.first.slug category_obj.slug %}"> <b style="font-size: 16px;">  {{ category_obj.title }}</b> </a> <br> {{ category_obj.item_variation_set.first.title }}
                             {% endif %}
                            <br>
                             <input type="hidden" class="item-variation-select-cat" value="{{ category_obj.item_variation_set.first.pk }}">
@@ -353,8 +353,17 @@
                             РРЦ: {{ category_obj.item_variation_set.first.price_1 }} &#8381; <br>
                             {% if user and not user.is_anonymous %}
 
+                            {% if category_obj.offer_price %}
+                            <div style="font-size: 20px; color: red; font-weight: bold; padding-top: 5px;"><s>{{ category_obj.offer_price }} &#8381;</s></div>
+                                {% endif %}
 
-                            <div style="font-size: 20px; font-weight: bold; padding-top: 5px;">{{ category_obj.item_variation_set.first.price_2 }} &#8381;</div>
+                            <div style="font-size: 20px;       {% if category_obj.offer_price %} color: green;  {% endif %} font-weight: bold; padding-top: 5px;">
+
+
+
+                                {{ category_obj.item_variation_set.first.price_2 }}
+
+                                &#8381;</div>
 
 
                             {% else %}

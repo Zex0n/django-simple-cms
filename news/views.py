@@ -13,5 +13,4 @@ class DetailView(generic.DetailView):
 
 class ListView(generic.ListView):
     model= News
-    paginate_by = settings.NEWS_PAGINATE_BY
 

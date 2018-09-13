@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.shortcuts import render
 from django.shortcuts import get_object_or_404, render, render_to_response
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
 from django.views import generic
 from django.forms import ModelForm
@@ -16,6 +16,9 @@ from django.contrib.postgres.search import SearchQuery, SearchRank, SearchVector
 from datetime import datetime, timedelta
 from django.utils import timezone
 from operator import attrgetter
+from django.views.decorators.csrf import csrf_exempt
+from decimal import Decimal
+from django.utils.text import slugify
 
 class NoRegOrderForm(forms.Form):
     your_name = forms.CharField(label='Имя', max_length=100, widget=forms.TextInput(attrs={'size':'40', 'class':'form-control'}))
@@ -101,7 +104,7 @@ class PostOrder(View):
         send_message = send_message + '<tr><td colspan="4" align="right"><b>Итого: </b>'+str(total)+' руб. </td></tr></table>'
         #print(send_message)
 
-        send_mail('Заказ с сайта CAIMAN', send_message, 'sendfromsite@caimanfishing.ru', ['ivan.tolkachev@gmail.com','orders@caimanfishing.ru'], fail_silently=False, auth_user='sendfromsite@caimanfishing.ru',auth_password='24sendfromsite24', connection=None, html_message=send_message)
+        send_mail('Заказ с сайта CAIMAN', send_message, 'sendfromsite@caimanfishing.ru', ['ivan.tolkachev@gmail.com','orders@caimanfishing.ru'], fail_silently=False, auth_user='sendfromsite@caimanfishing.ru',auth_password='JmsdlfsldiJHMlsadfmKJ', connection=None, html_message=send_message)
         # send_mail('Заказ с сайта CAIMAN', send_message, 'sendfromsite@caimanfishing.ru', ['trumpk@gmail.com',], fail_silently=False, auth_user=None,auth_password=None, connection=None, html_message=send_message)
         #send_mail('Заказ с сайта CAIMAN', send_message, 'sendfromcaimansite@mail.ru', ['ivan.tolkachev@gmail.com'], fail_silently=False, auth_user=None,auth_password=None, connection=None, html_message=send_message)
         # Select default status for the order
@@ -277,3 +280,83 @@ class SearchListView(generic.ListView):
         context['nodes'] = Category.objects.all()
 
         return context
+
+class TestApi(generic.TemplateView):
+    template_name = 'shop/test_api.html'
+
+
+@csrf_exempt
+def capi(request):
+
+    alphabet = {'а': 'a', 'б': 'b', 'в': 'v', 'г': 'g', 'д': 'd', 'е': 'e', 'ё': 'yo', 'ж': 'zh', 'з': 'z', 'и': 'i',
+                'й': 'j', 'к': 'k', 'л': 'l', 'м': 'm', 'н': 'n', 'о': 'o', 'п': 'p', 'р': 'r', 'с': 's', 'т': 't',
+                'у': 'u', 'ф': 'f', 'х': 'kh', 'ц': 'ts', 'ч': 'ch', 'ш': 'sh', 'щ': 'shch', 'ы': 'i', 'э': 'e',
+                'ю': 'yu',
+                'я': 'ya'}
+
+    if request.method == 'POST':
+
+        try:
+            id1c = request.POST['id1c']
+            title = request.POST['title']
+            in_stock = request.POST['in_stock']
+            price_1 = request.POST['price_1']
+            category = request.POST['category']
+
+            if category == '':
+                category = 999999999
+
+            if int(in_stock) > 0:
+                stock = 1
+            else:
+                stock = 2
+
+
+        except:
+            answer='Ошибка запроса'
+
+        if(id1c!=''):
+            count_this = Item_variation.objects.filter(vendor_code=id1c).count()
+
+            if(count_this==0):
+
+                slug=slugify(''.join(alphabet.get(w, w) for w in title.lower()))+'-'+id1c
+
+                this_object = Item(title=title, meta_description=title,meta_keywords=title,slug=slug[:49])
+
+
+
+                this_object.save()
+
+                this_variation = Item_variation(title=" ",item=this_object, price_1=price_1, in_stock=in_stock, stock=stock, vendor_code =id1c)
+
+                this_variation.save()
+
+                cat = Category.objects.filter(code1c=category).first()
+                if cat:
+                    this_object.category.add(cat)
+
+                answer = 'Product add'
+            else:
+
+                this_variation=Item_variation.objects.filter(vendor_code=id1c).first()
+                this_variation.price_1=price_1
+                this_variation.in_stock=in_stock
+                this_variation.stock=stock
+                this_variation.save()
+
+                cat = Category.objects.filter(code1c=category).first()
+
+                if cat:
+                    this_object = this_variation.item
+                    this_object.category.add(cat)
+
+                answer = 'Product edited'
+
+        else:
+            answer = 'Параметр id1c должен быть задан'
+
+
+
+
+    return HttpResponse(answer)
