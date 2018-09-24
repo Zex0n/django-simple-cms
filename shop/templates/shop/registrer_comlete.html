@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+
+
+
+{% block breadcrumb %}
+    <a href="/">Главная</a><span class="breadcumb__del no-decoration">»</span>
+    <a href="{% url 'shop:list_all'  %}"> Каталог продукции </a><span class="breadcumb__del no-decoration">»</span>
+    Подтверждение регистрации
+
+{% endblock %}
+
+{% block title %}Подтверждение регистрации{% endblock title %}
+
+{% block content %}
+
+
+
+    <div class="container" align="center">
+  <h1>Подтверждение регистрации</h1>
+    <p>Обратите внимание, после регистрации идёт активация аккаунта, это может занять 30 минут прежде чем Вы сможете зайти в свой аккаунт.</p>
+    </div>
+    <br><br><br><br><br><br>
+
+{% endblock %}

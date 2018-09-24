@@ -285,6 +285,10 @@ class TestApi(generic.TemplateView):
     template_name = 'shop/test_api.html'
 
 
+class RegistreComplete(generic.TemplateView):
+    template_name = 'shop/registrer_comlete.html'
+
+
 @csrf_exempt
 def capi(request):
 
@@ -349,6 +353,7 @@ def capi(request):
 
                 if cat:
                     this_object = this_variation.item
+                    this_object.category.clear()
                     this_object.category.add(cat)
 
                 answer = 'Product edited'

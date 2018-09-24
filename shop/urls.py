@@ -13,4 +13,5 @@ urlpatterns = [
     url(r'^shop/(?P<slug>[-\w]+)/$', views.DetailView.as_view(), name='detail'),
     url(r'^shop/(?P<slug_category>[-\w]+)/product/(?P<slug>[-\w]+)/$', views.ProductView.as_view(), name='product'),
     url(r'^shop/search$', views.SearchListView.as_view(), name='list_search'),
+    url(r'^shop/register_complete', views.RegistreComplete.as_view(), name='register_complete'),
 ]

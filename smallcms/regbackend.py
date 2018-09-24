@@ -49,15 +49,14 @@ class MyRegistrationView(RegistrationView):
         send_message = send_message + '<b>Адрес доставки:</b> ' + adres + '<br>'
 
 
-        print(send_message)
+        #print(send_message)
 
-        try:
-            send_mail('Регистрация нового пользователя', send_message, 'sendfromsite@caimanfishing.ru',
+
+        send_mail('Регистрация нового пользователя', send_message, 'sendfromsite@caimanfishing.ru',
                       ['ivan.tolkachev@gmail.com', 'orders@caimanfishing.ru'], fail_silently=False,
                       auth_user='sendfromsite@caimanfishing.ru', auth_password='JmsdlfsldiJHMlsadfmKJ', connection=None,
                       html_message=send_message)
-        except Exception:
-            print("Nosend")
+
 
 
 
@@ -69,12 +68,15 @@ class MyRegistrationView(RegistrationView):
         new_profile.save()
 
 
-        print(new_user.pk)
+        #print(new_user.pk)
 
         user = User.objects.get(pk=new_user.pk)
         user.is_active = False
         user.save()
 
+    def get_success_url(self, request):
+        return "/shop/register_complete"
 
-        return HttpResponseRedirect("/shop/")
+
+        return HttpResponseRedirect("/shop/register_complete")
 
