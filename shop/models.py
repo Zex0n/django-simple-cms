@@ -16,7 +16,18 @@ from phonenumber_field.modelfields import PhoneNumberField
 from django.contrib.auth.models import User
 
 class UserProfile(models.Model):
+
+    LEVEL_STATUS_CHOICES = (
+        (1, 'Уровень 1'),
+        (2, 'Уровень 2'),
+        (3, 'Уровень 3'),
+    )
+
+
     user = models.OneToOneField(User,related_name='related_name_user')
+
+    member_type = models.IntegerField('Уровень скидок', choices=LEVEL_STATUS_CHOICES, default=0)
+
     name = models.CharField(_("Контактное лицо"), max_length=1000, default='')
     phone = models.CharField(_("Телефон"), max_length=1000, default='')
     company_name = models.CharField(_("Название компании"), max_length=1000, default='')
@@ -69,6 +80,24 @@ class Category(MPTTModel, BaseShop):
         ordering = ['num']
 
 
+class Discount(models.Model):
+    title = models.CharField('Название системы скидок', max_length=255)
+    level1 = models.IntegerField(_("Уровень 1 - %"), blank=False, default=0)
+    level2 = models.IntegerField(_("Уровень 2 - %"), blank=False, default=0)
+    level3 = models.IntegerField(_("Уровень 3 - %"), blank=False, default=0)
+
+    class Meta:
+        verbose_name = _("Система скидок")
+        verbose_name_plural = _("Системы скидок")
+        ordering = ['id', ]
+
+    def __str__(self):
+        return self.title
+
+
+
+
+
 class Item(BaseShop):
 
     content_small = offer_name1 = models.CharField(_("Краткое описание"), max_length=800, default='', blank=True)
@@ -94,7 +123,7 @@ class Item(BaseShop):
     min_lot = models.IntegerField(default=1, verbose_name=u'Множитель для товара')
     num = models.IntegerField(default=0, verbose_name=u'Порядковый номер')
     offer_price=models.DecimalField(_("Цена без скидки"), max_digits=10, decimal_places=2, blank=True, null=True)
-
+    discount_system=models.ForeignKey(Discount, on_delete=models.CASCADE,default=1)
 
 
 
@@ -208,6 +237,4 @@ class TreeCash(models.Model):
     price_to = models.DecimalField(_("Цены до"), max_digits=10, decimal_places=2, blank=True, null=True)
     price_from_anon=models.DecimalField(_("Цены от анонимный"), max_digits=10, decimal_places=2, blank=True, null=True)
     price_to_anon = models.DecimalField(_("Цены до анонимный"), max_digits=10, decimal_places=2, blank=True, null=True)
-
-
 

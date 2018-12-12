@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django_mptt_admin.admin import DjangoMpttAdmin
-from .models import Item, Item_variation, Item_image, Category, Order, Status
+from .models import Item, Item_variation, Item_image, Category, Order, Status, Discount
 import nested_admin
 
 
@@ -49,6 +49,15 @@ class CategoryAdmin(DjangoMpttAdmin):
     prepopulated_fields = {"slug": ("title",)}
 
 admin.site.register(Category, CategoryAdmin)
+
+
+
+class DiscountAdmin(admin.ModelAdmin):
+    inlines = []
+    list_display = ['title','level1','level2','level3']
+admin.site.register(Discount, DiscountAdmin)
+
+
 
 
 #class OrderAdmin(admin.ModelAdmin):

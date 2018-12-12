@@ -332,7 +332,7 @@ def capi(request):
 
                 this_object.save()
 
-                this_variation = Item_variation(title=" ",item=this_object, price_1=price_1, in_stock=in_stock, stock=stock, vendor_code =id1c)
+                this_variation = Item_variation(title=" ",item=this_object, price_2=price_1, in_stock=in_stock, stock=stock, vendor_code =id1c)
 
                 this_variation.save()
 
@@ -344,7 +344,7 @@ def capi(request):
             else:
 
                 this_variation=Item_variation.objects.filter(vendor_code=id1c).first()
-                this_variation.price_1=price_1
+                this_variation.price_2=price_1
                 this_variation.in_stock=in_stock
                 this_variation.stock=stock
                 this_variation.save()

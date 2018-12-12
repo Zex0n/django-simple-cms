@@ -100,14 +100,18 @@ def recursive_list_min(nodes, is_anonymous):
         for node in nodes.item_set.all():
             # print ('------------------------', user.is_anonymous)
 
-            iterated_price = node.item_variation_set.first().price_1 if is_anonymous else node.item_variation_set.first().price_2
-            if (iterated_price == '') or (not iterated_price):
-                iterated_price = 0
+            try:
+                iterated_price = node.item_variation_set.first().price_1 if is_anonymous else node.item_variation_set.first().price_2
+                if (iterated_price == '') or (not iterated_price):
+                    iterated_price = 0
 
-            if (min != 0) and (int(iterated_price) < int(min)):
-                min = iterated_price
-            elif (min == 0):
-                min = iterated_price
+                if (min != 0) and (int(iterated_price) < int(min)):
+                    min = iterated_price
+                elif (min == 0):
+                    min = iterated_price
+            except:
+                print("Переменная не определана")
+
 
         return int(min)
 
@@ -122,6 +126,9 @@ def max_child(node, is_anonymous):
             last_count=min
         else:
             last_count = recursive_list_max(node, is_anonymous)
+
+
+
             cash = TreeCash.objects.filter(cat_id=node).first()
             cash.price_to_anon=last_count
             cash.save()
@@ -129,8 +136,12 @@ def max_child(node, is_anonymous):
         if TreeCash.objects.filter(cat_id=node).exclude(price_to=None).count():
             min = TreeCash.objects.filter(cat_id=node).first().price_to
             last_count=min
+
         else:
             last_count = recursive_list_max(node, is_anonymous)
+
+            print(last_count)
+
             cash = TreeCash.objects.filter(cat_id=node).first()
             cash.price_to=last_count
             cash.save()
@@ -143,24 +154,32 @@ def recursive_list_max(nodes, is_anonymous):
     if children:
         max = 0
         for node in children:
-            current_max = recursive_list_max(node, is_anonymous)
-            if (max != 0) and (int(current_max) > int(max)):
-                max = current_max
-            elif (max == 0):
-                max = current_max
+            try:
+                current_max = recursive_list_max(node, is_anonymous)
+                if (max != 0) and (int(current_max) > int(max)):
+                    max = current_max
+                elif (max == 0):
+                    max = current_max
+            except:
+                print("Переменная не определена")
         return max
     else:
         max = 0
         for node in nodes.item_set.all():
-            iterated_price = node.item_variation_set.first().price_1 if is_anonymous else node.item_variation_set.first().price_2
-            if (iterated_price == '') or (not iterated_price):
-                iterated_price = 0
 
-            if (max != 0) and (int(iterated_price) > int(max)):
-                max = iterated_price
-            elif (max == 0):
-                max = iterated_price
+            try:
+                iterated_price = node.item_variation_set.first().price_1 if is_anonymous else node.item_variation_set.first().price_2
+                if (iterated_price == '') or (not iterated_price):
+                    iterated_price = 0
+
+                if (max != 0) and (int(iterated_price) > int(max)):
+                    max = iterated_price
+                elif (max == 0):
+                    max = iterated_price
+            except:
+                print("Переменная не определена")
         return int(max)
+
 
 
 @register.simple_tag()
