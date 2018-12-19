@@ -2,7 +2,9 @@ from django import template
 register = template.Library()
 from decimal import *
 
-from shop.models import Category, TreeCash
+from django.contrib.auth.models import User as auth_user
+
+from shop.models import Category, TreeCash, UserProfile, Item, Discount
 
 @register.filter()
 def add_class(field, css):
@@ -21,6 +23,118 @@ def cookie(context, cookie_name): # could feed in additional argument to use as 
 @register.simple_tag()
 def mult(value, arg):
     return int(value) * int(arg)
+
+
+@register.simple_tag()
+def get_discount_all(mass, user):
+
+    count=0
+
+
+    for node in mass:
+
+        disc_level = UserProfile.objects.filter(user=user.pk).first().member_type
+
+
+        product = node.obj
+
+        if product.stock==1:
+            if disc_level == 1:
+                get_product_percent = Item.objects.filter(id=product.item.id).first().discount_system.level1
+            if disc_level == 2:
+                get_product_percent = Item.objects.filter(id=product.item.id).first().discount_system.level2
+            if disc_level == 3:
+                get_product_percent = Item.objects.filter(id=product.item.id).first().discount_system.level3
+
+            count = count + (product.price_2-(product.price_2*get_product_percent/100))*node.quantity
+
+    return count
+
+
+@register.simple_tag()
+def get_discount_dif(mass, user):
+
+    count=0
+
+    count_2=0
+
+
+    for node in mass:
+
+        disc_level = UserProfile.objects.filter(user=user.pk).first().member_type
+
+        product = node.obj
+
+        if product.stock == 1:
+
+            if disc_level == 1:
+                get_product_percent = Item.objects.filter(id=product.item.id).first().discount_system.level1
+            if disc_level == 2:
+                get_product_percent = Item.objects.filter(id=product.item.id).first().discount_system.level2
+            if disc_level == 3:
+                get_product_percent = Item.objects.filter(id=product.item.id).first().discount_system.level3
+
+            count_2 = count_2 + product.price_2*node.quantity
+
+    for node in mass:
+
+        disc_level = UserProfile.objects.filter(user=user.pk).first().member_type
+
+        product = node.obj
+        if product.stock == 1:
+            if disc_level == 1:
+                get_product_percent = Item.objects.filter(id=product.item.id).first().discount_system.level1
+            if disc_level == 2:
+                get_product_percent = Item.objects.filter(id=product.item.id).first().discount_system.level2
+            if disc_level == 3:
+                get_product_percent = Item.objects.filter(id=product.item.id).first().discount_system.level3
+
+            count = count + (product.price_2-(product.price_2*get_product_percent/100))*node.quantity
+
+    return count_2-count
+
+
+
+
+@register.simple_tag()
+def get_discount(value, user, item):
+
+    disc_level=UserProfile.objects.filter(user=user.pk).first().member_type
+
+    try:
+        if disc_level==1:
+            get_product_percent=Item.objects.filter(id=item.id).first().discount_system.level1
+        if disc_level==2:
+            get_product_percent=Item.objects.filter(id=item.id).first().discount_system.level2
+        if disc_level==3:
+            get_product_percent=Item.objects.filter(id=item.id).first().discount_system.level3
+    except:
+        get_product_percent=0
+
+    disc_price=value-value*get_product_percent/100
+
+    if (disc_price == value):
+        return str(disc_price)+'<br><br>'
+    else:
+        return '<b>' + str(disc_price) + '</b> <br><small> <s>' + str(value) + '</s></small>'
+
+
+
+@register.simple_tag()
+def get_discount_summ(value, user, item, quantity):
+
+    disc_level=UserProfile.objects.filter(user=user.pk).first().member_type
+
+    if disc_level==1:
+        get_product_percent=Item.objects.filter(id=item.id).first().discount_system.level1
+    if disc_level==2:
+        get_product_percent=Item.objects.filter(id=item.id).first().discount_system.level2
+    if disc_level==3:
+        get_product_percent=Item.objects.filter(id=item.id).first().discount_system.level3
+
+    disc_price=(value-value*get_product_percent/100)*quantity
+
+    return disc_price
 
 
 @register.simple_tag

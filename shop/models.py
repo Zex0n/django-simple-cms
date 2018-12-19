@@ -26,7 +26,7 @@ class UserProfile(models.Model):
 
     user = models.OneToOneField(User,related_name='related_name_user')
 
-    member_type = models.IntegerField('Уровень скидок', choices=LEVEL_STATUS_CHOICES, default=0)
+    member_type = models.IntegerField('Уровень скидок', choices=LEVEL_STATUS_CHOICES, default=1)
 
     name = models.CharField(_("Контактное лицо"), max_length=1000, default='')
     phone = models.CharField(_("Телефон"), max_length=1000, default='')

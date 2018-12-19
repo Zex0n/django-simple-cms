@@ -27,7 +27,8 @@
         <th>Количество</th>
         <th>Цена</th>
         <th>Стоимость</th>
-        <th>Удалить</th>
+
+        <th></th>
       </tr>
     </thead>
     <tbody>
@@ -36,7 +37,7 @@
 
                   {% if product.stock == 1 %}
 
-          <tr>
+          <tr style="margin-top: 5px;">
             <td>
 
                 <div class="thumbnail_container">
@@ -66,34 +67,64 @@
             <td class="num">
 
 
-            {% if user and not user.is_anonymous  %}    {{ product.price_2 }}
+            {% if user and not user.is_anonymous  %}
+
+
+                {% autoescape off %}{% get_discount product.price_2 user product.item %}{% endautoescape %}
+
+                <!--<b>{% get_discount product.price_2 user product %}</b> <br><small> <s> {{ product.price_2 }}</s></small>-->
+
+
 
                 {% else %}
                 {{ product.price_1 }}
             {% endif %}
 
-                руб.</td>
+                </td>
 
           {% if user and not user.is_anonymous  %}
-            <td class="num">{% mult product.price_2 item.quantity %} руб.</td>
+              <td class="num"><b>{% get_discount_summ product.price_2 user product.item item.quantity %} руб.</b> </td>
           {% else %}
-          <td class="num">{% mult product.price_1 item.quantity %} руб.</td>
+              <td class="num"><b>{% mult product.price_1 item.quantity %} руб.</b> </td>
           {% endif %}
-            <td>
-                <button onclick="cart.remove('{{ product.pk }}')">Удалить</button>
+            <td align="center">
+                <button class="btn btn-danger" onclick="cart.remove('{{ product.pk }}')"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
             </td>
           </tr>
       {% endif %}
         {% endwith %}
       {% endfor %}
+    </tbody>
+  </table>
+
+<div class="col-md-12 col-md-offset-8" >
+      <h4><b>Итого:</b>  {{ real_count_cart }} руб.</h4>
+    {% if user and not user.is_anonymous  %}
+    <h4><b>Ваша скидка:</b> {% get_discount_dif cart.list_items user %} руб.</h4>
+    <h4><b>Итого со скидкой:</b>  {% get_discount_all cart.list_items user %} руб.</h4>
+    {% endif %}
+</div>
 
 
 
-<tr>
-<td>
+
 <h4>Товары в ожидании</h4>
-</td>
-</tr>
+
+
+  <table class="cart" width="100%" cellpadding="15" cellspacing="15">
+
+    <thead>
+      <tr>
+        <th>Изображение</th>
+        <th>Продукт</th>
+        <th>Количество</th>
+        <th>Цена</th>
+        <th>Стоимость</th>
+
+        <th></th>
+      </tr>
+    </thead>
+
 
 
 
@@ -102,7 +133,7 @@
 
       {% if product.stock == 2 %}
 
-          <tr>
+          <tr style="margin-top: 5px;">
             <td>
 
                 <div class="thumbnail_container">
@@ -138,12 +169,12 @@
                 {{ product.price_1 }}
             {% endif %}
 
-                руб.</td>
+                р.</td>
 
           {% if user and not user.is_anonymous  %}
-            <td class="num">{% mult product.price_2 item.quantity %} руб.</td>
+            <td class="num">{% mult product.price_2 item.quantity %} р.</td>
           {% else %}
-          <td class="num">{% mult product.price_1 item.quantity %} руб.</td>
+          <td class="num">{% mult product.price_1 item.quantity %} р.</td>
           {% endif %}
             <td>
                 <button onclick="cart.remove('{{ product.pk }}')">Удалить</button>
@@ -160,11 +191,7 @@
 <div class="row" style="margin: 20px 0px 20px 0px">
 
 
-<div class="col-md-12 col-md-offset-9">
-      <h4><b>Итого</b> : {{ real_count_cart }} руб.</h4>
 
-
-</div>
 </div>
 
 

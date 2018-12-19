@@ -30,7 +30,27 @@ class NoRegOrderForm(forms.Form):
 
 
 class PostOrder(View):
+
+
+
+
+
+
     def post(self, request):
+
+        def get_discount_price(value, item, user):
+
+            disc_level = UserProfile.objects.filter(user=user.pk).first().member_type
+
+            if disc_level == 1:
+                get_product_percent = Item.objects.filter(id=item.id).first().discount_system.level1
+            if disc_level == 2:
+                get_product_percent = Item.objects.filter(id=item.id).first().discount_system.level2
+            if disc_level == 3:
+                get_product_percent = Item.objects.filter(id=item.id).first().discount_system.level3
+            disc_price = value - value * get_product_percent / 100
+
+            return disc_price
 
         cart = Cart(request)
 
@@ -70,13 +90,18 @@ class PostOrder(View):
             for item in cart.list_items(lambda item: item.obj.item.title):
 
                 if (item.obj.stock == 1):
-                    total += item.obj.price_2 * item.quantity
-                    send_message = send_message + '<tr><td>'+item.obj.item.title+' '+item.obj.title+'</td><td align="center">'+str(item.quantity)+'</td><td align="center">'+str(item.obj.price_2)+' руб.</td><td align="center">'+str(item.obj.price_2*item.quantity)+'руб.</td></tr>'
+                    total += get_discount_price(item.obj.price_2,item.obj.item,request.user) * item.quantity
+                    send_message = send_message + '<tr><td>'+item.obj.item.title+' '+item.obj.title+'</td><td align="center">'+str(item.quantity)+'</td><td align="center">'+str(get_discount_price(item.obj.price_2,item.obj.item,request.user))+' руб.</td><td align="center">'+str(get_discount_price(item.obj.price_2,item.obj.item,request.user)*item.quantity)+'руб.</td></tr>'
         else:
             for item in cart.list_items(lambda item: item.obj.item.title):
                 if (item.obj.stock == 1):
                     total += item.obj.price_1 * item.quantity
                     send_message = send_message + '<tr><td>'+item.obj.item.title+' '+item.obj.title+'</td><td align="center">'+str(item.quantity)+'</td><td align="center">'+str(item.obj.price_1)+' руб.</td><td align="center">'+str(item.obj.price_1*item.quantity)+'руб.</td></tr>'
+
+        send_message = send_message + '<tr><td colspan="4" align="right"><hr></td></tr>'
+        send_message = send_message + '<tr><td colspan="4" align="right"><b>Итого: </b>' + str(
+            total) + ' руб. </td></tr>'
+
 
         send_message = send_message + '<tr><td><h4>Товары в ожидании</h4></td></tr>'
 
@@ -95,13 +120,7 @@ class PostOrder(View):
                     total += item.obj.price_1 * item.quantity
                     send_message = send_message + '<tr><td>'+item.obj.item.title+' '+item.obj.title+'</td><td align="center">'+str(item.quantity)+'</td><td align="center">'+str(item.obj.price_1)+' руб.</td><td align="center">'+str(item.obj.price_1*item.quantity)+'руб.</td></tr>'
 
-
-
-
-
-
-        send_message = send_message + '<tr><td colspan="4" align="right"><hr></td></tr>'
-        send_message = send_message + '<tr><td colspan="4" align="right"><b>Итого: </b>'+str(total)+' руб. </td></tr></table>'
+        send_message = send_message + '</table>'
         #print(send_message)
 
         send_mail('Заказ с сайта CAIMAN', send_message, 'sendfromsite@caimanfishing.ru', ['ivan.tolkachev@gmail.com','orders@caimanfishing.ru'], fail_silently=False, auth_user='sendfromsite@caimanfishing.ru',auth_password='JmsdlfsldiJHMlsadfmKJ', connection=None, html_message=send_message)

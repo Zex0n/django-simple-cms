@@ -67,9 +67,18 @@ def count_cart(request):
     for item in cart.list_items(lambda item: item.obj.title):
 
         if (request.user.is_authenticated):
-            real_count_cart += item.obj.price_2 * item.quantity
+            try:
+                if (item.obj.stock == 1):
+                    real_count_cart += item.obj.price_2 * item.quantity
+            except:
+                real_count_cart += 0
+
         else:
-            real_count_cart += item.obj.price_1 * item.quantity
+            try:
+                if (item.obj.stock == 1):
+                    real_count_cart += item.obj.price_1 * item.quantity
+            except:
+                real_count_cart += 0
 
 
 
