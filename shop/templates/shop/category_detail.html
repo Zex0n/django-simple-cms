@@ -354,16 +354,21 @@
                             {% if user and not user.is_anonymous %}
 
                             {% if category_obj.offer_price %}
+
+
+
                             <div style="font-size: 20px; color: red; font-weight: bold; padding-top: 5px;"><s>{{ category_obj.offer_price }} &#8381;</s></div>
+
                                 {% endif %}
 
                             <div style="font-size: 20px;       {% if category_obj.offer_price %} color: green;  {% endif %} font-weight: bold; padding-top: 5px;">
 
 
+                                {% autoescape off %}{% get_discount category_obj.item_variation_set.first.price_2 user category_obj %}{% endautoescape %}
+                            </div>
 
-                                {{ category_obj.item_variation_set.first.price_2 }}
+                                <!--{{ category_obj.item_variation_set.first.price_2 }}-->
 
-                                &#8381;</div>
 
 
                             {% else %}

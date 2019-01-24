@@ -42,11 +42,11 @@ class PostOrder(View):
 
             disc_level = UserProfile.objects.filter(user=user.pk).first().member_type
 
-            if disc_level == 1:
+            if disc_level == 0:
                 get_product_percent = Item.objects.filter(id=item.id).first().discount_system.level1
-            if disc_level == 2:
+            if disc_level == 1:
                 get_product_percent = Item.objects.filter(id=item.id).first().discount_system.level2
-            if disc_level == 3:
+            if disc_level == 2:
                 get_product_percent = Item.objects.filter(id=item.id).first().discount_system.level3
             disc_price = value - value * get_product_percent / 100
 
@@ -363,7 +363,7 @@ def capi(request):
             else:
 
                 this_variation=Item_variation.objects.filter(vendor_code=id1c).first()
-                this_variation.price_2=price_1
+                this_variation.price_2=float(price_1.replace(',','.'))
                 this_variation.in_stock=in_stock
                 this_variation.stock=stock
                 this_variation.save()

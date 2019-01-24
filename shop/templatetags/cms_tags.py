@@ -39,16 +39,16 @@ def get_discount_all(mass, user):
         product = node.obj
 
         if product.stock==1:
-            if disc_level == 1:
+            if disc_level == 0:
                 get_product_percent = Item.objects.filter(id=product.item.id).first().discount_system.level1
-            if disc_level == 2:
+            if disc_level == 1:
                 get_product_percent = Item.objects.filter(id=product.item.id).first().discount_system.level2
-            if disc_level == 3:
+            if disc_level == 2:
                 get_product_percent = Item.objects.filter(id=product.item.id).first().discount_system.level3
 
             count = count + (product.price_2-(product.price_2*get_product_percent/100))*node.quantity
 
-    return count
+    return round(count,2)
 
 
 @register.simple_tag()
@@ -67,11 +67,11 @@ def get_discount_dif(mass, user):
 
         if product.stock == 1:
 
-            if disc_level == 1:
+            if disc_level == 0:
                 get_product_percent = Item.objects.filter(id=product.item.id).first().discount_system.level1
-            if disc_level == 2:
+            if disc_level == 1:
                 get_product_percent = Item.objects.filter(id=product.item.id).first().discount_system.level2
-            if disc_level == 3:
+            if disc_level == 2:
                 get_product_percent = Item.objects.filter(id=product.item.id).first().discount_system.level3
 
             count_2 = count_2 + product.price_2*node.quantity
@@ -82,16 +82,16 @@ def get_discount_dif(mass, user):
 
         product = node.obj
         if product.stock == 1:
-            if disc_level == 1:
+            if disc_level == 0:
                 get_product_percent = Item.objects.filter(id=product.item.id).first().discount_system.level1
-            if disc_level == 2:
+            if disc_level == 1:
                 get_product_percent = Item.objects.filter(id=product.item.id).first().discount_system.level2
-            if disc_level == 3:
+            if disc_level == 2:
                 get_product_percent = Item.objects.filter(id=product.item.id).first().discount_system.level3
 
             count = count + (product.price_2-(product.price_2*get_product_percent/100))*node.quantity
 
-    return count_2-count
+    return round(count_2-count,2)
 
 
 
@@ -102,11 +102,11 @@ def get_discount(value, user, item):
     disc_level=UserProfile.objects.filter(user=user.pk).first().member_type
 
     try:
-        if disc_level==1:
+        if disc_level==0:
             get_product_percent=Item.objects.filter(id=item.id).first().discount_system.level1
-        if disc_level==2:
+        if disc_level==1:
             get_product_percent=Item.objects.filter(id=item.id).first().discount_system.level2
-        if disc_level==3:
+        if disc_level==2:
             get_product_percent=Item.objects.filter(id=item.id).first().discount_system.level3
     except:
         get_product_percent=0
@@ -114,9 +114,9 @@ def get_discount(value, user, item):
     disc_price=value-value*get_product_percent/100
 
     if (disc_price == value):
-        return str(disc_price)+'<br><br>'
+        return str(disc_price)+' &#8381; <br><br>'
     else:
-        return '<b>' + str(disc_price) + '</b> <br><small> <s>' + str(value) + '</s></small>'
+        return '<b>' + str(round(disc_price,2)) + '</b> &#8381; <br><small> <s>' + str(value) + ' &#8381; </s></small>'
 
 
 
@@ -125,16 +125,16 @@ def get_discount_summ(value, user, item, quantity):
 
     disc_level=UserProfile.objects.filter(user=user.pk).first().member_type
 
-    if disc_level==1:
+    if disc_level==0:
         get_product_percent=Item.objects.filter(id=item.id).first().discount_system.level1
-    if disc_level==2:
+    if disc_level==1:
         get_product_percent=Item.objects.filter(id=item.id).first().discount_system.level2
-    if disc_level==3:
+    if disc_level==2:
         get_product_percent=Item.objects.filter(id=item.id).first().discount_system.level3
 
     disc_price=(value-value*get_product_percent/100)*quantity
 
-    return disc_price
+    return round(disc_price,2)
 
 
 @register.simple_tag
