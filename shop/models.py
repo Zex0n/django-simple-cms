@@ -29,6 +29,7 @@ class UserProfile(models.Model):
     member_type = models.IntegerField('Уровень скидок', choices=LEVEL_STATUS_CHOICES, default=0)
 
     name = models.CharField(_("Контактное лицо"), max_length=1000, default='')
+    id1c = models.CharField(_("1C - ID"), blank=True, max_length=255)
     phone = models.CharField(_("Телефон"), max_length=1000, default='')
     company_name = models.CharField(_("Название компании"), max_length=1000, default='')
     inn = models.CharField(_("ИНН"), max_length=1000, default='')

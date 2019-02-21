@@ -32,6 +32,11 @@
             <table class="table">
 
                 {% for category_obj in object_list %}
+
+                {% if category_obj.item_variation_set.first.price_1 != '' %}
+
+                {% if category_obj.item_variation_set.first.price_2 != '' %}
+
                     <tr>
                         <td class="text-left" width="150">
 
@@ -97,6 +102,10 @@
 
                         </td>
                     </tr>
+
+                {% endif %}
+                {% endif %}
+
                 {% endfor %}
 
 

@@ -64,6 +64,8 @@ class PostOrder(View):
 
         dost_need = request.POST.get('dost_need')
 
+        api_filecontent=''
+
         if(request.user.is_authenticated):
             send_message = '<h2>Заказ с сайта CAIMAN от пользователя '+user_name+' </h2>'
         else:
@@ -84,7 +86,11 @@ class PostOrder(View):
 
 
 
+
+
+
         if (request.user.is_authenticated):
+
 
 
             for item in cart.list_items(lambda item: item.obj.item.title):
@@ -92,6 +98,8 @@ class PostOrder(View):
                 if (item.obj.stock == 1):
                     total += get_discount_price(item.obj.price_2,item.obj.item,request.user) * item.quantity
                     send_message = send_message + '<tr><td>'+item.obj.item.title+' '+item.obj.title+'</td><td align="center">'+str(item.quantity)+'</td><td align="center">'+str(get_discount_price(item.obj.price_2,item.obj.item,request.user))+' руб.</td><td align="center">'+str(get_discount_price(item.obj.price_2,item.obj.item,request.user)*item.quantity)+'руб.</td></tr>'
+                    api_filecontent = api_filecontent + str(item.obj.vendor_code) + '|' + str(item.quantity) + '\n'
+
         else:
             for item in cart.list_items(lambda item: item.obj.item.title):
                 if (item.obj.stock == 1):
@@ -114,6 +122,7 @@ class PostOrder(View):
                 if (item.obj.stock == 2):
                     total += item.obj.price_2 * item.quantity
                     send_message = send_message + '<tr><td>'+item.obj.item.title+' '+item.obj.title+'</td><td align="center">'+str(item.quantity)+'</td><td align="center">'+str(item.obj.price_2)+' руб.</td><td align="center">'+str(item.obj.price_2*item.quantity)+'руб.</td></tr>'
+
         else:
             for item in cart.list_items(lambda item: item.obj.item.title):
                 if (item.obj.stock == 2):
@@ -163,6 +172,17 @@ class PostOrder(View):
        # print(send_message)
 
         cart.empty()
+
+        user_id1c = UserProfile.objects.filter(user=self.request.user.id).first().id1c
+        api_filename = str(order.id)+'_'+user_id1c+'.csv'
+
+        if(api_filecontent!=''):
+            
+            print(api_filename)
+            print(api_filecontent)
+            f = open('/home/api1c/ftp/'+api_filename, 'w')
+            f.write(api_filecontent)
+            f.close()
 
         return HttpResponseRedirect('/shop/order-success')
 
