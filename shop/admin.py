@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django_mptt_admin.admin import DjangoMpttAdmin
-from .models import Item, Item_variation, Item_image, Category, Order, Status, Discount
+from .models import Item, Item_variation, Item_image, Category, Order, Status, Discount, OrderItem
 import nested_admin
 
 
@@ -58,6 +58,47 @@ class DiscountAdmin(admin.ModelAdmin):
     inlines = []
     list_display = ['title','level1','level2','level3']
 admin.site.register(Discount, DiscountAdmin)
+
+
+
+
+class ItemInLineOrder(admin.TabularInline):
+    model = OrderItem
+    readonly_fields = ('item','title','cols','price')
+    extra = 0
+
+
+    list_display = ('title','item','cols','price')
+
+    def has_add_permission(self, request, obj=None):
+        return False
+
+    def has_delete_permission(self, request, obj=None):
+        return False
+
+
+    # def has_add_permission(self, request):
+    #     return False
+    #
+    # def has_delete_permission(self, request, obj=None):
+    #     return False
+
+
+
+class OrdersAdmin(admin.ModelAdmin):
+    list_display = ('id','created_date','total_price','status' )
+
+    readonly_fields = ('email','address','phone_number','customer')
+
+    inlines = [
+        ItemInLineOrder,
+    ]
+
+
+
+admin.site.register(Order, OrdersAdmin)
+
+
 
 
 
